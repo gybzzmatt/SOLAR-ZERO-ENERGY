@@ -8,18 +8,22 @@ export function SiteNav() {
     <header
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 12,
+        left: "clamp(12px, 3vw, 28px)",
+        right: "clamp(12px, 3vw, 28px)",
         zIndex: 100,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "18px clamp(20px, 5vw, 60px)",
-        background: "rgba(10,14,26,0.72)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        padding: "12px clamp(18px, 3.5vw, 32px)",
+        background:
+          "linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 55%, rgba(10,14,26,0.35) 100%)",
+        backdropFilter: "blur(22px) saturate(180%)",
+        WebkitBackdropFilter: "blur(22px) saturate(180%)",
+        border: "1px solid rgba(255,255,255,0.14)",
+        borderRadius: 18,
+        boxShadow:
+          "0 10px 40px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05)",
         fontFamily: "'Space Grotesk', sans-serif",
       }}
     >
