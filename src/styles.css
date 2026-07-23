@@ -149,7 +149,7 @@
   color: #a8b2c4;
   font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
   position: relative;
 }
