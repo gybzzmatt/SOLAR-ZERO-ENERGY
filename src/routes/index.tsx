@@ -1,24 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+import homePre from "../content/home-pre.html?raw";
+import homePost from "../content/home-post.html?raw";
+import { Cotizador } from "../components/Cotizador";
+import { initSzInteractivity } from "../lib/sz-client";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "Solar Zero — Paneles solares en Panamá | Instalación y financiamiento";
+const description =
+  "Diseñamos, instalamos y financiamos sistemas solares en Panamá para hogares, empresas y granjas. Ahorra hasta 90% en tu factura eléctrica con Ley 37/2013.";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "es_PA" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+  }),
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function HomePage() {
+  useEffect(() => {
+    initSzInteractivity();
+  }, []);
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="sz-page">
+      <div dangerouslySetInnerHTML={{ __html: homePre }} />
+      <Cotizador />
+      <div dangerouslySetInnerHTML={{ __html: homePost }} />
     </div>
   );
 }
