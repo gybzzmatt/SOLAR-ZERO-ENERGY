@@ -49,14 +49,17 @@ export const Route = createFileRoute("/api/public/contact")({
         if (apiKey && notifyTo && notifyFrom) {
           try {
             const { sendLovableEmail } = await import("@lovable.dev/email-js");
-            await sendLovableEmail({
-              apiKey,
-              from: notifyFrom,
-              to: notifyTo,
-              subject,
-              html,
-              replyTo: data.email,
-            });
+            await sendLovableEmail(
+              {
+                from: notifyFrom,
+                to: notifyTo,
+                subject,
+                html,
+                text: `Nueva solicitud de ${data.nombre} (${data.email}, ${data.telefono}) — segmento ${data.segment}, provincia ${data.provincia}. Factura: ${data.factura || "—"}. kWh: ${data.consumoKwh || "—"}. Notas: ${data.notas || "—"}`,
+                reply_to: data.email,
+              },
+              { apiKey },
+            );
           } catch (err) {
             console.error("[contact] email send failed", err);
           }
