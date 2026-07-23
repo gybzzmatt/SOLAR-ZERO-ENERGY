@@ -172,3 +172,56 @@
 .sz-page details[open] > summary {
   color: #ff7a2e;
 }
+
+/* Journey "current" flow: dashes running along the orange path */
+@keyframes szFlow {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+/* Scroll-hint chevron in the hero */
+@keyframes szChevron {
+  0%,
+  100% {
+    transform: rotate(45deg) translate(0, 0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: rotate(45deg) translate(4px, 4px);
+    opacity: 1;
+  }
+}
+
+/* Hero phase transition — variables set by initSzInteractivity() on .sz-hero.
+   Fallbacks keep the section readable even before JS runs. */
+.sz-page .sz-hero-bgwide {
+  opacity: var(--sz-bgwide-opacity, 1);
+  transition: opacity 0.25s linear;
+}
+.sz-page .sz-hero-bgmacro {
+  opacity: var(--sz-bgmacro-opacity, 0);
+  transition: opacity 0.25s linear;
+}
+.sz-page .sz-hero-copy {
+  opacity: var(--sz-copy1-opacity, 1);
+  transition: opacity 0.25s linear;
+}
+.sz-page .sz-hero-copy2 {
+  opacity: var(--sz-copy2-opacity, 0);
+  pointer-events: var(--sz-copy2-pe, none);
+  transition: opacity 0.25s linear;
+}
+.sz-page .sz-herocard {
+  opacity: var(--sz-card-opacity, 0);
+  pointer-events: var(--sz-card-pe, none);
+  transition: opacity 0.25s linear;
+}
+
+/* Orange journey paths animate their stroke-dashoffset via JS.
+   A short transition smooths out rAF-driven updates. */
+.sz-page .sz-path2,
+.sz-page .sz-path3,
+.sz-page .sz-path4 {
+  transition: stroke-dashoffset 0.15s linear;
+}
