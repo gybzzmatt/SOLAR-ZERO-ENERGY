@@ -77,11 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Solar Zero — Paneles solares en Panamá" },
+      { title: "Solar Zero — Apaga tu factura | Paneles solares en Panamá" },
       {
         name: "description",
         content:
-          "Diseñamos, instalamos y financiamos sistemas solares en Panamá. Ahorra hasta 90% en tu factura con Ley 37/2013.",
+          "Apaga tu factura eléctrica. Diseñamos, instalamos y financiamos sistemas solares en Panamá bajo Ley 37/2013 y net metering.",
       },
       { property: "og:site_name", content: "Solar Zero" },
       { property: "og:locale", content: "es_PA" },
@@ -106,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>

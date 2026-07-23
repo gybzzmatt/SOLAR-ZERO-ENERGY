@@ -3,11 +3,13 @@ import { useEffect } from "react";
 import homePre from "../content/home-pre.html?raw";
 import homePost from "../content/home-post.html?raw";
 import { Cotizador } from "../components/Cotizador";
+import { CrossBaterias } from "../components/CrossBaterias";
+import { SiteNav } from "../components/SiteNav";
 import { initSzInteractivity } from "../lib/sz-client";
 
-const title = "Solar Zero — Paneles solares en Panamá | Instalación y financiamiento";
+const title = "Solar Zero — Apaga tu factura | Paneles solares en Panamá";
 const description =
-  "Diseñamos, instalamos y financiamos sistemas solares en Panamá para hogares, empresas y granjas. Ahorra hasta 90% en tu factura eléctrica con Ley 37/2013.";
+  "Apaga tu factura eléctrica. Diseñamos, instalamos y financiamos sistemas solares en Panamá para hogares, empresas y granjas bajo Ley 37/2013 y net metering.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,8 +36,10 @@ function HomePage() {
   }, []);
   return (
     <div className="sz-page">
+      <SiteNav />
       <div dangerouslySetInnerHTML={{ __html: homePre }} />
       <Cotizador />
+      <CrossBaterias />
       <div dangerouslySetInnerHTML={{ __html: homePost }} />
     </div>
   );
