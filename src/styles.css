@@ -138,7 +138,37 @@
   }
 
   body {
-    background-color: var(--color-background);
+    background-color: #0a0e1a;
     color: var(--color-foreground);
   }
+}
+
+/* Solar Zero ported site */
+.sz-page {
+  background: #0a0e1a;
+  color: #a8b2c4;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+.sz-page .sz-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sz-page .sz-reveal.sz-in {
+  opacity: 1;
+  transform: none;
+}
+
+.sz-page details > summary::-webkit-details-marker {
+  display: none;
+}
+.sz-page details[open] > summary {
+  color: #ff7a2e;
 }
