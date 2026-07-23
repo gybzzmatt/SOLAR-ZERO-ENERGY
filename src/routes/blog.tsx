@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import blogHtml from "../content/blog.html?raw";
+import { SiteNav } from "../components/SiteNav";
 import { initSzInteractivity } from "../lib/sz-client";
 
 const title = "Blog Solar Zero — Guías de energía solar en Panamá";
@@ -30,5 +31,10 @@ function BlogPage() {
   useEffect(() => {
     initSzInteractivity();
   }, []);
-  return <div className="sz-page" dangerouslySetInnerHTML={{ __html: blogHtml }} />;
+  return (
+    <div className="sz-page">
+      <SiteNav />
+      <div dangerouslySetInnerHTML={{ __html: blogHtml }} />
+    </div>
+  );
 }

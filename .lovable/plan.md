@@ -1,60 +1,117 @@
+## Objetivo
 
-# Migrate Solarzero to Lovable (1:1 port)
+Rehacer solarzero.pro como un recorrido narrativo (storytelling) que aplique el reporte SEM/SEO julio-2026 y las decisiones de la reunión. La narrativa entra por el dolor de factura ("Apaga tu factura"), pasa por el diagnóstico eléctrico y culmina en solar + agenda de demo. Estilo minimalista (cliente empresarial + residencial premium), logo grande con el sol de Panamá, video de fondo con celdas y "corriente" naranja al scroll.
 
-The ZIP contains a Claude-style export: two HTML pages ("Solarzero Energy Journey" as the main site and "Blog Solar Zero"), a `support.js` runtime, and an `assets/` folder with 4 background videos + hero/case images + engineer portraits + logo. Total ~40 MB of unique media (the rest of the 248 MB ZIP is duplicates under `docs/backup/` and `uploads/`).
+## Narrativa (secciones en orden)
 
-Goal: reproduce both pages exactly in this Lovable project, host all videos/images on Lovable's CDN, wire the contact form to email you each submission, then connect solarzero.pro.
+```text
+1. Hero "Apaga tu factura"
+   ├─ Logo grande (sol de Panamá) + slogan
+   ├─ Video celdas fotovoltaicas + trazo de corriente naranja animado al scroll
+   └─ CTA doble: "Ver mi ahorro" / "Agendar demo"
 
-## Step 1 — Inspect the source pages
+2. El dolor (bill-pain, keywords grupo h)
+   ├─ "156 mil clientes de ENSA con alza desde ene-2026"
+   └─ Ganchos: recibo alto, fuga eléctrica, consumo vampiro
 
-- Read both HTML files and `support.js` to extract structure, inline CSS, section markup, and any JS interactivity (scroll acts, video autoplay, blog data).
-- Ignore `docs/backup/**` and `uploads/**` (duplicates + research notes).
-- Only unique media used: `hero-bg.mp4`, `hero-macro-v2.mp4`, `act2-house.mp4`, `act3-business.mp4`, `act4-farm.mp4`, `hero-array-wide.jpg`, `hero-macro-cells.jpg`, `act2-house.jpg`, `act3-business.jpg`, `act4-farm.jpg`, `case-betania.png`, `case-brisas.png`, `case-tocumen.png`, `ing-german-rodriguez.png`, `ing-nathia-chong.png`, `solarzero-logo.webp`.
+3. El diagnóstico (bridge: electricista → solar)
+   ├─ Revisión eléctrica $50/$100
+   └─ Puente narrativo hacia solar
 
-## Step 2 — Upload media to Lovable CDN
+4. La solución solar (Ley 37/2013 + net metering "instala ahora")
+   ├─ Urgencia regulatoria (Decreto 21,235; net billing pendiente)
+   └─ Casos: Betania, Brisas, Tocumen
 
-Run `lovable-assets create` for each of the ~16 unique files directly from `/mnt/user-uploads/...` (no binary lands in the repo). Commit only the `.asset.json` pointers under `src/assets/`.
+5. Segmentos
+   ├─ Residencial
+   └─ Empresarial / Industrial / PH / Granja
 
-## Step 3 — Port pages 1:1
+6. Nosotros (nueva ruta /nosotros)
+   ├─ Historia del holding
+   ├─ Misión, Visión, Valores
+   ├─ Equipo (ing. Germán Rodríguez, ing. Nathia Chong, +otros)
+   └─ Marcas del grupo (Solar Zero, Baterías 507, otras)
 
-- Replace the placeholder `src/routes/index.tsx` with the main "Energy Journey" page.
-- Add `src/routes/blog.tsx` for "Blog Solar Zero".
-- Move the inline `<style>` blocks into `src/styles.css` (or a scoped CSS import) verbatim — no redesign, no color/font changes.
-- Convert the HTML body into React JSX section-by-section. Preserve section IDs, class names, and DOM order.
-- Port `support.js` interactions (scroll-linked acts, hero video swap, any counters/observers) into a `useEffect` in the page component, or into small React components where it maps cleanly.
-- `<video>` elements: `autoplay muted loop playsinline preload="auto"` with `src` pointing at the CDN URL from the pointer JSON.
-- Fonts referenced by the source get loaded via `<link>` tags in `src/routes/__root.tsx` head (Tailwind v4 rule — no remote `@import` in CSS).
-- Per-route `head()`: use the original `<title>` and meta description; add `og:title`, `og:description`, `og:type=website`, and `og:image`/`twitter:image` pointing at the CDN URL of the hero image on each leaf route.
-- Update `__root.tsx` metadata off the "Lovable App" defaults (site name → Solarzero).
-- Add nav links between `/` and `/blog` matching the source.
+7. Alianzas / Proveedores
+   ├─ Sunway Tech en carrusel 360º
+   └─ Otros logos (grid con hover)
 
-## Step 4 — Contact form → email
+8. Testimonios
+   └─ Cards con foto + cita + segmento
 
-The source page has a contact form. Since you want submissions emailed:
+9. Cotizador (existente, reforzado)
+   ├─ Toggle Residencial / Industrial (primer paso)
+   ├─ Subida de factura (PDF/imagen) opcional
+   └─ Botón "Agendar demo" → link a calendario
 
-- Enable Lovable Cloud (backend prerequisite for email).
-- Open the email setup dialog so you can delegate a sender subdomain (e.g. `notify.solarzero.pro`) to Lovable. Sending activates after DNS verifies; everything else can be built now.
-- Create `src/lib/email-templates/contact-notification.tsx` (React Email) branded to match the site.
-- Add `src/routes/api/public/contact.ts` POST handler: Zod-validated (name, email, phone/company optional, message), basic honeypot + rate limit, then `sendTemplateEmail('contact-notification', <your email>, { templateData, idempotencyKey })`. Returns JSON.
-- Wire the ported form to POST to `/api/public/contact` with success/error UI states matching the source's behavior.
+10. Cross-site: Baterías 507
+    ├─ Banda "También almacenamos energía"
+    └─ Link recíproco (Sam configura el lado de baterías507)
 
-You'll need to tell me which email address should receive the submissions when we get to this step.
+11. Footer con contacto + WhatsApp + calendario
+```
 
-## Step 5 — Verify
+## Fases de implementación
 
-- `bun run build` must pass.
-- Playwright smoke run: load `/` and `/blog`, confirm each background video plays (muted+autoplay+loop), confirm scroll interactions fire, submit the contact form and verify the server response.
-- Screenshot the ported pages at 1280 wide and compare against the source HTML rendered locally; fix any layout drift before wrapping.
+### Fase 1 — Contenido y assets (sin backend)
+- Subir vía `lovable-assets` los nuevos medios: nuevo logo sol-Panamá, video "celdas + corriente naranja" (si el usuario lo tiene; si no, generar SVG animado como fallback), logos Sunway/proveedores, fotos equipo faltantes, testimonios.
+- Redactar copy bilingüe-friendly (ES por defecto) alineado a keywords del reporte:
+  - Hero + grupo h (bill-pain): "recibo de luz muy alto", "cómo bajar la factura", "fuga eléctrica".
+  - Sección solar: grupos f/g ("paneles solares panama", "empresas de paneles solares panama", "financiamiento paneles solares panama").
+  - Sección regulatoria: "ley 37 2013 paneles solares panama", "net metering panama".
+- Preservar el `dangerouslySetInnerHTML` actual solo donde tiene sentido; el resto se reescribe como componentes React.
 
-## Step 6 — Domain
+### Fase 2 — Rediseño minimalista + hero animado
+- Refactor `src/routes/index.tsx` en componentes reales: `<Hero>`, `<BillPain>`, `<Diagnostico>`, `<SolucionSolar>`, `<Segmentos>`, `<Alianzas>`, `<Testimonios>`, `<Cotizador>`, `<CrossBaterias>`, `<Footer>`.
+- Nuevo sistema de estilo minimal: reducir densidad, más blanco, jerarquía tipográfica clara, quitar decorativos innecesarios. Tokens en `src/styles.css` (paleta actual mantenida: naranja `#FF7A2E` sobre `#0A0E1A`, con variante clara opcional para secciones "empresariales").
+- Logo grande en nav + hero.
+- Animación de "corriente naranja" al scroll: SVG stroke-dashoffset animado con `IntersectionObserver` + `scroll` progress; se integra al video de fondo del hero. Todo en `src/lib/sz-client.ts` (sin GSAP para mantenerlo liviano).
 
-- Publish to the Lovable preview URL once you're happy.
-- Guide you through connecting `solarzero.pro` in **Project Settings → Domains** (A records for `@` and `www` → 185.158.133.1, plus the `_lovable` TXT). SSL auto-provisions.
+### Fase 3 — Nuevas rutas
+- `src/routes/nosotros.tsx`: historia del holding, misión/visión/valores, equipo, marcas del grupo. `head()` propio con SEO ES.
+- `src/routes/agenda.tsx` (o link directo externo): botón "Agendar demo" apunta a URL de calendario que el usuario proveerá (Calendly / Google Calendar App User Connector si quiere gestionar por-usuario más adelante).
+- Nav en `__root.tsx`: Inicio · Nosotros · Blog · Agendar demo.
 
-## Technical notes
+### Fase 4 — Cotizador reforzado
+- Añadir subida de factura al paso "Consumo": input `type="file"` (PDF/JPG/PNG, ≤5 MB, validado).
+- Requiere Lovable Cloud + Storage (bucket privado `facturas`) para guardar la factura y adjuntar link firmado al email de notificación.
+- El endpoint `/api/public/contact` se amplía: acepta `multipart/form-data`, sube el archivo con `supabaseAdmin` a Storage, genera signed URL 7 días, incluye link en el correo a `solarzero@baterias507.com`.
+- Segmento residencial vs industrial ya existe; se resalta como primer paso con branching visual.
+- Botón secundario "Agendar demo" en el paso final.
 
-- Stack: TanStack Start v1 + React 19 + Tailwind v4 (already scaffolded). File-based routing under `src/routes/`. No `src/pages/`, no React Router.
-- Assets referenced as `<video src={heroBgAsset.url}>` where `heroBgAsset` is the imported `.asset.json` pointer.
-- Contact route lives at `/api/public/contact` so it works unauthenticated on the published site; input validated server-side; no PII returned.
-- No database, no auth, no payments — matches the "static + form email" scope.
-- Duplicate files under `docs/backup/` and `uploads/` in the ZIP are ignored.
+### Fase 5 — Cross-traffic con Baterías 507
+- Sección dedicada en home y footer con logo Baterías 507 + copy "Almacena la energía que produces".
+- Link `https://baterias507.com` con UTM `?utm_source=solarzero&utm_medium=cross&utm_campaign=alianza`.
+- Documento breve para Sam (guardado en `docs/cross-traffic-baterias.md`) con el snippet recíproco que debe pegar en baterias507.com y la nota sobre desplegar la alianza con la fábrica China de baterías.
+
+### Fase 6 — SEO on-page derivado del reporte
+- `head()` por ruta con títulos/descripciones alineados a intent (grupo f home, grupo h en `/apaga-tu-factura` opcional, grupo B2B en `/empresas`).
+- Ver si crear rutas dedicadas después de esta fase: `/empresas`, `/residencial`, `/apaga-tu-factura`, `/ley-37-panama`. Propongo dejarlas en fase 6 y decidir contigo cuáles priorizar.
+- JSON-LD Organization + LocalBusiness + FAQ en home y Nosotros.
+- Metadatos OG con imagen hero por ruta.
+
+### Fase 7 — QA y publicación
+- `bun run build` limpio.
+- Playwright smoke: `/`, `/nosotros`, `/blog`, envío del cotizador con archivo, verificación de que el correo llega (una vez `solarzero.pro` esté verificado como sender — pendiente de tu transferencia a GoDaddy).
+- Screenshots comparativos antes/después a 1280 y 390 px.
+
+## Detalles técnicos
+
+- Stack existente: TanStack Start v1, React 19, Tailwind v4, assets en CDN Lovable, endpoint `/api/public/contact` ya vive.
+- Subida de factura: bucket privado (RLS deny-all, escritura solo vía server function con `supabaseAdmin`); signed URL 7 días para el correo interno; sin exposición pública. Requiere activar Lovable Cloud (aún no lo está para este proyecto — lo hago en la fase 4).
+- Animación scroll-corriente: `requestAnimationFrame` + `getBoundingClientRect`, sin dependencias nuevas.
+- Carrusel 360º Sunway: componente ligero de rotación (imagen secuencia si el usuario provee el sprite; alternativa CSS 3D con logos si no).
+- Video de fondo: si me pasas el mp4 de "celdas + corriente", lo subo al CDN; si no, genero versión inicial con Solución CSS/SVG + el video existente `hero-bg.mp4` como base.
+
+## Preguntas antes de ejecutar (te las repito al aprobar)
+
+1. ¿Tienes el video nuevo de "celdas fotovoltaicas + corriente naranja", o lo derivo del hero actual + capa SVG animada?
+2. URL del calendario para "Agendar demo" (Calendly u otro).
+3. Logos de proveedores además de Sunway Tech (¿me los pasas o los omito por ahora?).
+4. ¿Contenido de Nosotros — historia, misión/visión/valores, bios del equipo — lo redactas tú o hago un primer draft basado en el reporte y lo revisas?
+
+## Fuera de alcance de este plan
+
+- Cambios en baterias507.com (Sam los aplica; solo entregamos snippet + nota).
+- Migración de dominio (esperando GoDaddy).
+- Google Ads / campañas SEM (el reporte guía copy y estructura, pero no vamos a lanzar campañas desde aquí).
