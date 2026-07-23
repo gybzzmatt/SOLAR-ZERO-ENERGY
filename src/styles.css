@@ -149,7 +149,7 @@
   color: #a8b2c4;
   font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
   position: relative;
 }
@@ -196,24 +196,24 @@
 /* Hero phase transition — variables set by initSzInteractivity() on .sz-hero.
    Fallbacks keep the section readable even before JS runs. */
 .sz-page .sz-hero-bgwide {
-  opacity: var(--sz-bgwide-opacity, 1);
+  opacity: var(--sz-bgwide-opacity, 1) !important;
   transition: opacity 0.25s linear;
 }
 .sz-page .sz-hero-bgmacro {
-  opacity: var(--sz-bgmacro-opacity, 0);
+  opacity: var(--sz-bgmacro-opacity, 0) !important;
   transition: opacity 0.25s linear;
 }
 .sz-page .sz-hero-copy {
-  opacity: var(--sz-copy1-opacity, 1);
+  opacity: var(--sz-copy1-opacity, 1) !important;
   transition: opacity 0.25s linear;
 }
 .sz-page .sz-hero-copy2 {
-  opacity: var(--sz-copy2-opacity, 0);
+  opacity: var(--sz-copy2-opacity, 0) !important;
   pointer-events: var(--sz-copy2-pe, none);
   transition: opacity 0.25s linear;
 }
 .sz-page .sz-herocard {
-  opacity: var(--sz-card-opacity, 0);
+  opacity: var(--sz-card-opacity, 0) !important;
   pointer-events: var(--sz-card-pe, none);
   transition: opacity 0.25s linear;
 }

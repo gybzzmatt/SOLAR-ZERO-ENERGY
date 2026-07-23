@@ -136,10 +136,10 @@ export function initSzInteractivity() {
       const rect = hero.getBoundingClientRect();
       const total = Math.max(1, rect.height - vh);
       const p = clamp(-rect.top / total);
-      const bgP = smoothstep(0.15, 0.55, p);
-      const copy1 = 1 - smoothstep(0.05, 0.35, p);
-      const copy2 = smoothstep(0.35, 0.65, p);
-      const card = smoothstep(0.55, 0.8, p);
+      const bgP = smoothstep(0.12, 0.45, p);
+      const copy1 = 1 - smoothstep(0.05, 0.3, p);
+      const copy2 = smoothstep(0.3, 0.5, p) * (1 - smoothstep(0.78, 0.92, p));
+      const card = smoothstep(0.45, 0.6, p) * (1 - smoothstep(0.82, 0.94, p));
       hero.style.setProperty("--sz-bgwide-opacity", String(1 - bgP));
       hero.style.setProperty("--sz-bgmacro-opacity", String(bgP));
       hero.style.setProperty("--sz-copy1-opacity", String(copy1));

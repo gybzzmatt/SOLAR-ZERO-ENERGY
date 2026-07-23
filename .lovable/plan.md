@@ -1,34 +1,45 @@
-## Problema
+## Objetivo
 
-En la sección **Granjas Solares** (`#granjas` en `src/content/home-pre.html`):
+Pulir la **fase 2 del hero** (`.sz-hero-copy2` + `.sz-hero-bgmacro` + `.sz-herocard`) para que, cuando el usuario haga scroll, la sección se vea exactamente como el screenshot de referencia:
 
-1. La corriente naranja (`.sz-path4`) termina en la mitad superior de la sección pero el video de la granja aparece muy abajo — hay un hueco visual entre donde acaba la línea y donde empieza el video, así que la conexión se ve rota.
-2. El video está empujado hacia abajo por dos paddings acumulados (`padding-top` de la `<section>` + `padding-top` del `sz-farmwrap`).
-3. El texto de la tarjeta (`sz-card4`) ya usa `text-align: center`, pero la percepción es que el bloque no queda visualmente centrado porque el grid de stats hereda alineaciones inconsistentes.
+- Video macro de celdas (`hero-macro-v2.mp4`) claramente visible como fondo, no apagado.
+- Eyebrow naranja "EL VIAJE DE TU ENERGÍA" en Space Mono.
+- Titular blanco "El sol de Panamá ya paga facturas." en dos líneas equilibradas.
+- Subhead gris claro con el copy actual.
+- Tarjeta "Ahorro comprobado / Reduce tu factura hasta 90% / Calcula tu Ahorro →" abajo a la derecha.
 
-## Cambios (solo `src/content/home-pre.html`, sección `#granjas`)
+Se **mantiene** la fase 1 ("Energía que trabaja para ti") y la transición por scroll ya existente.
 
-1. **Subir el video** para que se encuentre con la corriente naranja:
-   - Reducir el `padding` superior de la `<section>` de `clamp(100px, 16vh, 180px)` a `clamp(40px, 6vh, 70px)`.
-   - Reducir el `padding-top` del `.sz-farmwrap` de `clamp(140px, 20vh, 220px)` a `clamp(20px, 4vh, 50px)`.
-   - Subir ligeramente el video dentro de su wrapper ajustando `transform-origin` para que el escalado 3D no lo baje visualmente.
+## Cambios
 
-2. **Conectar las líneas naranjas con el video**:
-   - Aumentar la altura del `<svg>` contenedor de `46%` a `62%` para que los paths terminen dentro del área donde ahora vive el video.
-   - Reordenar el z-index: el SVG debe quedar sobre el gradiente pero debajo del contenido de la tarjeta (mantener `pointer-events: none`).
+Solo se toca `src/content/home-pre.html` (sección `#inicio`, líneas 19-56) y, si hace falta, la lógica de opacidades en `src/lib/sz-client.ts`.
 
-3. **Centrar todo el copy de la tarjeta**:
-   - En `.sz-card4`: añadir `margin: 0 auto` y confirmar `text-align: center`.
-   - En el grid de stats: cambiar `grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))` por `repeat(3, minmax(0, 1fr))` con `justify-items: center` para que las tres métricas (MW / PPA / 20+) queden centradas horizontalmente y con el mismo ancho.
-   - Añadir `justify-content: center` al contenedor principal para reforzar el centrado del badge, título, párrafo, stats y CTA.
+1. **Video macro más visible en fase 2**
+   - Bajar el `brightness` de `.sz-hero-bgmacro` de `0.62` a `0.72` y reducir el `scale` de `1.16` a `1.08` para que se lea como el screenshot.
+   - Ajustar el gradiente del `.sz-hero-scrim` para que su tramo central (42%-68%) sea más translúcido (`0.35` en vez de `0.5-0.55`), dejando pasar el video macro.
+
+2. **Copy fase 2 centrado como en el screenshot**
+   - En `.sz-hero-copy2`: quitar el `padding-bottom` grande (`clamp(180px, 26vh, 300px)`) que hoy empuja el texto hacia arriba; centrarlo verticalmente con `justify-content: center` y un pequeño offset superior para dejar espacio a la nav.
+   - Confirmar el salto de línea "El sol de Panamá / ya paga facturas." (ya está con `<br />`).
+   - `text-wrap: balance` ya aplicado; sin cambios de copy.
+
+3. **Tarjeta "Ahorro comprobado" alineada con la referencia**
+   - Reforzar contraste: subir el `background` de `rgba(19, 27, 46, 0.55)` a `0.72` y aumentar el `border` a `rgba(168, 178, 196, 0.22)`.
+   - Confirmar posición inferior-derecha con `right: clamp(20px, 4vw, 56px); bottom: clamp(90px, 14vh, 140px);` (ya cumple).
+
+4. **Curva de opacidades en `sz-client.ts`**
+   - Ajustar las funciones `smoothstep` para que en el rango de scroll ~55%-70% la fase 2 quede plenamente visible (`copy2 = 1`, `bgmacro = 1`, `card = 1`) durante un tramo antes de continuar al journey, de modo que el estado del screenshot exista como un frame estable y no solo como transición.
+   - Ampliar el rango del video macro (`bgP`) para que llegue a 1 antes (edge0 0.15 → 0.12, edge1 0.55 → 0.45).
 
 ## Fuera de alcance
 
-- No se toca `sz-client.ts` ni la lógica de scroll/videos (ya funciona: los videos cargan y las paths se dibujan; solo se ajusta geometría en el HTML).
-- No se cambia copy ni CTAs.
-- No se tocan las otras actas (Residencial / Empresarial).
+- No se elimina ni reordena la fase 1.
+- No se toca copy, ni CTAs, ni assets.
+- No se tocan actos 2/3/4 ni el cotizador.
 
 ## Verificación
 
-- Build limpio.
-- Screenshot en preview de `#granjas`: la corriente naranja baja del acto anterior, se ramifica y toca la parte superior del video de la granja sin hueco negro; el video queda visible más arriba en el viewport; el badge, título, párrafo, las tres stats y el botón "Hablemos de tu terreno" se ven centrados en un mismo eje vertical.
+- `bun run build` limpio.
+- Screenshot con Playwright a ~1.6× la altura del viewport de scroll en `/`: debe mostrar el estado idéntico al screenshot de referencia (video macro visible, eyebrow naranja, título en 2 líneas, subhead, tarjeta abajo-derecha).
+- Fase 1 sigue intacta al cargar la página (`scrollY = 0`).
+- La transición al Acto 2 (Residencial) sigue funcionando: al pasar el rango estable, la fase 2 se desvanece y aparece el journey con la corriente naranja.
