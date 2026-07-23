@@ -66,12 +66,16 @@ export function initSzInteractivity() {
     v.muted = true;
     v.playsInline = true;
     v.loop = true;
-    if (v.preload === "metadata" || v.preload === "none") v.preload = "auto";
-    if (!prefersReducedMotion) {
-      const tryPlay = () => v.play().catch(() => {});
-      if (v.readyState >= 2) tryPlay();
-      else v.addEventListener("loadeddata", tryPlay, { once: true });
+    if (v.preload !== "auto") v.preload = "auto";
+    if (prefersReducedMotion) return;
+    // Some browsers stall preload=metadata videos until we explicitly
+    // request the media. Force a load then play once data is available.
+    if (v.readyState < 2 && v.networkState !== 2 /* LOADING */) {
+      try { v.load(); } catch {}
     }
+    const tryPlay = () => v.play().catch(() => {});
+    if (v.readyState >= 2) tryPlay();
+    else v.addEventListener("loadeddata", tryPlay, { once: true });
   };
   lazyVideos.forEach(kick);
   const videoIo = new IntersectionObserver(
