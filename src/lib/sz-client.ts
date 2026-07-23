@@ -46,6 +46,34 @@ export function initSzInteractivity() {
   );
   document.querySelectorAll(".sz-reveal").forEach((el) => io.observe(el));
 
+  // -- Hero videos: force muted autoplay after hydration -------------------
+  document
+    .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
+    .forEach((v) => {
+      v.muted = true;
+      v.playsInline = true;
+      v.play().catch(() => {});
+    });
+
+  // -- Lazy-play act videos when their section enters the viewport --------
+  const lazyVideos = document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo");
+  const videoIo = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) {
+          v.muted = true;
+          v.playsInline = true;
+          if (!prefersReducedMotion) v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      }
+    },
+    { threshold: 0.25 }
+  );
+  lazyVideos.forEach((v) => videoIo.observe(v));
+
   // -- Nav background fade ---------------------------------------------------
   const nav = document.querySelector<HTMLElement>(".sz-nav");
 
