@@ -55,22 +55,36 @@ export function initSzInteractivity() {
       v.play().catch(() => {});
     });
 
-  // -- Lazy-play act videos when their section enters the viewport --------
-  const lazyVideos = document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo");
+  // -- Autoplay act videos (paneles + entorno). They're muted + loop, so
+  //    the browser allows autoplay; we just need to nudge them after hydration
+  //    and again whenever they intersect (some browsers stall preload=metadata
+  //    videos until the section is near the viewport).
+  const lazyVideos = Array.from(
+    document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo")
+  );
+  const kick = (v: HTMLVideoElement) => {
+    v.muted = true;
+    v.playsInline = true;
+    v.loop = true;
+    if (v.preload !== "auto") v.preload = "auto";
+    if (prefersReducedMotion) return;
+    // Some browsers stall preload=metadata videos until we explicitly
+    // request the media. Force a load then play once data is available.
+    if (v.readyState < 2 && v.networkState !== 2 /* LOADING */) {
+      try { v.load(); } catch {}
+    }
+    const tryPlay = () => v.play().catch(() => {});
+    if (v.readyState >= 2) tryPlay();
+    else v.addEventListener("loadeddata", tryPlay, { once: true });
+  };
+  lazyVideos.forEach(kick);
   const videoIo = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
-        const v = e.target as HTMLVideoElement;
-        if (e.isIntersecting) {
-          v.muted = true;
-          v.playsInline = true;
-          if (!prefersReducedMotion) v.play().catch(() => {});
-        } else {
-          v.pause();
-        }
+        if (e.isIntersecting) kick(e.target as HTMLVideoElement);
       }
     },
-    { threshold: 0.25 }
+    { rootMargin: "200px 0px", threshold: 0 }
   );
   lazyVideos.forEach((v) => videoIo.observe(v));
 
