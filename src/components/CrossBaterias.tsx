@@ -21,7 +21,7 @@ export function CrossBaterias() {
         <div>
           <p
             style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Space Mono', monospace",
               fontSize: 12,
               letterSpacing: "0.28em",
               color: "#FFA45C",
@@ -33,7 +33,7 @@ export function CrossBaterias() {
           </p>
           <h2
             style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Space Grotesk', sans-serif",
               fontSize: "clamp(28px, 3.6vw, 44px)",
               fontWeight: 600,
               letterSpacing: "-0.02em",
@@ -59,7 +59,7 @@ export function CrossBaterias() {
               gap: 10,
               border: "1px solid #FF7A2E",
               color: "#FF7A2E",
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 600,
               fontSize: 15,
               padding: "14px 26px",
@@ -100,7 +100,7 @@ export function CrossBaterias() {
               <div>
                 <p
                   style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 600,
                     color: "#FFFFFF",
                     margin: 0,
@@ -113,7 +113,7 @@ export function CrossBaterias() {
               </div>
               <span
                 style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Space Mono', monospace",
                   fontSize: 10,
                   letterSpacing: "0.2em",
                   color: "#FFA45C",

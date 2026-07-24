@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "../assets/solar-zero-white.png.asset.json";
+import logo from "../assets/solarzero-logo-v2.webp.asset.json";
 
 export const AGENDAR_URL = "#cotizador"; // TODO: replace with real Calendly URL when provided
 
@@ -24,14 +24,14 @@ export function SiteNav() {
         borderRadius: 18,
         boxShadow:
           "0 10px 40px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05)",
-        fontFamily: "'Barlow Condensed', sans-serif",
+        fontFamily: "'Space Grotesk', sans-serif",
       }}
     >
       <Link to="/" style={{ display: "flex", alignItems: "center", gap: 14, textDecoration: "none" }}>
         <img src={logo.url} alt="Solar Zero — Tu aliado en energía solar" style={{ height: 56, width: "auto", display: "block" }} />
         <span
           style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
+            fontFamily: "'Space Mono', monospace",
             fontSize: 11,
             letterSpacing: "0.28em",
             color: "#FFA45C",

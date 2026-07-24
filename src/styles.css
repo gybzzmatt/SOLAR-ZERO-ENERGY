@@ -2,49 +2,6 @@
 @source "../src";
 @import "tw-animate-css";
 
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/__l5e/assets-v1/715070ff-7fbe-4062-8f67-f8a4cf270f91/BarlowCondensed-Regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/__l5e/assets-v1/9f416711-ffdf-4397-82eb-bf20f12c224c/BarlowCondensed-SemiBold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/__l5e/assets-v1/d3324036-4bd4-4d0c-8d3c-70864aaeb73c/BarlowCondensed-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url('/__l5e/assets-v1/e4165cbc-500d-45ad-a4f3-fb481296fae8/BarlowCondensed-ExtraBold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Barlow Condensed';
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url('/__l5e/assets-v1/e499b36d-629a-4b3f-b857-755a13bc440c/BarlowCondensed-Black.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url('/__l5e/assets-v1/2f73b5c7-97f0-4e54-9063-94cbb7a31fc1/DMSans-Variable.woff2') format('woff2');
-}
-
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -190,16 +147,11 @@
 .sz-page {
   background: #0a0e1a;
   color: #a8b2c4;
-  font-family: "DM Sans", system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
   min-height: 100vh;
   position: relative;
-  --sz-orange: #ff7a2e;
-  --sz-blue: #3b82f6;
-  --sz-orange-soft: rgba(255, 122, 46, 0.32);
-  --sz-blue-soft: rgba(59, 130, 246, 0.26);
-  --sz-glow-pulse: szGlowPulse 7s ease-in-out infinite alternate;
 }
 
 .sz-page .sz-reveal {
@@ -272,53 +224,4 @@
 .sz-page .sz-path3,
 .sz-page .sz-path4 {
   transition: stroke-dashoffset 0.15s linear;
-}
-
-/* Contrasting blue + orange glow for the hero copy block */
-.sz-page .sz-hero-glow {
-  position: relative;
-  padding: clamp(28px, 4vw, 52px) clamp(24px, 4vw, 64px);
-  border-radius: 28px;
-}
-.sz-page .sz-hero-glow::before {
-  content: "";
-  position: absolute;
-  inset: -60px -40px;
-  z-index: -1;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse 80% 60% at 18% 28%, var(--sz-blue-soft) 0%, transparent 60%),
-    radial-gradient(ellipse 75% 75% at 82% 72%, var(--sz-orange-soft) 0%, transparent 60%);
-  filter: blur(44px);
-  pointer-events: none;
-  animation: var(--sz-glow-pulse);
-}
-.sz-page .sz-hero-glow::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: 28px;
-  background: linear-gradient(135deg, rgba(19, 27, 46, 0.55) 0%, rgba(10, 14, 26, 0.68) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  pointer-events: none;
-}
-.sz-page .sz-hero-headline {
-  text-shadow:
-    0 0 24px rgba(255, 122, 46, 0.42),
-    0 0 56px rgba(59, 130, 246, 0.24),
-    0 0 90px rgba(255, 122, 46, 0.12);
-}
-
-@keyframes szGlowPulse {
-  0% {
-    opacity: 0.85;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
 }
