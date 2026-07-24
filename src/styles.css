@@ -369,8 +369,8 @@
   .sz-sitenav__nav { gap: 16px; }
 }
 @media (max-width: 720px) {
-  .sz-sitenav { padding: 6px 8px 6px 14px; gap: 10px; top: 8px; width: calc(100vw - 16px); }
-  .sz-sitenav__logo { height: 34px; }
+  .sz-sitenav { padding: 5px 6px 5px 12px; gap: 10px; top: 8px; width: calc(100vw - 16px); }
+  .sz-sitenav__logo { height: 28px; }
   .sz-sitenav__nav .sz-sitenav__link { display: none; }
   .sz-sitenav__nav { gap: 8px; }
   .sz-sitenav__cta { padding: 8px 14px; font-size: 13px; }
