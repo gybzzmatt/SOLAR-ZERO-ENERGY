@@ -47,7 +47,7 @@ function NosotrosPage() {
       >
         <p
           style={{
-            fontFamily: "'Space Mono', monospace",
+            fontFamily: "'Barlow Condensed', sans-serif",
             fontSize: 12,
             letterSpacing: "0.28em",
             color: "#FF7A2E",
@@ -59,7 +59,7 @@ function NosotrosPage() {
         </p>
         <h1
           style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Barlow Condensed', sans-serif",
             fontSize: "clamp(40px, 5.6vw, 72px)",
             fontWeight: 600,
             letterSpacing: "-0.03em",
@@ -112,7 +112,7 @@ function NosotrosPage() {
           >
             <p
               style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', sans-serif",
                 fontSize: 11,
                 letterSpacing: "0.24em",
                 color: "#FFA45C",
@@ -136,7 +136,7 @@ function NosotrosPage() {
       >
         <h2
           style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Barlow Condensed', sans-serif",
             fontSize: "clamp(28px, 3.6vw, 44px)",
             fontWeight: 600,
             letterSpacing: "-0.02em",
@@ -175,7 +175,7 @@ function NosotrosPage() {
               />
               <p
                 style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Barlow Condensed', sans-serif",
                   fontWeight: 600,
                   fontSize: 18,
                   margin: "0 0 4px",
@@ -185,7 +185,7 @@ function NosotrosPage() {
               </p>
               <p
                 style={{
-                  fontFamily: "'Space Mono', monospace",
+                  fontFamily: "'Barlow Condensed', sans-serif",
                   fontSize: 11,
                   letterSpacing: "0.2em",
                   color: "#FFA45C",
