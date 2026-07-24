@@ -118,17 +118,35 @@ export function initSzInteractivity() {
     }
   }
 
+  // Cache last written values so we skip DOM writes when nothing changed.
+  // Every setProperty call invalidates style; skipping unchanged writes is
+  // the single biggest win for scroll smoothness.
+  const EPS = 0.005;
+  const last: Record<string, number> = {};
+  const writeVar = (el: HTMLElement, name: string, v: number) => {
+    if (last[name] !== undefined && Math.abs(last[name] - v) < EPS) return;
+    last[name] = v;
+    el.style.setProperty(name, v.toFixed(3));
+  };
+
+  let lastNavStep = -1;
   let scheduled = false;
   const tick = () => {
     scheduled = false;
     const vh = window.innerHeight || 1;
     const y = window.scrollY;
 
-    // Nav fade
+    // Nav fade: drive via CSS var so we don't clobber the liquid-glass
+    // gradient set inline on the header. Quantize to ~20 steps so we only
+    // touch the DOM when the tint actually changes.
     if (nav) {
-      const bg = Math.min(0.92, 0.35 + y / 400);
-      nav.style.background = `rgba(10, 14, 26, ${bg})`;
-      nav.style.borderBottomColor = `rgba(42, 53, 80, ${y > 40 ? 0.7 : 0})`;
+      const step = Math.min(20, Math.round(y / 40));
+      if (step !== lastNavStep) {
+        lastNavStep = step;
+        const bg = Math.min(0.92, 0.35 + (step * 40) / 400);
+        nav.style.setProperty("--sz-nav-tint", String(bg));
+        nav.style.setProperty("--sz-nav-border", y > 40 ? "0.7" : "0");
+      }
     }
 
     // Hero phase transition
@@ -140,25 +158,30 @@ export function initSzInteractivity() {
       const copy1 = 1 - smoothstep(0.05, 0.3, p);
       const copy2 = smoothstep(0.3, 0.5, p) * (1 - smoothstep(0.78, 0.92, p));
       const card = smoothstep(0.45, 0.6, p) * (1 - smoothstep(0.82, 0.94, p));
-      hero.style.setProperty("--sz-bgwide-opacity", String(1 - bgP));
-      hero.style.setProperty("--sz-bgmacro-opacity", String(bgP));
-      hero.style.setProperty("--sz-copy1-opacity", String(copy1));
-      hero.style.setProperty("--sz-copy2-opacity", String(copy2));
-      hero.style.setProperty("--sz-card-opacity", String(card));
-      hero.style.setProperty(
-        "--sz-copy2-pe",
-        copy2 > 0.5 ? "auto" : "none"
-      );
-      hero.style.setProperty("--sz-card-pe", card > 0.5 ? "auto" : "none");
+      writeVar(hero, "--sz-bgwide-opacity", 1 - bgP);
+      writeVar(hero, "--sz-bgmacro-opacity", bgP);
+      writeVar(hero, "--sz-copy1-opacity", copy1);
+      writeVar(hero, "--sz-copy2-opacity", copy2);
+      writeVar(hero, "--sz-card-opacity", card);
+      const copy2Pe = copy2 > 0.5 ? "auto" : "none";
+      const cardPe = card > 0.5 ? "auto" : "none";
+      if (hero.style.getPropertyValue("--sz-copy2-pe") !== copy2Pe)
+        hero.style.setProperty("--sz-copy2-pe", copy2Pe);
+      if (hero.style.getPropertyValue("--sz-card-pe") !== cardPe)
+        hero.style.setProperty("--sz-card-pe", cardPe);
     }
 
-    // Journey current paths
+    // Journey current paths — skip sections that are off-screen.
     if (!prefersReducedMotion) {
-      for (const { path, section } of pathTargets) {
+      for (let i = 0; i < pathTargets.length; i++) {
+        const { path, section } = pathTargets[i];
         const r = section.getBoundingClientRect();
-        // Start drawing as section enters, complete near its center.
+        if (r.bottom < -vh || r.top > vh * 1.5) continue;
         const p = clamp((vh - r.top) / (vh + r.height * 0.4));
-        path.style.strokeDashoffset = String(1 - p);
+        const key = "__p" + i;
+        if (last[key] !== undefined && Math.abs(last[key] - p) < EPS) continue;
+        last[key] = p;
+        path.style.strokeDashoffset = (1 - p).toFixed(4);
       }
     }
   };
