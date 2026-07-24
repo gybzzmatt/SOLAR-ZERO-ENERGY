@@ -34,6 +34,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   useEffect(() => {
     initSzInteractivity();
+    initSzTelemetry();
   }, []);
   return (
     <div className="sz-page">
