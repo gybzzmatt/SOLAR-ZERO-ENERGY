@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "../assets/solarzero-logo-v2.webp.asset.json";
+import logo from "../assets/solar-zero-white.png.asset.json";
 
 export const AGENDAR_URL = "#cotizador"; // TODO: replace with real Calendly URL when provided
 
