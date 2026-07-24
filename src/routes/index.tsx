@@ -6,6 +6,7 @@ import { Cotizador } from "../components/Cotizador";
 import { CrossBaterias } from "../components/CrossBaterias";
 import { SiteNav } from "../components/SiteNav";
 import { initSzInteractivity } from "../lib/sz-client";
+import { initSzTelemetry } from "../lib/sz-telemetry";
 
 const title = "Solar Zero — Apaga tu factura | Paneles solares en Panamá";
 const description =
