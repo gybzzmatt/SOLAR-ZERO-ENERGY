@@ -164,42 +164,37 @@
 
 <!-- ═══════════ ACT 4 · FLUJO: GRANJAS SOLARES ═══════════ -->
 <section id="granjas" class="sz-act4" style="position: relative; background: linear-gradient(180deg, #0A0E1A 0%, #0D1426 100%); padding: clamp(40px, 6vh, 70px) clamp(20px, 5vw, 72px) clamp(120px, 18vh, 200px); overflow: hidden;">
-  <svg viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 100%; height: 62%; pointer-events: none; z-index: 1;">
-    <path class="sz-path4" d="M 715 0 C 715 120, 500 130, 500 240" pathLength="1" fill="none" stroke="url(#szGradA)" stroke-width="2.5" stroke-linecap="round" style="filter: drop-shadow(0 0 6px rgba(255, 122, 46, 0.9)); stroke-dasharray: 1; stroke-dashoffset: 1;"></path>
-    <path class="sz-path4" d="M 500 240 C 500 300, 220 300, 180 400" pathLength="1" fill="none" stroke="url(#szGradA)" stroke-width="2" stroke-linecap="round" style="filter: drop-shadow(0 0 5px rgba(255, 122, 46, 0.8)); stroke-dasharray: 1; stroke-dashoffset: 1;"></path>
-    <path class="sz-path4" d="M 500 240 C 500 320, 500 340, 500 400" pathLength="1" fill="none" stroke="url(#szGradA)" stroke-width="2" stroke-linecap="round" style="filter: drop-shadow(0 0 5px rgba(255, 122, 46, 0.8)); stroke-dasharray: 1; stroke-dashoffset: 1;"></path>
-    <path class="sz-path4" d="M 500 240 C 500 300, 780 300, 820 400" pathLength="1" fill="none" stroke="url(#szGradA)" stroke-width="2" stroke-linecap="round" style="filter: drop-shadow(0 0 5px rgba(255, 122, 46, 0.8)); stroke-dasharray: 1; stroke-dashoffset: 1;"></path>
-  </svg>
-
-  <div style="position: relative; max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px;">
-    <!-- aerial farm (real drone footage) -->
-    <div class="sz-farmwrap" style="width: 100%; display: flex; justify-content: center; padding-top: clamp(20px, 4vh, 50px); overflow: visible; perspective: 1100px;">
-      <div class="sz-farm" style="position: relative; width: min(920px, 92vw); height: clamp(240px, 40vh, 380px); border-radius: 16px; border: 1px solid #2A3550; overflow: hidden; transform: rotateX(48deg) scale(1.9); transform-origin: center 15%; opacity: 0.25; box-shadow: 0 60px 120px rgba(0, 0, 0, 0.6);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/74c4779c-3029-4fba-813e-1fbeec9375c6/act4-farm.mp4" poster="/__l5e/assets-v1/89287cf7-0ff5-45fb-b1da-e511e21505c0/act4-farm.jpg" muted loop playsinline preload="metadata" aria-label="Vista aérea de granja solar a escala industrial" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; filter: saturate(0.8) brightness(0.68) contrast(1.08);"></video>
-        <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.55) 0%, rgba(10, 14, 26, 0.1) 30%, rgba(10, 14, 26, 0.12) 65%, rgba(10, 14, 26, 0.75) 100%), radial-gradient(ellipse at 50% 0%, rgba(255, 122, 46, 0.16) 0%, rgba(255, 122, 46, 0) 55%);"></div>
+  <div style="position: relative; max-width: 1180px; margin: 0 auto; min-height: clamp(520px, 70vh, 720px);">
+    <!-- aerial farm (real drone footage) as background -->
+    <div class="sz-farmwrap" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 0;">
+      <div class="sz-farm" style="position: relative; width: 100%; height: 100%; border-radius: 24px; border: 1px solid #2A3550; overflow: hidden; box-shadow: 0 60px 120px rgba(0, 0, 0, 0.6);">
+        <video class="sz-lazyvideo" src="/__l5e/assets-v1/74c4779c-3029-4fba-813e-1fbeec9375c6/act4-farm.mp4" poster="/__l5e/assets-v1/89287cf7-0ff5-45fb-b1da-e511e21505c0/act4-farm.jpg" muted loop playsinline preload="metadata" aria-label="Vista aérea de granja solar a escala industrial" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; filter: saturate(0.85) brightness(0.55) contrast(1.08);"></video>
+        <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.65) 0%, rgba(10, 14, 26, 0.45) 40%, rgba(10, 14, 26, 0.55) 70%, rgba(10, 14, 26, 0.85) 100%), radial-gradient(ellipse at 50% 0%, rgba(255, 122, 46, 0.18) 0%, rgba(255, 122, 46, 0) 55%);"></div>
       </div>
     </div>
 
-    <span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #FFA45C; background: rgba(255, 122, 46, 0.08); border: 1px solid rgba(255, 122, 46, 0.35); padding: 8px 16px; border-radius: 999px;">🌾 GRANJAS SOLARES — Escala industrial</span>
+    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 28px; padding: clamp(60px, 8vh, 100px) clamp(16px, 3vw, 32px); min-height: inherit;">
+      <span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #FFA45C; background: rgba(255, 122, 46, 0.12); border: 1px solid rgba(255, 122, 46, 0.4); padding: 8px 16px; border-radius: 999px; backdrop-filter: blur(8px);">🌾 GRANJAS SOLARES — Escala industrial</span>
 
-    <div class="sz-card4" style="text-align: center; max-width: 780px; margin: 0 auto;">
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4.6vw, 60px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: #FFFFFF; margin: 0 0 18px; text-wrap: balance;">El futuro se construye a escala.</h2>
-      <p style="font-size: 17px; line-height: 1.65; margin: 0 auto 36px; max-width: 54ch;">Monetiza tu terreno, genera ingresos predecibles y contribuye a la transición energética de Panamá. Estructuramos el proyecto completo: interconexión, PPA y operación.</p>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); justify-items: center; gap: 18px; border-top: 1px solid #2A3550; padding-top: 30px; margin-bottom: 36px;">
-        <div>
-          <p style="font-family: 'Space Mono', monospace; font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: #FFFFFF; margin: 0;">MW</p>
-          <p style="font-size: 12.5px; color: #5B6880; margin: 6px 0 0; letter-spacing: 0.04em;">Escala de proyecto</p>
+      <div class="sz-card4" style="text-align: center; max-width: 780px; margin: 0 auto;">
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4.6vw, 60px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: #FFFFFF; margin: 0 0 18px; text-wrap: balance; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);">El futuro se construye a escala.</h2>
+        <p style="font-size: 17px; line-height: 1.65; margin: 0 auto 36px; max-width: 54ch; color: #E4E9F2; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);">Monetiza tu terreno, genera ingresos predecibles y contribuye a la transición energética de Panamá. Estructuramos el proyecto completo: interconexión, PPA y operación.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); justify-items: center; gap: 18px; border-top: 1px solid rgba(168, 178, 196, 0.25); padding-top: 30px; margin-bottom: 36px;">
+          <div>
+            <p style="font-family: 'Space Mono', monospace; font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: #FFFFFF; margin: 0;">MW</p>
+            <p style="font-size: 12.5px; color: #B8C2D4; margin: 6px 0 0; letter-spacing: 0.04em;">Escala de proyecto</p>
+          </div>
+          <div>
+            <p style="font-family: 'Space Mono', monospace; font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: #FFFFFF; margin: 0;">PPA</p>
+            <p style="font-size: 12.5px; color: #B8C2D4; margin: 6px 0 0; letter-spacing: 0.04em;">Estructuración de contratos</p>
+          </div>
+          <div>
+            <p class="sz-count" data-target="20" data-suffix="+" style="font-family: 'Space Mono', monospace; font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: #FFFFFF; margin: 0;">20+</p>
+            <p style="font-size: 12.5px; color: #B8C2D4; margin: 6px 0 0; letter-spacing: 0.04em;">Años de operación proyectada</p>
+          </div>
         </div>
-        <div>
-          <p style="font-family: 'Space Mono', monospace; font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: #FFFFFF; margin: 0;">PPA</p>
-          <p style="font-size: 12.5px; color: #5B6880; margin: 6px 0 0; letter-spacing: 0.04em;">Estructuración de contratos</p>
-        </div>
-        <div>
-          <p class="sz-count" data-target="20" data-suffix="+" style="font-family: 'Space Mono', monospace; font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: #FFFFFF; margin: 0;">20+</p>
-          <p style="font-size: 12.5px; color: #5B6880; margin: 6px 0 0; letter-spacing: 0.04em;">Años de operación proyectada</p>
-        </div>
+        <a href="#cotizador" data-segment="granja" style="display: inline-flex; align-items: center; gap: 8px; background: #FF7A2E; color: #0A0E1A; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; padding: 14px 26px; border-radius: 12px; text-decoration: none;" data-szh="background: #FFA45C;">Hablemos de tu terreno →</a>
       </div>
-      <a href="#cotizador" data-segment="granja" style="display: inline-flex; align-items: center; gap: 8px; background: #FF7A2E; color: #0A0E1A; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; padding: 14px 26px; border-radius: 12px; text-decoration: none;" data-szh="background: #FFA45C;">Hablemos de tu terreno →</a>
     </div>
   </div>
 </section>
