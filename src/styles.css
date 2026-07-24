@@ -195,6 +195,11 @@
   overflow-x: clip;
   min-height: 100vh;
   position: relative;
+  --sz-orange: #ff7a2e;
+  --sz-blue: #3b82f6;
+  --sz-orange-soft: rgba(255, 122, 46, 0.32);
+  --sz-blue-soft: rgba(59, 130, 246, 0.26);
+  --sz-glow-pulse: szGlowPulse 7s ease-in-out infinite alternate;
 }
 
 .sz-page .sz-reveal {
