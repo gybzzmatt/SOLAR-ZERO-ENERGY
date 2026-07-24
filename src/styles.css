@@ -236,7 +236,7 @@
 .sz-page .sz-path2,
 .sz-page .sz-path3,
 .sz-page .sz-path4 {
-  transition: stroke-dashoffset 0.08s linear;
+  transition: stroke-dashoffset 0.18s ease-out;
 }
 
 /* Responsive hero — tablet & mobile */
