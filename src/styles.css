@@ -195,6 +195,11 @@
   overflow-x: clip;
   min-height: 100vh;
   position: relative;
+  --sz-orange: #ff7a2e;
+  --sz-blue: #3b82f6;
+  --sz-orange-soft: rgba(255, 122, 46, 0.32);
+  --sz-blue-soft: rgba(59, 130, 246, 0.26);
+  --sz-glow-pulse: szGlowPulse 7s ease-in-out infinite alternate;
 }
 
 .sz-page .sz-reveal {
@@ -267,4 +272,53 @@
 .sz-page .sz-path3,
 .sz-page .sz-path4 {
   transition: stroke-dashoffset 0.15s linear;
+}
+
+/* Contrasting blue + orange glow for the hero copy block */
+.sz-page .sz-hero-glow {
+  position: relative;
+  padding: clamp(28px, 4vw, 52px) clamp(24px, 4vw, 64px);
+  border-radius: 28px;
+}
+.sz-page .sz-hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: -60px -40px;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 80% 60% at 18% 28%, var(--sz-blue-soft) 0%, transparent 60%),
+    radial-gradient(ellipse 75% 75% at 82% 72%, var(--sz-orange-soft) 0%, transparent 60%);
+  filter: blur(44px);
+  pointer-events: none;
+  animation: var(--sz-glow-pulse);
+}
+.sz-page .sz-hero-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(19, 27, 46, 0.55) 0%, rgba(10, 14, 26, 0.68) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+.sz-page .sz-hero-headline {
+  text-shadow:
+    0 0 24px rgba(255, 122, 46, 0.42),
+    0 0 56px rgba(59, 130, 246, 0.24),
+    0 0 90px rgba(255, 122, 46, 0.12);
+}
+
+@keyframes szGlowPulse {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
