@@ -312,3 +312,14 @@
 @media (prefers-reduced-motion: reduce) {
   .sz-page .sz-hero-wordmark { animation: none; }
 }
+/* Mobile: shed the heavy pulsing filter to keep scroll at 60fps */
+@media (max-width: 700px) {
+  .sz-page .sz-hero-wordmark {
+    animation: none;
+    filter:
+      drop-shadow(0 0 8px rgba(255, 122, 46, 0.5))
+      drop-shadow(0 0 22px rgba(255, 164, 92, 0.35))
+      drop-shadow(0 8px 22px rgba(0, 0, 0, 0.28));
+    will-change: auto;
+  }
+}
