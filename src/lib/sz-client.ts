@@ -137,11 +137,18 @@ export function initSzInteractivity() {
   };
 
   let lastNavStep = -1;
+  let lastY = -1;
+  let resizedFlag = false;
   let scheduled = false;
   const tick = () => {
     scheduled = false;
     const vh = window.innerHeight || 1;
     const y = window.scrollY;
+
+    // Skip no-op frames from trackpad micro-jitter. Resize still forces a run.
+    if (!resizedFlag && Math.abs(y - lastY) < 0.5) return;
+    lastY = y;
+    resizedFlag = false;
 
     // Nav fade: drive via CSS var so we don't clobber the liquid-glass
     // gradient set inline on the header. Quantize to ~20 steps so we only
@@ -156,15 +163,17 @@ export function initSzInteractivity() {
       }
     }
 
-    // Hero phase transition
+    // Hero phase transition — bands spread across the full sticky travel so
+    // scroll distance ≈ visible progress (no bunching, no dead plateau).
     if (hero && !prefersReducedMotion) {
       const rect = hero.getBoundingClientRect();
       const total = Math.max(1, rect.height - vh);
       const p = clamp(-rect.top / total);
-      const bgP = smoothstep(0.12, 0.45, p);
-      const copy1 = 1 - smoothstep(0.05, 0.3, p);
-      const copy2 = smoothstep(0.3, 0.5, p) * (1 - smoothstep(0.78, 0.92, p));
-      const card = smoothstep(0.45, 0.6, p) * (1 - smoothstep(0.82, 0.94, p));
+      const bgP = smoothstep(0.08, 0.38, p);
+      const exit = smoothstep(0.92, 1.0, p);
+      const copy1 = 1 - smoothstep(0.08, 0.30, p);
+      const copy2 = smoothstep(0.38, 0.55, p) * (1 - exit);
+      const card = smoothstep(0.55, 0.72, p) * (1 - exit);
       writeVar(hero, "--sz-bgwide-opacity", 1 - bgP);
       writeVar(hero, "--sz-bgmacro-opacity", bgP);
       writeVar(hero, "--sz-copy1-opacity", copy1);
@@ -178,13 +187,16 @@ export function initSzInteractivity() {
         hero.style.setProperty("--sz-card-pe", cardPe);
     }
 
-    // Journey current paths — skip sections that are off-screen.
+    // Journey current paths — tied to each section's own scroll travel so the
+    // orange line draws down into the video as the card enters the viewport.
     if (!prefersReducedMotion) {
       for (let i = 0; i < pathTargets.length; i++) {
         const { path, section } = pathTargets[i];
         const r = section.getBoundingClientRect();
         if (r.bottom < -vh || r.top > vh * 1.5) continue;
-        const p = clamp((vh - r.top) / (vh + r.height * 0.4));
+        // p = 0 when section top is near bottom of viewport, 1 when top is
+        // above ~15% (i.e. the video card is centered).
+        const p = smoothstep(vh * 0.85, vh * 0.15, r.top);
         const key = "__p" + i;
         if (last[key] !== undefined && Math.abs(last[key] - p) < EPS) continue;
         last[key] = p;
@@ -199,7 +211,12 @@ export function initSzInteractivity() {
     requestAnimationFrame(tick);
   };
 
+  const onResize = () => {
+    resizedFlag = true;
+    onScroll();
+  };
+
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true });
+  window.addEventListener("resize", onResize, { passive: true });
   tick();
 }
