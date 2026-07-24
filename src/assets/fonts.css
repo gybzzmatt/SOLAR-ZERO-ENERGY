@@ -1,0 +1,43 @@
+/* Solar Zero / Baterías 507 — Brand font files (Barlow Condensed + DM Sans) */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/fea715a3-a48d-4079-886f-6f6e2b9deb05/BarlowCondensed-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/dbdada5f-816d-41e5-a0d4-7576d93f9599/BarlowCondensed-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/b18a8acb-66c1-407c-a069-f7dd8e115ad7/BarlowCondensed-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/285205a5-5a63-42de-b0cb-46f2ec1ee9c9/BarlowCondensed-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/ffd02da9-614d-41f3-bafd-935bf3234686/BarlowCondensed-Black.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/1a381141-ee38-4f37-af0b-14ee40a8a182/DMSans-Variable.woff2') format('woff2-variations'), url('/__l5e/assets-v1/1a381141-ee38-4f37-af0b-14ee40a8a182/DMSans-Variable.woff2') format('woff2');
+}
