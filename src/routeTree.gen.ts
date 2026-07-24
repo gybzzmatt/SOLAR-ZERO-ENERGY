@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as NosotrosRouteImport } from './routes/nosotros'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiPublicTelemetryRouteImport } from './routes/api/public/telemetry'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 
 const NosotrosRoute = NosotrosRouteImport.update({
@@ -30,11 +29,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicTelemetryRoute = ApiPublicTelemetryRouteImport.update({
-  id: '/api/public/telemetry',
-  path: '/api/public/telemetry',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   id: '/api/public/contact',
   path: '/api/public/contact',
@@ -46,14 +40,12 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/nosotros': typeof NosotrosRoute
   '/api/public/contact': typeof ApiPublicContactRoute
-  '/api/public/telemetry': typeof ApiPublicTelemetryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/nosotros': typeof NosotrosRoute
   '/api/public/contact': typeof ApiPublicContactRoute
-  '/api/public/telemetry': typeof ApiPublicTelemetryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,30 +53,13 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/nosotros': typeof NosotrosRoute
   '/api/public/contact': typeof ApiPublicContactRoute
-  '/api/public/telemetry': typeof ApiPublicTelemetryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/blog'
-    | '/nosotros'
-    | '/api/public/contact'
-    | '/api/public/telemetry'
+  fullPaths: '/' | '/blog' | '/nosotros' | '/api/public/contact'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/blog'
-    | '/nosotros'
-    | '/api/public/contact'
-    | '/api/public/telemetry'
-  id:
-    | '__root__'
-    | '/'
-    | '/blog'
-    | '/nosotros'
-    | '/api/public/contact'
-    | '/api/public/telemetry'
+  to: '/' | '/blog' | '/nosotros' | '/api/public/contact'
+  id: '__root__' | '/' | '/blog' | '/nosotros' | '/api/public/contact'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,7 +67,6 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   NosotrosRoute: typeof NosotrosRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
-  ApiPublicTelemetryRoute: typeof ApiPublicTelemetryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,13 +92,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/telemetry': {
-      id: '/api/public/telemetry'
-      path: '/api/public/telemetry'
-      fullPath: '/api/public/telemetry'
-      preLoaderRoute: typeof ApiPublicTelemetryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/contact': {
       id: '/api/public/contact'
       path: '/api/public/contact'
@@ -140,7 +107,6 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   NosotrosRoute: NosotrosRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
-  ApiPublicTelemetryRoute: ApiPublicTelemetryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

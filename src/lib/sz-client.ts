@@ -47,19 +47,13 @@ export function initSzInteractivity() {
   document.querySelectorAll(".sz-reveal").forEach((el) => io.observe(el));
 
   // -- Hero videos: force muted autoplay after hydration -------------------
-  const heroVideos = Array.from(
-    document.querySelectorAll<HTMLVideoElement>(
-      ".sz-hero-bgwide, .sz-hero-bgmacro"
-    )
-  );
-  const resumeHeroVideos = () => {
-    heroVideos.forEach((v) => {
+  document
+    .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
+    .forEach((v) => {
       v.muted = true;
       v.playsInline = true;
       v.play().catch(() => {});
     });
-  };
-  resumeHeroVideos();
 
   // -- Autoplay act videos (paneles + entorno). They're muted + loop, so
   //    the browser allows autoplay; we just need to nudge them after hydration
@@ -90,16 +84,9 @@ export function initSzInteractivity() {
         if (e.isIntersecting) kick(e.target as HTMLVideoElement);
       }
     },
-    // Warm up a full viewport before the video enters so it has time to
-    // reach readyState >= 2 before the user sees the card.
-    { rootMargin: "60% 0px", threshold: 0 }
+    { rootMargin: "200px 0px", threshold: 0 }
   );
-  lazyVideos.forEach((v, i) => {
-    videoIo.observe(v);
-    // Aggressively kick the first two lazy videos (act2 house + act3 business)
-    // on hydration — they're within one screen at typical viewport heights.
-    if (i < 2) kick(v);
-  });
+  lazyVideos.forEach((v) => videoIo.observe(v));
 
   // -- Nav background fade ---------------------------------------------------
   const nav = document.querySelector<HTMLElement>(".sz-nav");
@@ -131,104 +118,58 @@ export function initSzInteractivity() {
     }
   }
 
-  // Cache last written values so we skip DOM writes when nothing changed.
-  // Every setProperty call invalidates style; skipping unchanged writes is
-  // the single biggest win for scroll smoothness.
-  const EPS = 0.005;
-  const last: Record<string, number> = {};
-  const writeVar = (el: HTMLElement, name: string, v: number) => {
-    if (last[name] !== undefined && Math.abs(last[name] - v) < EPS) return;
-    last[name] = v;
-    el.style.setProperty(name, v.toFixed(3));
-  };
-
-  let lastNavStep = -1;
-  let lastY = -1;
-  let resizedFlag = false;
   let scheduled = false;
   const tick = () => {
     scheduled = false;
     const vh = window.innerHeight || 1;
     const y = window.scrollY;
 
-    // Skip no-op frames from trackpad micro-jitter. Resize still forces a run.
-    if (!resizedFlag && Math.abs(y - lastY) < 0.5) return;
-    lastY = y;
-    resizedFlag = false;
-
-    // Nav fade: drive via CSS var so we don't clobber the liquid-glass
-    // gradient set inline on the header. Quantize to ~20 steps so we only
-    // touch the DOM when the tint actually changes.
+    // Nav fade
     if (nav) {
-      const step = Math.min(20, Math.round(y / 40));
-      if (step !== lastNavStep) {
-        lastNavStep = step;
-        const bg = Math.min(0.92, 0.35 + (step * 40) / 400);
-        nav.style.setProperty("--sz-nav-tint", String(bg));
-        nav.style.setProperty("--sz-nav-border", y > 40 ? "0.7" : "0");
-      }
+      const bg = Math.min(0.92, 0.35 + y / 400);
+      nav.style.background = `rgba(10, 14, 26, ${bg})`;
+      nav.style.borderBottomColor = `rgba(42, 53, 80, ${y > 40 ? 0.7 : 0})`;
     }
 
-    // Hero phase transition — bands spread across the full sticky travel so
-    // scroll distance ≈ visible progress (no bunching, no dead plateau).
+    // Hero phase transition
     if (hero && !prefersReducedMotion) {
       const rect = hero.getBoundingClientRect();
       const total = Math.max(1, rect.height - vh);
       const p = clamp(-rect.top / total);
-      // Make the macro/climate shot the immediate next beat after the opening
-      // frame. It reaches full visibility within the first fifth of travel,
-      // then holds long enough that a normal wheel gesture cannot skip it.
-      const bgP = smoothstep(0.03, 0.18, p);
-      const exit = smoothstep(0.92, 1.0, p);
-      const copy1 = 1 - smoothstep(0.03, 0.14, p);
-      const copy2 = smoothstep(0.1, 0.2, p) * (1 - exit);
-      const card = smoothstep(0.2, 0.3, p) * (1 - exit);
-      writeVar(hero, "--sz-bgwide-opacity", 1 - bgP);
-      writeVar(hero, "--sz-bgmacro-opacity", bgP);
-      writeVar(hero, "--sz-copy1-opacity", copy1);
-      writeVar(hero, "--sz-copy2-opacity", copy2);
-      writeVar(hero, "--sz-card-opacity", card);
-      const copy2Pe = copy2 > 0.5 ? "auto" : "none";
-      const cardPe = card > 0.5 ? "auto" : "none";
-      if (hero.style.getPropertyValue("--sz-copy2-pe") !== copy2Pe)
-        hero.style.setProperty("--sz-copy2-pe", copy2Pe);
-      if (hero.style.getPropertyValue("--sz-card-pe") !== cardPe)
-        hero.style.setProperty("--sz-card-pe", cardPe);
+      const bgP = smoothstep(0.12, 0.45, p);
+      const copy1 = 1 - smoothstep(0.05, 0.3, p);
+      const copy2 = smoothstep(0.3, 0.5, p) * (1 - smoothstep(0.78, 0.92, p));
+      const card = smoothstep(0.45, 0.6, p) * (1 - smoothstep(0.82, 0.94, p));
+      hero.style.setProperty("--sz-bgwide-opacity", String(1 - bgP));
+      hero.style.setProperty("--sz-bgmacro-opacity", String(bgP));
+      hero.style.setProperty("--sz-copy1-opacity", String(copy1));
+      hero.style.setProperty("--sz-copy2-opacity", String(copy2));
+      hero.style.setProperty("--sz-card-opacity", String(card));
+      hero.style.setProperty(
+        "--sz-copy2-pe",
+        copy2 > 0.5 ? "auto" : "none"
+      );
+      hero.style.setProperty("--sz-card-pe", card > 0.5 ? "auto" : "none");
     }
 
-    // Journey current paths — tied to each section's own scroll travel so the
-    // orange line draws down into the video as the card enters the viewport.
+    // Journey current paths
     if (!prefersReducedMotion) {
-      for (let i = 0; i < pathTargets.length; i++) {
-        const { path, section } = pathTargets[i];
+      for (const { path, section } of pathTargets) {
         const r = section.getBoundingClientRect();
-        if (r.bottom < -vh || r.top > vh * 1.5) continue;
-        // p = 0 when section top is near bottom of viewport, 1 when top is
-        // above ~15% (i.e. the video card is centered).
-        const p = smoothstep(vh * 0.85, vh * 0.15, r.top);
-        const key = "__p" + i;
-        if (last[key] !== undefined && Math.abs(last[key] - p) < EPS) continue;
-        last[key] = p;
-        path.style.strokeDashoffset = (1 - p).toFixed(4);
+        // Start drawing as section enters, complete near its center.
+        const p = clamp((vh - r.top) / (vh + r.height * 0.4));
+        path.style.strokeDashoffset = String(1 - p);
       }
     }
   };
 
   const onScroll = () => {
-    // A real scroll gesture is also a user interaction, so use it to resume
-    // hero media if the browser paused autoplay while the tab was inactive.
-    if (heroVideos.some((video) => video.paused)) resumeHeroVideos();
     if (scheduled) return;
     scheduled = true;
     requestAnimationFrame(tick);
   };
 
-  const onResize = () => {
-    resizedFlag = true;
-    onScroll();
-  };
-
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onResize, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
   tick();
 }
