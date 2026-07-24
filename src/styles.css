@@ -2,6 +2,49 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/715070ff-7fbe-4062-8f67-f8a4cf270f91/BarlowCondensed-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/9f416711-ffdf-4397-82eb-bf20f12c224c/BarlowCondensed-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/d3324036-4bd4-4d0c-8d3c-70864aaeb73c/BarlowCondensed-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/e4165cbc-500d-45ad-a4f3-fb481296fae8/BarlowCondensed-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/e499b36d-629a-4b3f-b857-755a13bc440c/BarlowCondensed-Black.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/__l5e/assets-v1/2f73b5c7-97f0-4e54-9063-94cbb7a31fc1/DMSans-Variable.woff2') format('woff2');
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
