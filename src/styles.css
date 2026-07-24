@@ -396,10 +396,9 @@
 
 /* Small tablet / large phone */
 @media (max-width: 768px) {
-  /* Header nav (legacy .sz-nav inside home-pre.html) shrinks / hides mid links */
-  .sz-page .sz-nav { padding: 10px 16px !important; gap: 10px !important; }
-  .sz-page .sz-nav > div { display: none !important; }
-  .sz-page .sz-nav img { height: 40px !important; }
+  /* Legacy .sz-nav from ported HTML is replaced by SiteNav — hide it */
+  .sz-page .sz-nav { display: none !important; }
+
 
   /* Hero */
   .sz-page .sz-hero { height: 220vh !important; }
