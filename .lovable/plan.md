@@ -1,61 +1,70 @@
 ## Objetivo
 
-Presentar **Sunway Tech** (https://www.sunwaytech.es/) como la tecnología principal detrás de Solar Zero y reforzar que somos **distribuidor oficial** en Panamá. Reemplazar el bloque genérico actual "La tecnología en tus manos" por una sección con identidad de marca, badge de alianza, línea de producto real (Paneles / Pilas / Inversores) e imágenes de producto.
+Unificar el bloque de "Certificaciones" con la sección "Alianza oficial · Distribuidor oficial de Sunway Tech" y reemplazar las cajas tipográficas por logos reales. Se conservan únicamente 6 certificaciones (las que tienen logo provisto): **TÜV, IEC, CE, ISO, UL, INMETRO**. El resto (DEKRA, EN, VDE, EMC, LVD, CNAS, ILAC-MRA, MSDS, UN38.3, OEM, ODM) se eliminan.
 
 ## Cambios
 
-Solo se toca `src/content/home-pre.html` (bloque `<!-- tecnología Sunwaytech -->`, líneas 350-372) y se suben 3 assets de producto a CDN.
+Todo el trabajo ocurre en `src/content/home-pre.html` + subida de 6 assets al CDN.
 
-### 1. Assets (subir a Lovable CDN vía `lovable-assets create`)
+### 1. Assets a subir (`lovable-assets create`)
 
-- `user-uploads://hf_20260724_041206_...png` → `sunway-panel.webp` (Paneles solares)
-- `user-uploads://hf_20260724_041340_...png` → `sunway-battery.webp` (Pilas / almacenamiento)
-- `user-uploads://hf_20260724_041136_...png` → `sunway-inverter.webp` (Inversores)
+- `user-uploads://image-9.png` → `cert-tuv.png` (TÜV SÜD ISO 9001)
+- `user-uploads://image-10.png` → `cert-iec.png` (IEC)
+- `user-uploads://image-11.png` → `cert-ce.png` (CE)
+- `user-uploads://image-12.png` → `cert-iso.png` (ISO 9001:2015)
+- `user-uploads://image-13.png` → `cert-inmetro.png` (INMETRO)
+- `user-uploads://image-14.png` → `cert-ul.png` (UL)
 
-### 2. Sección "Alianza Sunway Tech"
+### 2. Fusionar en una sola sección
 
-Estructura nueva:
+Reemplazar el bloque actual (líneas 274-348 "certificaciones" + líneas 350-416 "Alianza Sunway Tech") por **un solo bloque** con esta estructura:
 
 ```text
 ┌──────────────────────────────────────────────┐
 │  [ ALIANZA OFICIAL · eyebrow naranja ]       │
-│  Distribuidor oficial de Sunway Tech         │
-│  en Panamá.                                  │
-│  Subhead: fabricante global con presencia    │
-│  en +80 países. Toda nuestra línea solar     │
-│  está respaldada por su ingeniería.          │
-│                                              │
-│  [logo/wordmark SUNWAYTECH]  +80 países ·    │
-│                              15+ años · Tier 1│
+│  Distribuidor oficial de SunwayTech en PA.   │
+│  Subhead (fabricante global +80 países…)     │
+│  Chips: +80 países · Tier 1 · 25 años · 🇵🇦   │
 ├──────┬──────────────┬────────────────────────┤
-│ Card │ Card         │ Card                   │
-│ Panel│ Pila         │ Inversor               │
-│ img  │ img          │ img                    │
-│ tags │ tags         │ tags                   │
-└──────┴──────────────┴────────────────────────┘
+│ Panel│ Pila         │ Inversor  (3 cards)    │
+├──────┴──────────────┴────────────────────────┤
+│  ── Certificaciones que respaldan la tec ──  │
+│  [TÜV] [IEC] [CE] [ISO] [UL] [INMETRO]       │
+│  ↑ 6 cajas con logo real (fondo claro) +     │
+│    tooltip/caption corto debajo              │
+├──────────────────────────────────────────────┤
+│  Conoce Sunway Tech ↗                        │
+└──────────────────────────────────────────────┘
 ```
 
-- 3 cards con imagen del producto (fondo blanco/claro dentro del card oscuro), título, breve descripción y "chips" de sub-categorías inspiradas en sunwaytech.es:
-  - **Paneles solares** — Monocristalinos · Policristalinos
-  - **Pilas** — Baterías domésticas · Almacenamiento industrial · Apilables
-  - **Inversores** — Híbridos · Acoplados a CA · De red
-- Micro-bloque de credenciales al lado del título: `+80 países`, `Tier 1`, `Garantía 25 años`, `Distribuidor oficial 🇵🇦`.
-- CTA discreto al final: `Conoce Sunway Tech ↗` → link externo `https://www.sunwaytech.es/` (`target="_blank" rel="noopener"`).
+### 3. Cards de certificación (nuevo diseño)
 
-### 3. Estilo
+- Grid `repeat(auto-fit, minmax(140px, 1fr))`, gap 12px.
+- Cada card: fondo claro `linear-gradient(180deg, #F5F7FA, #E4E9F2)`, border `#2A3550`, radius 14, aspect ratio ~1/1 para el logo (padding 18px, `object-fit: contain`, max-height 64px).
+- Debajo, sobre fondo oscuro `#0F1628`, sigla + descripción corta:
+  - **TÜV** — Ensayos de laboratorio (Alemania)
+  - **IEC** — 61215 / 61730 (norma global)
+  - **CE** — Conformidad Europea
+  - **ISO** — 9001 / 14001 (calidad y ambiente)
+  - **UL** — Seguridad eléctrica (EE.UU. / Canadá)
+  - **INMETRO** — Homologación Brasil
+- Hover naranja consistente con el resto (`data-szh="border-color: rgba(255,122,46,0.5)"`).
 
-- Mantener tokens actuales (`#0F1628`, borde `#2A3550`, hover naranja `rgba(255,122,46,0.5)`, eyebrow Space Mono naranja/dorado).
-- Imágenes de producto: contenedor con `aspect-ratio: 4/5`, `background: linear-gradient(180deg, #F5F7FA, #E4E9F2)`, `object-fit: contain`, padding para que el producto respire.
-- Chips: `background: rgba(255,122,46,0.08)`, `border: 1px solid rgba(255,122,46,0.25)`, `color: #FFB98A`, tipografía Space Mono 11px uppercase.
+### 4. Copy del sub-encabezado de certificaciones
 
-## Fuera de alcance
+Reemplazar el h2 anterior ("No vendemos promesas…") por un sub-título más pequeño dentro de la sección Sunway:
 
-- No se toca el bloque OEM/ODM anterior (líneas 274-348) — es la sección de certificaciones/capacidad, complementaria.
-- No se cambian Testimonios, Cotizador, Hero, Journey ni Nosotros.
-- No se agrega logo real de Sunway Tech (no lo tenemos como asset todavía) — usamos wordmark tipográfico "SUNWAYTECH" con acento verde `#2FB865` fiel a la marca; se puede reemplazar por el SVG oficial cuando lo proveas.
+- Eyebrow: `TECNOLOGÍA CERTIFICADA`
+- Título (h3, 22-26px): `Cada panel Sunway Tech cumple los estándares globales.`
+- Sub (14-15px, muted): breve resumen basado en el copy que enviaste (IEC + ISO + CE + TÜV + UL + INMETRO).
+
+### 5. Fuera de alcance
+
+- No se toca Team, Testimonios, Cotizador, Journey ni CTA.
+- No se cambia el CTA `Conoce Sunway Tech ↗`, solo se mueve al final del bloque unificado.
 
 ## Verificación
 
 - `bun run build` limpio.
-- Screenshot Playwright en `/` con scroll hasta la sección tecnología: debe mostrar eyebrow "ALIANZA OFICIAL", título "Distribuidor oficial de Sunway Tech en Panamá.", 3 cards con imágenes de producto y chips.
-- Link externo abre `sunwaytech.es` en nueva pestaña.
+- Screenshot Playwright de la sección: eyebrow "ALIANZA OFICIAL" → título Sunway → 3 cards de producto → sub-eyebrow "TECNOLOGÍA CERTIFICADA" → 6 logos reales (TÜV, IEC, CE, ISO, UL, INMETRO) → CTA externo.
+- Confirmar que NO quedan las 11 cajas tipográficas eliminadas.
