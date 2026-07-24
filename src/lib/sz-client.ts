@@ -84,9 +84,16 @@ export function initSzInteractivity() {
         if (e.isIntersecting) kick(e.target as HTMLVideoElement);
       }
     },
-    { rootMargin: "200px 0px", threshold: 0 }
+    // Warm up a full viewport before the video enters so it has time to
+    // reach readyState >= 2 before the user sees the card.
+    { rootMargin: "60% 0px", threshold: 0 }
   );
-  lazyVideos.forEach((v) => videoIo.observe(v));
+  lazyVideos.forEach((v, i) => {
+    videoIo.observe(v);
+    // Aggressively kick the first two lazy videos (act2 house + act3 business)
+    // on hydration — they're within one screen at typical viewport heights.
+    if (i < 2) kick(v);
+  });
 
   // -- Nav background fade ---------------------------------------------------
   const nav = document.querySelector<HTMLElement>(".sz-nav");
