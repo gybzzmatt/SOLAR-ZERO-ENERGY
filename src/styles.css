@@ -322,7 +322,7 @@
   flex: 0 1 auto;
 }
 .sz-sitenav__logo {
-  height: 32px;
+  height: 28px;
   width: auto;
   display: block;
   flex-shrink: 0;
@@ -370,7 +370,7 @@
 }
 @media (max-width: 720px) {
   .sz-sitenav { padding: 5px 6px 5px 12px; gap: 10px; top: 8px; width: calc(100vw - 16px); }
-  .sz-sitenav__logo { height: 28px; }
+  .sz-sitenav__logo { height: 24px; }
   .sz-sitenav__nav .sz-sitenav__link { display: none; }
   .sz-sitenav__nav { gap: 8px; }
   .sz-sitenav__cta { padding: 8px 14px; font-size: 13px; }
