@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Solar Zero — Apaga tu factura | Paneles solares en Panamá" },
+      { title: "Solar Zero - Apaga tu factura | Paneles solares en Panamá" },
       {
         name: "description",
         content:
@@ -86,6 +86,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Solar Zero" },
       { property: "og:locale", content: "es_PA" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Solar Zero - Apaga tu factura | Paneles solares en Panamá" },
+      { name: "twitter:title", content: "Solar Zero - Apaga tu factura | Paneles solares en Panamá" },
+      { property: "og:description", content: "Apaga tu factura eléctrica. Diseñamos, instalamos y financiamos sistemas solares en Panamá bajo Ley 37/2013 y net metering." },
+      { name: "twitter:description", content: "Apaga tu factura eléctrica. Diseñamos, instalamos y financiamos sistemas solares en Panamá bajo Ley 37/2013 y net metering." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/144829f8-3041-4bf3-978b-1300e787f322" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/144829f8-3041-4bf3-978b-1300e787f322" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
