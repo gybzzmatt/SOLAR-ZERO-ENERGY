@@ -227,30 +227,33 @@
   transition: stroke-dashoffset 0.15s linear;
 }
 
-/* Hero wordmark logo — white halo glow (dimmed) */
+/* Hero wordmark logo — brand glow (orange + warm halo) */
 .sz-page .sz-hero-wordmark {
   filter:
-    drop-shadow(0 0 10px rgba(255, 255, 255, 0.28))
-    drop-shadow(0 0 28px rgba(255, 255, 255, 0.18))
-    drop-shadow(0 0 64px rgba(255, 255, 255, 0.10))
-    drop-shadow(0 10px 30px rgba(0, 0, 0, 0.22));
+    drop-shadow(0 0 10px rgba(255, 122, 46, 0.55))
+    drop-shadow(0 0 28px rgba(255, 164, 92, 0.42))
+    drop-shadow(0 0 64px rgba(255, 122, 46, 0.28))
+    drop-shadow(0 0 110px rgba(255, 195, 120, 0.16))
+    drop-shadow(0 10px 30px rgba(0, 0, 0, 0.30));
   animation: szLogoPulse 4.8s ease-in-out infinite;
   will-change: filter, transform;
 }
 @keyframes szLogoPulse {
   0%, 100% {
     filter:
-      drop-shadow(0 0 8px rgba(255, 255, 255, 0.22))
-      drop-shadow(0 0 24px rgba(255, 255, 255, 0.14))
-      drop-shadow(0 0 52px rgba(255, 255, 255, 0.08))
-      drop-shadow(0 10px 30px rgba(0, 0, 0, 0.20));
+      drop-shadow(0 0 10px rgba(255, 122, 46, 0.48))
+      drop-shadow(0 0 26px rgba(255, 164, 92, 0.34))
+      drop-shadow(0 0 58px rgba(255, 122, 46, 0.22))
+      drop-shadow(0 0 100px rgba(255, 195, 120, 0.12))
+      drop-shadow(0 10px 30px rgba(0, 0, 0, 0.28));
   }
   50% {
     filter:
-      drop-shadow(0 0 12px rgba(255, 255, 255, 0.32))
-      drop-shadow(0 0 38px rgba(255, 255, 255, 0.20))
-      drop-shadow(0 0 80px rgba(255, 255, 255, 0.12))
-      drop-shadow(0 10px 34px rgba(0, 0, 0, 0.22));
+      drop-shadow(0 0 14px rgba(255, 122, 46, 0.72))
+      drop-shadow(0 0 40px rgba(255, 164, 92, 0.58))
+      drop-shadow(0 0 90px rgba(255, 122, 46, 0.40))
+      drop-shadow(0 0 150px rgba(255, 195, 120, 0.24))
+      drop-shadow(0 10px 34px rgba(0, 0, 0, 0.32));
   }
 }
 @media (prefers-reduced-motion: reduce) {
