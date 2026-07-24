@@ -47,13 +47,19 @@ export function initSzInteractivity() {
   document.querySelectorAll(".sz-reveal").forEach((el) => io.observe(el));
 
   // -- Hero videos: force muted autoplay after hydration -------------------
-  document
-    .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
-    .forEach((v) => {
+  const heroVideos = Array.from(
+    document.querySelectorAll<HTMLVideoElement>(
+      ".sz-hero-bgwide, .sz-hero-bgmacro"
+    )
+  );
+  const resumeHeroVideos = () => {
+    heroVideos.forEach((v) => {
       v.muted = true;
       v.playsInline = true;
       v.play().catch(() => {});
     });
+  };
+  resumeHeroVideos();
 
   // -- Autoplay act videos (paneles + entorno). They're muted + loop, so
   //    the browser allows autoplay; we just need to nudge them after hydration
@@ -169,11 +175,14 @@ export function initSzInteractivity() {
       const rect = hero.getBoundingClientRect();
       const total = Math.max(1, rect.height - vh);
       const p = clamp(-rect.top / total);
-      const bgP = smoothstep(0.08, 0.38, p);
+      // Make the macro/climate shot the immediate next beat after the opening
+      // frame. It reaches full visibility within the first fifth of travel,
+      // then holds long enough that a normal wheel gesture cannot skip it.
+      const bgP = smoothstep(0.03, 0.18, p);
       const exit = smoothstep(0.92, 1.0, p);
-      const copy1 = 1 - smoothstep(0.08, 0.30, p);
-      const copy2 = smoothstep(0.38, 0.55, p) * (1 - exit);
-      const card = smoothstep(0.55, 0.72, p) * (1 - exit);
+      const copy1 = 1 - smoothstep(0.03, 0.14, p);
+      const copy2 = smoothstep(0.1, 0.2, p) * (1 - exit);
+      const card = smoothstep(0.2, 0.3, p) * (1 - exit);
       writeVar(hero, "--sz-bgwide-opacity", 1 - bgP);
       writeVar(hero, "--sz-bgmacro-opacity", bgP);
       writeVar(hero, "--sz-copy1-opacity", copy1);
@@ -206,6 +215,9 @@ export function initSzInteractivity() {
   };
 
   const onScroll = () => {
+    // A real scroll gesture is also a user interaction, so use it to resume
+    // hero media if the browser paused autoplay while the tab was inactive.
+    if (heroVideos.some((video) => video.paused)) resumeHeroVideos();
     if (scheduled) return;
     scheduled = true;
     requestAnimationFrame(tick);
