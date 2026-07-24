@@ -301,11 +301,11 @@
   transform: translateX(-50%);
   width: min(1180px, calc(100vw - 24px));
   z-index: 100;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
-  padding: 6px 8px 6px 14px;
+  padding: 6px 8px;
   background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 55%, rgba(10,14,26,0.35) 100%);
   backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255,255,255,0.14);
@@ -313,34 +313,13 @@
   box-shadow: 0 10px 40px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05);
   font-family: "Space Grotesk", sans-serif;
 }
-.sz-sitenav__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  min-width: 0;
-  flex: 0 1 auto;
-}
-.sz-sitenav__logo {
-  height: 28px;
-  width: auto;
-  display: block;
-  flex-shrink: 0;
-}
-.sz-sitenav__eyebrow {
-  font-family: "Space Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  color: #FFA45C;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
 .sz-sitenav__nav {
+  grid-column: 2;
+  justify-self: center;
   display: flex;
   align-items: center;
   gap: 22px;
   font-size: 14px;
-  flex: 0 0 auto;
 }
 .sz-sitenav__link {
   color: #E4E9F2;
@@ -349,6 +328,8 @@
   white-space: nowrap;
 }
 .sz-sitenav__cta {
+  grid-column: 3;
+  justify-self: end;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -365,18 +346,16 @@
 .sz-sitenav__cta-short { display: none; }
 
 @media (max-width: 960px) {
-  .sz-sitenav__eyebrow { display: none; }
-  .sz-sitenav__nav { gap: 16px; }
+  .sz-sitenav__nav { gap: 14px; font-size: 13px; }
 }
 @media (max-width: 720px) {
-  .sz-sitenav { padding: 5px 6px 5px 12px; gap: 10px; top: 8px; width: calc(100vw - 16px); }
-  .sz-sitenav__logo { height: 24px; }
-  .sz-sitenav__nav .sz-sitenav__link { display: none; }
-  .sz-sitenav__nav { gap: 8px; }
-  .sz-sitenav__cta { padding: 8px 14px; font-size: 13px; }
+  .sz-sitenav { padding: 5px 6px; gap: 10px; top: 8px; width: calc(100vw - 16px); grid-template-columns: 1fr auto; }
+  .sz-sitenav__nav { display: none; }
+  .sz-sitenav__cta { grid-column: 2; padding: 8px 14px; font-size: 13px; }
   .sz-sitenav__cta-full { display: none; }
   .sz-sitenav__cta-short { display: inline; }
 }
+
 
 
 /* ─────────────────────────────────────────────────────────
