@@ -2,6 +2,41 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Brand fonts — Barlow Condensed (display) + DM Sans (body).
+   Loaded locally via @fontsource so we can alias the site's
+   original font-family names without touching inline styles. */
+@import "@fontsource/barlow-condensed/400.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/barlow-condensed/800.css";
+@import "@fontsource/barlow-condensed/900.css";
+@import "@fontsource-variable/dm-sans";
+
+/* Alias legacy font-family names used throughout inline styles
+   so that "Space Grotesk" / "Space Mono" render as Barlow Condensed,
+   and "Inter" renders as DM Sans. Non-breaking swap. */
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: local("Barlow Condensed");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: local("Barlow Condensed");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: local("DM Sans"), local("DM Sans Variable");
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
