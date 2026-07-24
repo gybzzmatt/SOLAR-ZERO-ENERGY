@@ -1,45 +1,66 @@
-## Objetivo
+## Goal
 
-Pulir la **fase 2 del hero** (`.sz-hero-copy2` + `.sz-hero-bgmacro` + `.sz-herocard`) para que, cuando el usuario haga scroll, la sección se vea exactamente como el screenshot de referencia:
+Retune the scroll orchestration so the hero + journey feel physically linked to scroll speed, and the wide → macro phase transition plus the residencial/empresarial/granjas videos read in sequence without popping or skipping.
 
-- Video macro de celdas (`hero-macro-v2.mp4`) claramente visible como fondo, no apagado.
-- Eyebrow naranja "EL VIAJE DE TU ENERGÍA" en Space Mono.
-- Titular blanco "El sol de Panamá ya paga facturas." en dos líneas equilibradas.
-- Subhead gris claro con el copy actual.
-- Tarjeta "Ahorro comprobado / Reduce tu factura hasta 90% / Calcula tu Ahorro →" abajo a la derecha.
+## Root causes (from `src/lib/sz-client.ts` + `src/content/home-pre.html`)
 
-Se **mantiene** la fase 1 ("Energía que trabaja para ti") y la transición por scroll ya existente.
+1. **Hero timeline is bunched into the first ~50% of scroll.** In `tick()`, `bgP = smoothstep(0.12, 0.45, p)` finishes the wide→macro fade before p=0.45, `copy1` fades out by 0.30, and `copy2/card` are done animating by 0.60. The remaining 40% of the 250vh hero has nothing happening — that's the "static then jump" feel; the eye reads it as a skipped phase.
+2. **Copy 2 exits at 0.78–0.92, but the hero unpins at 1.0.** Between 0.92 and 1.0 the sticky is still holding the viewport with an empty macro shot, then the page suddenly releases into act2 with the orange line already partially drawn. That's the abrupt hero→journey handoff.
+3. **Journey path progress isn't tied to the section's own scroll travel.** `p = clamp((vh - r.top) / (vh + r.height*0.4))` starts drawing as soon as the section's top enters the viewport and finishes well before the section is centered, so the orange line completes before the video below it is on screen — the video appears to "pop in" after the line is already done.
+4. **Lazy videos only get `.play()` nudged on intersect at `rootMargin: 200px`.** On a fast scroll the section is already fully in view before `loadeddata` resolves, so the poster shows for a beat and the video "appears" late. Needs an earlier warm-up + a paused-frame fallback.
+5. **No scroll rate limiting.** `tick()` runs every rAF regardless of whether `scrollY` changed, but the bigger issue is that on trackpads with momentum, browsers fire scroll events in bursts — the current handler is fine, but the timeline math amplifies small p deltas into visible jumps because the smoothstep bands are narrow (0.12→0.45 is only 33% of scroll).
 
-## Cambios
+## Changes
 
-Solo se toca `src/content/home-pre.html` (sección `#inicio`, líneas 19-56) y, si hace falta, la lógica de opacidades en `src/lib/sz-client.ts`.
+### 1. Rebalance hero phase bands (`src/lib/sz-client.ts`, `tick()` hero block)
 
-1. **Video macro más visible en fase 2**
-   - Bajar el `brightness` de `.sz-hero-bgmacro` de `0.62` a `0.72` y reducir el `scale` de `1.16` a `1.08` para que se lea como el screenshot.
-   - Ajustar el gradiente del `.sz-hero-scrim` para que su tramo central (42%-68%) sea más translúcido (`0.35` en vez de `0.5-0.55`), dejando pasar el video macro.
+Spread the phases across the full 250vh so scroll distance ≈ visual progress:
 
-2. **Copy fase 2 centrado como en el screenshot**
-   - En `.sz-hero-copy2`: quitar el `padding-bottom` grande (`clamp(180px, 26vh, 300px)`) que hoy empuja el texto hacia arriba; centrarlo verticalmente con `justify-content: center` y un pequeño offset superior para dejar espacio a la nav.
-   - Confirmar el salto de línea "El sol de Panamá / ya paga facturas." (ya está con `<br />`).
-   - `text-wrap: balance` ya aplicado; sin cambios de copy.
+```text
+p range     what happens
+0.00–0.08   copy1 fully visible, wide video only          (breathing room at top)
+0.08–0.38   copy1 fades out, wide → macro cross-fade      (matches scroll)
+0.38–0.55   copy2 fades in                                 (dwell on macro alone briefly)
+0.55–0.72   card fades in                                  (Ahorro comprobado)
+0.72–0.92   copy2 + card hold on screen                    (readable dwell)
+0.92–1.00   copy2 + card fade out just before unpin        (clean handoff)
+```
 
-3. **Tarjeta "Ahorro comprobado" alineada con la referencia**
-   - Reforzar contraste: subir el `background` de `rgba(19, 27, 46, 0.55)` a `0.72` y aumentar el `border` a `rgba(168, 178, 196, 0.22)`.
-   - Confirmar posición inferior-derecha con `right: clamp(20px, 4vw, 56px); bottom: clamp(90px, 14vh, 140px);` (ya cumple).
+Concretely: `bgP = smoothstep(0.08, 0.38, p)`, `copy1 = 1 - smoothstep(0.08, 0.30, p)`, `copy2 = smoothstep(0.38, 0.55, p) * (1 - smoothstep(0.92, 1.0, p))`, `card = smoothstep(0.55, 0.72, p) * (1 - smoothstep(0.92, 1.0, p))`.
 
-4. **Curva de opacidades en `sz-client.ts`**
-   - Ajustar las funciones `smoothstep` para que en el rango de scroll ~55%-70% la fase 2 quede plenamente visible (`copy2 = 1`, `bgmacro = 1`, `card = 1`) durante un tramo antes de continuar al journey, de modo que el estado del screenshot exista como un frame estable y no solo como transición.
-   - Ampliar el rango del video macro (`bgP`) para que llegue a 1 antes (edge0 0.15 → 0.12, edge1 0.55 → 0.45).
+### 2. Tie journey paths to their section's own travel (`src/lib/sz-client.ts`)
 
-## Fuera de alcance
+Replace the current `p` formula with a section-relative one that starts drawing when the section top hits ~85% of viewport and completes when the section is ~40% scrolled past its own top — so the line "draws down into" the video and reaches full opacity right as the video card is centered:
 
-- No se elimina ni reordena la fase 1.
-- No se toca copy, ni CTAs, ni assets.
-- No se tocan actos 2/3/4 ni el cotizador.
+```text
+p = smoothstep(vh * 0.85, vh * 0.15, r.top)   // 0 when top is low, 1 when top is high
+```
 
-## Verificación
+Add a tiny CSS transition (`stroke-dashoffset .12s linear`) already exists — bump to `.18s ease-out` so bursty scroll events smooth into a continuous draw instead of stepping.
 
-- `bun run build` limpio.
-- Screenshot con Playwright a ~1.6× la altura del viewport de scroll en `/`: debe mostrar el estado idéntico al screenshot de referencia (video macro visible, eyebrow naranja, título en 2 líneas, subhead, tarjeta abajo-derecha).
-- Fase 1 sigue intacta al cargar la página (`scrollY = 0`).
-- La transición al Acto 2 (Residencial) sigue funcionando: al pasar el rango estable, la fase 2 se desvanece y aparece el journey con la corriente naranja.
+### 3. Warm up lazy videos earlier (`src/lib/sz-client.ts`)
+
+- Widen the intersection `rootMargin` from `200px 0px` to `60% 0px` so the video is loading a full viewport before it's on screen.
+- Kick the first two lazy videos (`act2-house`, `act3-business`) on hydration regardless of intersection, since they're within one screen of the hero at any typical viewport height.
+- If `readyState < 2` when the section enters viewport, keep the poster visible (already there) and add `opacity: 0` on the video with a fade-in when `loadeddata` fires — prevents the "black frame then video pops" flash.
+
+### 4. Smoother hero → act2 handoff (`src/content/home-pre.html` + `src/styles.css`)
+
+- Reduce hero height from `250vh` to `220vh` — the extra 30vh was where the dead zone lived; with the retimed bands the sequence now fills 220vh cleanly.
+- Add a short overlap: the top ~40px of `#residencial` gets `margin-top: -40px` and a linear-gradient mask so the section blends into the hero background instead of a hard edge; the orange path 2 SVG already extends above the section via `overflow: hidden` on its wrapper — verify `overflow: visible` on the SVG container so the top of the curve isn't clipped during the handoff.
+
+### 5. Rate-limit + guard against no-op frames (`src/lib/sz-client.ts`)
+
+Track `lastY` and early-exit `tick()` when `Math.abs(y - lastY) < 0.5 && !resized`. Prevents style thrash on trackpad micro-jitter and keeps the write path clean for real scroll.
+
+## Verification
+
+- `bun run build` to catch syntax regressions.
+- Manual: scroll the hero slowly on desktop — copy1 → cross-fade → copy2 → card should each take a visible portion of scroll, no dead plateau, and the last frame before act2 shows the card fading out (not popping).
+- Manual: scroll fast — orange path 2 should draw as the residencial video enters, not before; act3 and act4 same.
+- Mobile check at 375px: hero height reflow to `min(220vh, 200vh)` via existing media query stays intact.
+
+## Out of scope
+
+- No new video assets (user confirmed: retime existing).
+- No changes to `Cotizador`, `SiteNav` liquid-glass, or telemetry.
