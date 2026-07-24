@@ -297,51 +297,56 @@
 .sz-sitenav {
   position: fixed;
   top: 12px;
-  left: clamp(10px, 3vw, 28px);
-  right: clamp(10px, 3vw, 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1180px, calc(100vw - 24px));
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px clamp(14px, 3.5vw, 32px);
+  gap: 16px;
+  padding: 8px 10px 8px 18px;
   background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 55%, rgba(10,14,26,0.35) 100%);
   backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 18px;
+  border-radius: 999px;
   box-shadow: 0 10px 40px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05);
   font-family: "Space Grotesk", sans-serif;
 }
 .sz-sitenav__brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-decoration: none;
   min-width: 0;
+  flex: 0 1 auto;
 }
 .sz-sitenav__logo {
-  height: 56px;
+  height: 40px;
   width: auto;
   display: block;
+  flex-shrink: 0;
 }
 .sz-sitenav__eyebrow {
   font-family: "Space Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.28em;
   color: #FFA45C;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .sz-sitenav__nav {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 22px;
   font-size: 14px;
+  flex: 0 0 auto;
 }
 .sz-sitenav__link {
   color: #E4E9F2;
   text-decoration: none;
   font-weight: 500;
+  white-space: nowrap;
 }
 .sz-sitenav__cta {
   display: inline-flex;
@@ -350,27 +355,29 @@
   background: #FF7A2E;
   color: #0A0E1A;
   font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 9px 18px;
+  border-radius: 999px;
   text-decoration: none;
   box-shadow: 0 0 24px rgba(255, 122, 46, 0.28);
   white-space: nowrap;
+  font-size: 14px;
 }
 .sz-sitenav__cta-short { display: none; }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .sz-sitenav__eyebrow { display: none; }
-  .sz-sitenav__nav { gap: 18px; }
+  .sz-sitenav__nav { gap: 16px; }
 }
 @media (max-width: 720px) {
-  .sz-sitenav { padding: 8px 14px; gap: 8px; top: 8px; }
-  .sz-sitenav__logo { height: 40px; }
+  .sz-sitenav { padding: 6px 8px 6px 14px; gap: 10px; top: 8px; width: calc(100vw - 16px); }
+  .sz-sitenav__logo { height: 34px; }
   .sz-sitenav__nav .sz-sitenav__link { display: none; }
   .sz-sitenav__nav { gap: 8px; }
-  .sz-sitenav__cta { padding: 9px 14px; font-size: 13px; }
+  .sz-sitenav__cta { padding: 8px 14px; font-size: 13px; }
   .sz-sitenav__cta-full { display: none; }
   .sz-sitenav__cta-short { display: inline; }
 }
+
 
 /* ─────────────────────────────────────────────────────────
    Responsive polish for ported HTML (scoped to .sz-page)
