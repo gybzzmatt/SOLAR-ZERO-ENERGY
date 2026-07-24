@@ -108,7 +108,7 @@ export function Cotizador() {
 
   const label: React.CSSProperties = {
     display: "block",
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Barlow Condensed', sans-serif",
     fontSize: 11,
     letterSpacing: "0.16em",
     textTransform: "uppercase",
@@ -130,7 +130,7 @@ export function Cotizador() {
         <div className="sz-reveal" style={{ textAlign: "center", marginBottom: 48 }}>
           <p
             style={{
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "'Barlow Condensed', sans-serif",
               fontSize: 12,
               letterSpacing: "0.28em",
               color: "#FF7A2E",
@@ -142,7 +142,7 @@ export function Cotizador() {
           </p>
           <h2
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Barlow Condensed', sans-serif",
               fontSize: "clamp(34px, 4.4vw, 56px)",
               fontWeight: 600,
               letterSpacing: "-0.02em",
@@ -171,7 +171,7 @@ export function Cotizador() {
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
             <span
               style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', sans-serif",
                 fontSize: 12,
                 letterSpacing: "0.16em",
                 color: "#5B6880",
@@ -181,7 +181,7 @@ export function Cotizador() {
             </span>
             <span
               style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', sans-serif",
                 fontSize: 12,
                 letterSpacing: "0.16em",
                 color: "#FFA45C",
@@ -228,7 +228,7 @@ export function Cotizador() {
                   <span style={{ fontSize: 26, display: "block", marginBottom: 12 }}>{s.icon}</span>
                   <span
                     style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontFamily: "'Barlow Condensed', sans-serif",
                       fontWeight: 600,
                       fontSize: 15.5,
                       display: "block",
@@ -333,7 +333,7 @@ export function Cotizador() {
                   <p style={{ fontSize: 40, margin: "0 0 12px" }}>☀️</p>
                   <h3
                     style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontFamily: "'Barlow Condensed', sans-serif",
                       fontSize: 26,
                       color: "#FFFFFF",
                       margin: "0 0 12px",
@@ -350,7 +350,7 @@ export function Cotizador() {
                   <p style={{ fontSize: 40, margin: "0 0 12px" }}>⚠️</p>
                   <h3
                     style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontFamily: "'Barlow Condensed', sans-serif",
                       fontSize: 22,
                       color: "#FFFFFF",
                       margin: "0 0 12px",
@@ -380,7 +380,7 @@ export function Cotizador() {
                   background: "transparent",
                   border: "1px solid #2A3550",
                   color: step === 0 ? "#3A4560" : "#A8B2C4",
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Barlow Condensed', sans-serif",
                   fontWeight: 500,
                   fontSize: 14,
                   padding: "14px 22px",
@@ -398,7 +398,7 @@ export function Cotizador() {
                   background: !canNext() ? "#5B4A3A" : "#FF7A2E",
                   border: "none",
                   color: "#0A0E1A",
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Barlow Condensed', sans-serif",
                   fontWeight: 600,
                   fontSize: 15,
                   padding: "14px 30px",
@@ -425,7 +425,7 @@ export function Cotizador() {
         >
           <p
             style={{
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "'Barlow Condensed', sans-serif",
               fontSize: 12,
               letterSpacing: "0.3em",
               color: "#FFA45C",
@@ -437,7 +437,7 @@ export function Cotizador() {
           </p>
           <h2
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Barlow Condensed', sans-serif",
               fontSize: "clamp(32px, 4.5vw, 56px)",
               fontWeight: 700,
               letterSpacing: "-0.02em",
@@ -464,7 +464,7 @@ export function Cotizador() {
                 gap: 10,
                 background: "#FF7A2E",
                 color: "#0A0E1A",
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Barlow Condensed', sans-serif",
                 fontWeight: 600,
                 fontSize: 16.5,
                 padding: "17px 36px",
