@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import logo from "../assets/solarzero-logo-v2.webp.asset.json";
 
 export const AGENDAR_URL = "#cotizador"; // TODO: replace with real Calendly URL when provided
 
@@ -7,15 +6,6 @@ export function SiteNav() {
   return (
     <header className="sz-sitenav">
       <Link to="/" className="sz-sitenav__brand">
-        <img
-          src={logo.url}
-          alt="Solar Zero — Tu aliado en energía solar"
-          className="sz-sitenav__logo"
-          width={168}
-          height={56}
-          fetchPriority="high"
-          decoding="async"
-        />
         <span className="sz-sitenav__eyebrow">Apaga tu factura</span>
       </Link>
 
