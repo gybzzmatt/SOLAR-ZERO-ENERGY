@@ -28,7 +28,7 @@ export function SiteNav() {
       }}
     >
       <Link to="/" style={{ display: "flex", alignItems: "center", gap: 14, textDecoration: "none" }}>
-        <img src={logo.url} alt="Solar Zero — Tu aliado en energía solar" style={{ height: 56, width: "auto", display: "block" }} />
+        <img src={logo.url} alt="Solar Zero — Tu aliado en energía solar" className="sz-hero-wordmark" style={{ height: 56, width: "auto", display: "block" }} />
         <span
           style={{
             fontFamily: "'Space Mono', monospace",
