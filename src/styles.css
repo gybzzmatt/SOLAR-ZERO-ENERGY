@@ -195,28 +195,40 @@
 }
 
 /* Hero phase transition — variables set by initSzInteractivity() on .sz-hero.
-   Fallbacks keep the section readable even before JS runs. */
+   Short transitions + will-change keep scroll cross-fades on the GPU so the
+   plateau feels instant instead of laggy. */
 .sz-page .sz-hero-bgwide {
   opacity: var(--sz-bgwide-opacity, 1) !important;
-  transition: opacity 0.25s linear;
+  transition: opacity 0.12s linear;
+  will-change: opacity;
+  transform: translateZ(0) scale(1.08);
+  backface-visibility: hidden;
 }
 .sz-page .sz-hero-bgmacro {
   opacity: var(--sz-bgmacro-opacity, 0) !important;
-  transition: opacity 0.25s linear;
+  transition: opacity 0.12s linear;
+  will-change: opacity;
+  transform: translateZ(0) scale(1.08);
+  backface-visibility: hidden;
 }
 .sz-page .sz-hero-copy {
   opacity: var(--sz-copy1-opacity, 1) !important;
-  transition: opacity 0.25s linear;
+  transition: opacity 0.14s linear;
+  will-change: opacity;
 }
 .sz-page .sz-hero-copy2 {
   opacity: var(--sz-copy2-opacity, 0) !important;
   pointer-events: var(--sz-copy2-pe, none);
-  transition: opacity 0.25s linear;
+  transition: opacity 0.14s linear;
+  will-change: opacity;
 }
 .sz-page .sz-herocard {
   opacity: var(--sz-card-opacity, 0) !important;
   pointer-events: var(--sz-card-pe, none);
-  transition: opacity 0.25s linear;
+  transition:
+    opacity 0.14s linear,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 /* Orange journey paths animate their stroke-dashoffset via JS.
@@ -224,7 +236,48 @@
 .sz-page .sz-path2,
 .sz-page .sz-path3,
 .sz-page .sz-path4 {
-  transition: stroke-dashoffset 0.15s linear;
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+/* Responsive hero — tablet & mobile */
+@media (max-width: 900px) {
+  .sz-page .sz-hero {
+    height: 220vh !important;
+  }
+  .sz-page .sz-hero-copy {
+    padding: 96px clamp(20px, 6vw, 40px) 0 !important;
+  }
+  .sz-page .sz-hero-copy2 {
+    padding: 72px clamp(20px, 6vw, 40px) 0 !important;
+  }
+  .sz-page .sz-herocard {
+    right: 16px !important;
+    left: auto !important;
+    bottom: 84px !important;
+    width: min(320px, calc(100vw - 32px)) !important;
+    min-width: 0 !important;
+  }
+}
+@media (max-width: 600px) {
+  .sz-page .sz-hero {
+    height: 200vh !important;
+  }
+  .sz-page .sz-hero-copy {
+    padding-top: 88px !important;
+  }
+  .sz-page .sz-herocard {
+    padding: 16px !important;
+    bottom: 68px !important;
+    width: calc(100vw - 32px) !important;
+    left: 16px !important;
+    right: 16px !important;
+  }
+  .sz-page .sz-scrollhint {
+    bottom: 14px !important;
+  }
+  .sz-page .sz-hero-wordmark {
+    width: min(560px, 84vw) !important;
+  }
 }
 
 /* Hero wordmark logo — brand glow (orange + warm halo) */
@@ -258,4 +311,15 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .sz-page .sz-hero-wordmark { animation: none; }
+}
+/* Mobile: shed the heavy pulsing filter to keep scroll at 60fps */
+@media (max-width: 700px) {
+  .sz-page .sz-hero-wordmark {
+    animation: none;
+    filter:
+      drop-shadow(0 0 8px rgba(255, 122, 46, 0.5))
+      drop-shadow(0 0 22px rgba(255, 164, 92, 0.35))
+      drop-shadow(0 8px 22px rgba(0, 0, 0, 0.28));
+    will-change: auto;
+  }
 }
