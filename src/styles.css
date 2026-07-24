@@ -1,3 +1,4 @@
+@import "./assets/fonts.css";
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -147,7 +148,7 @@
 .sz-page {
   background: #0a0e1a;
   color: #a8b2c4;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
   min-height: 100vh;
