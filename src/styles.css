@@ -389,6 +389,9 @@
 .sz-page *::before,
 .sz-page *::after { box-sizing: border-box; }
 
+/* Legacy .sz-nav from ported HTML is replaced by SiteNav — hide at all sizes */
+.sz-page .sz-nav { display: none !important; }
+
 /* Tablet */
 @media (max-width: 1024px) {
   .sz-page section { padding-left: clamp(16px, 4vw, 40px) !important; padding-right: clamp(16px, 4vw, 40px) !important; }
@@ -396,8 +399,8 @@
 
 /* Small tablet / large phone */
 @media (max-width: 768px) {
-  /* Legacy .sz-nav from ported HTML is replaced by SiteNav — hide it */
-  .sz-page .sz-nav { display: none !important; }
+
+
 
 
   /* Hero */
