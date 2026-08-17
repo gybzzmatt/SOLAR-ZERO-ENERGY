@@ -207,10 +207,12 @@
 <section class="sz-trust" style="position: relative; background: #131B2E; border-radius: 48px 48px 0 0; padding: clamp(80px, 12vh, 140px) clamp(20px, 5vw, 72px) clamp(70px, 10vh, 120px); overflow: hidden;">
   <div class="sz-flowend" aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 100%; height: clamp(56px, 9vh, 104px); pointer-events: none; z-index: 1;">
     <svg viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%;">
-      <linearGradient id="szGradB" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#FF7A2E" />
-        <stop offset="1" stop-color="#FFA45C" />
-      </linearGradient>
+      <defs>
+        <linearGradient id="szGradB" gradientUnits="userSpaceOnUse" x1="500" y1="0" x2="500" y2="120">
+          <stop offset="0" stop-color="#FF7A2E" />
+          <stop offset="1" stop-color="#FFB877" />
+        </linearGradient>
+      </defs>
       <path class="sz-path5" d="M 500 0 L 500 120" pathLength="1" fill="none" stroke="url(#szGradB)" stroke-width="2.5" stroke-linecap="round" style="filter: drop-shadow(0 0 6px rgba(255, 122, 46, 0.9)); stroke-dasharray: 1; stroke-dashoffset: 1;"></path>
       <path d="M 500 0 L 500 120" pathLength="1" fill="none" stroke="rgba(255, 255, 255, 0.85)" stroke-width="1" stroke-linecap="round" style="stroke-dasharray: 0.04 0.2; animation: szFlow 2.6s linear infinite; opacity: 0.5;"></path>
     </svg>
