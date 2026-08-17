@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ElectricoIndexRouteImport } from './routes/electrico.index'
 import { Route as ElectricoSintomasRouteImport } from './routes/electrico.sintomas'
 import { Route as ElectricoRevisionRouteImport } from './routes/electrico.revision'
+import { Route as ElectricoPreguntasFrecuentesRouteImport } from './routes/electrico.preguntas-frecuentes'
 import { Route as ElectricoPreciosRouteImport } from './routes/electrico.precios'
 import { Route as ElectricoEmpresasPhRouteImport } from './routes/electrico.empresas-ph'
 import { Route as ElectricoEmergenciaRouteImport } from './routes/electrico.emergencia'
@@ -56,6 +57,12 @@ const ElectricoRevisionRoute = ElectricoRevisionRouteImport.update({
   path: '/revision',
   getParentRoute: () => ElectricoRoute,
 } as any)
+const ElectricoPreguntasFrecuentesRoute =
+  ElectricoPreguntasFrecuentesRouteImport.update({
+    id: '/preguntas-frecuentes',
+    path: '/preguntas-frecuentes',
+    getParentRoute: () => ElectricoRoute,
+  } as any)
 const ElectricoPreciosRoute = ElectricoPreciosRouteImport.update({
   id: '/precios',
   path: '/precios',
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/electrico/emergencia': typeof ElectricoEmergenciaRoute
   '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
   '/electrico/precios': typeof ElectricoPreciosRoute
+  '/electrico/preguntas-frecuentes': typeof ElectricoPreguntasFrecuentesRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/sintomas': typeof ElectricoSintomasRoute
   '/electrico/': typeof ElectricoIndexRoute
@@ -97,6 +105,7 @@ export interface FileRoutesByTo {
   '/electrico/emergencia': typeof ElectricoEmergenciaRoute
   '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
   '/electrico/precios': typeof ElectricoPreciosRoute
+  '/electrico/preguntas-frecuentes': typeof ElectricoPreguntasFrecuentesRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/sintomas': typeof ElectricoSintomasRoute
   '/electrico': typeof ElectricoIndexRoute
@@ -111,6 +120,7 @@ export interface FileRoutesById {
   '/electrico/emergencia': typeof ElectricoEmergenciaRoute
   '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
   '/electrico/precios': typeof ElectricoPreciosRoute
+  '/electrico/preguntas-frecuentes': typeof ElectricoPreguntasFrecuentesRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/sintomas': typeof ElectricoSintomasRoute
   '/electrico/': typeof ElectricoIndexRoute
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/electrico/emergencia'
     | '/electrico/empresas-ph'
     | '/electrico/precios'
+    | '/electrico/preguntas-frecuentes'
     | '/electrico/revision'
     | '/electrico/sintomas'
     | '/electrico/'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/electrico/emergencia'
     | '/electrico/empresas-ph'
     | '/electrico/precios'
+    | '/electrico/preguntas-frecuentes'
     | '/electrico/revision'
     | '/electrico/sintomas'
     | '/electrico'
@@ -151,6 +163,7 @@ export interface FileRouteTypes {
     | '/electrico/emergencia'
     | '/electrico/empresas-ph'
     | '/electrico/precios'
+    | '/electrico/preguntas-frecuentes'
     | '/electrico/revision'
     | '/electrico/sintomas'
     | '/electrico/'
@@ -216,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ElectricoRevisionRouteImport
       parentRoute: typeof ElectricoRoute
     }
+    '/electrico/preguntas-frecuentes': {
+      id: '/electrico/preguntas-frecuentes'
+      path: '/preguntas-frecuentes'
+      fullPath: '/electrico/preguntas-frecuentes'
+      preLoaderRoute: typeof ElectricoPreguntasFrecuentesRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
     '/electrico/precios': {
       id: '/electrico/precios'
       path: '/precios'
@@ -251,6 +271,7 @@ interface ElectricoRouteChildren {
   ElectricoEmergenciaRoute: typeof ElectricoEmergenciaRoute
   ElectricoEmpresasPhRoute: typeof ElectricoEmpresasPhRoute
   ElectricoPreciosRoute: typeof ElectricoPreciosRoute
+  ElectricoPreguntasFrecuentesRoute: typeof ElectricoPreguntasFrecuentesRoute
   ElectricoRevisionRoute: typeof ElectricoRevisionRoute
   ElectricoSintomasRoute: typeof ElectricoSintomasRoute
   ElectricoIndexRoute: typeof ElectricoIndexRoute
@@ -260,6 +281,7 @@ const ElectricoRouteChildren: ElectricoRouteChildren = {
   ElectricoEmergenciaRoute: ElectricoEmergenciaRoute,
   ElectricoEmpresasPhRoute: ElectricoEmpresasPhRoute,
   ElectricoPreciosRoute: ElectricoPreciosRoute,
+  ElectricoPreguntasFrecuentesRoute: ElectricoPreguntasFrecuentesRoute,
   ElectricoRevisionRoute: ElectricoRevisionRoute,
   ElectricoSintomasRoute: ElectricoSintomasRoute,
   ElectricoIndexRoute: ElectricoIndexRoute,
