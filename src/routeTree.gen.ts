@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ElectricoIndexRouteImport } from './routes/electrico.index'
 import { Route as ElectricoSintomasRouteImport } from './routes/electrico.sintomas'
 import { Route as ElectricoRevisionRouteImport } from './routes/electrico.revision'
+import { Route as ElectricoEmpresasPhRouteImport } from './routes/electrico.empresas-ph'
 import { Route as ElectricoEmergenciaRouteImport } from './routes/electrico.emergencia'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 
@@ -54,6 +55,11 @@ const ElectricoRevisionRoute = ElectricoRevisionRouteImport.update({
   path: '/revision',
   getParentRoute: () => ElectricoRoute,
 } as any)
+const ElectricoEmpresasPhRoute = ElectricoEmpresasPhRouteImport.update({
+  id: '/empresas-ph',
+  path: '/empresas-ph',
+  getParentRoute: () => ElectricoRoute,
+} as any)
 const ElectricoEmergenciaRoute = ElectricoEmergenciaRouteImport.update({
   id: '/emergencia',
   path: '/emergencia',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/electrico': typeof ElectricoRouteWithChildren
   '/nosotros': typeof NosotrosRoute
   '/electrico/emergencia': typeof ElectricoEmergenciaRoute
+  '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/sintomas': typeof ElectricoSintomasRoute
   '/electrico/': typeof ElectricoIndexRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/nosotros': typeof NosotrosRoute
   '/electrico/emergencia': typeof ElectricoEmergenciaRoute
+  '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/sintomas': typeof ElectricoSintomasRoute
   '/electrico': typeof ElectricoIndexRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/electrico': typeof ElectricoRouteWithChildren
   '/nosotros': typeof NosotrosRoute
   '/electrico/emergencia': typeof ElectricoEmergenciaRoute
+  '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/sintomas': typeof ElectricoSintomasRoute
   '/electrico/': typeof ElectricoIndexRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/electrico'
     | '/nosotros'
     | '/electrico/emergencia'
+    | '/electrico/empresas-ph'
     | '/electrico/revision'
     | '/electrico/sintomas'
     | '/electrico/'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/nosotros'
     | '/electrico/emergencia'
+    | '/electrico/empresas-ph'
     | '/electrico/revision'
     | '/electrico/sintomas'
     | '/electrico'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/electrico'
     | '/nosotros'
     | '/electrico/emergencia'
+    | '/electrico/empresas-ph'
     | '/electrico/revision'
     | '/electrico/sintomas'
     | '/electrico/'
@@ -192,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ElectricoRevisionRouteImport
       parentRoute: typeof ElectricoRoute
     }
+    '/electrico/empresas-ph': {
+      id: '/electrico/empresas-ph'
+      path: '/empresas-ph'
+      fullPath: '/electrico/empresas-ph'
+      preLoaderRoute: typeof ElectricoEmpresasPhRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
     '/electrico/emergencia': {
       id: '/electrico/emergencia'
       path: '/emergencia'
@@ -211,6 +230,7 @@ declare module '@tanstack/react-router' {
 
 interface ElectricoRouteChildren {
   ElectricoEmergenciaRoute: typeof ElectricoEmergenciaRoute
+  ElectricoEmpresasPhRoute: typeof ElectricoEmpresasPhRoute
   ElectricoRevisionRoute: typeof ElectricoRevisionRoute
   ElectricoSintomasRoute: typeof ElectricoSintomasRoute
   ElectricoIndexRoute: typeof ElectricoIndexRoute
@@ -218,6 +238,7 @@ interface ElectricoRouteChildren {
 
 const ElectricoRouteChildren: ElectricoRouteChildren = {
   ElectricoEmergenciaRoute: ElectricoEmergenciaRoute,
+  ElectricoEmpresasPhRoute: ElectricoEmpresasPhRoute,
   ElectricoRevisionRoute: ElectricoRevisionRoute,
   ElectricoSintomasRoute: ElectricoSintomasRoute,
   ElectricoIndexRoute: ElectricoIndexRoute,
