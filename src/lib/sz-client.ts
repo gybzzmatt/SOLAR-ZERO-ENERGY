@@ -210,10 +210,15 @@ export function initSzInteractivity() {
     if (!prefersReducedMotion) {
       for (const { path, section } of pathTargets) {
         const r = section.getBoundingClientRect();
-        // Start drawing as section enters, complete near its center.
-        const p = clamp((vh - r.top) / (vh + r.height * 0.4));
+        const scoped = section.hasAttribute("data-sz-flowscope");
+        // Short scoped segments finish while still comfortably in view;
+        // full sections complete near their center.
+        const p = scoped
+          ? clamp((vh * 0.9 - r.top) / (vh * 0.35))
+          : clamp((vh - r.top) / (vh + r.height * 0.4));
         path.style.strokeDashoffset = String(1 - p);
       }
+
     }
   };
 
