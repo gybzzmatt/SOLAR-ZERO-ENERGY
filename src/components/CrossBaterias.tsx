@@ -1,6 +1,7 @@
 export function CrossBaterias() {
   return (
     <section
+      className="sz-cross"
       style={{
         background: "linear-gradient(180deg, #0A0E1A 0%, #131B2E 100%)",
         padding: "clamp(70px, 10vh, 110px) clamp(20px, 5vw, 72px)",
@@ -8,7 +9,7 @@ export function CrossBaterias() {
       }}
     >
       <div
-        className="sz-reveal"
+        className="sz-reveal sz-cross__grid"
         style={{
           maxWidth: 1080,
           margin: "0 auto",
@@ -18,6 +19,7 @@ export function CrossBaterias() {
           alignItems: "center",
         }}
       >
+
         <div>
           <p
             style={{
@@ -50,6 +52,7 @@ export function CrossBaterias() {
             estabilidad de precio, garantía de origen y respaldo local.
           </p>
           <a
+            className="sz-cross__cta"
             href="https://baterias507.com?utm_source=solarzero&utm_medium=cross&utm_campaign=alianza"
             target="_blank"
             rel="noopener"
@@ -72,6 +75,7 @@ export function CrossBaterias() {
         </div>
 
         <div
+          className="sz-cross__card"
           style={{
             border: "1px solid #2A3550",
             borderRadius: 24,
@@ -88,6 +92,7 @@ export function CrossBaterias() {
           ].map(([name, sub]) => (
             <div
               key={name}
+              className="sz-cross__row"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -97,7 +102,7 @@ export function CrossBaterias() {
                 borderBottom: "1px solid rgba(255,255,255,0.06)",
               }}
             >
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <p
                   style={{
                     fontFamily: "'Space Grotesk', sans-serif",
@@ -112,7 +117,9 @@ export function CrossBaterias() {
                 <p style={{ fontSize: 13, color: "#5B6880", margin: "4px 0 0" }}>{sub}</p>
               </div>
               <span
+                className="sz-cross__badge"
                 style={{
+                  flexShrink: 0,
                   fontFamily: "'Space Mono', monospace",
                   fontSize: 10,
                   letterSpacing: "0.2em",

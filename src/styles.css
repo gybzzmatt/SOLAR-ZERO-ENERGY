@@ -759,3 +759,57 @@
   .sz-page .sz-step__p { font-size: 14px; }
   .sz-page .sz-steps__btn { width: 100%; }
 }
+
+/* --- Alianza estratégica (cross-sell) — mobile --------------------------- */
+@media (max-width: 860px) {
+  .sz-cross__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 28px !important;
+  }
+}
+@media (max-width: 560px) {
+  .sz-cross {
+    padding: 56px 18px !important;
+  }
+  .sz-cross h2 {
+    font-size: clamp(24px, 7vw, 30px) !important;
+    line-height: 1.15 !important;
+    text-wrap: balance;
+  }
+  .sz-cross p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+  .sz-cross__cta {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 18px !important;
+    font-size: 14px !important;
+    min-height: 48px;
+  }
+  .sz-cross__card {
+    padding: 6px 18px !important;
+    border-radius: 18px !important;
+    gap: 0 !important;
+  }
+  .sz-cross__row {
+    gap: 10px !important;
+    padding: 16px 0 !important;
+  }
+  .sz-cross__row:last-child {
+    border-bottom: 0 !important;
+  }
+  .sz-cross__badge {
+    font-size: 9px !important;
+    letter-spacing: 0.16em !important;
+  }
+  .sz-cross__card p:first-child {
+    font-size: 15px !important;
+  }
+  .sz-cross__card p + p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+}
