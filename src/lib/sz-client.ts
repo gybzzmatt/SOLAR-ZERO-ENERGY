@@ -46,22 +46,70 @@ export function initSzInteractivity() {
   );
   document.querySelectorAll(".sz-reveal").forEach((el) => io.observe(el));
 
-  // -- Hero videos: force muted autoplay after hydration -------------------
-  document
-    .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
-    .forEach((v) => {
-      v.muted = true;
-      v.playsInline = true;
-      v.play().catch(() => {});
-    });
+  // -- Mobile: don't download heavy video at all ---------------------------
+  const isPhone = window.matchMedia?.("(max-width: 560px)").matches ?? false;
+  const isSmall = window.matchMedia?.("(max-width: 768px)").matches ?? false;
+
+  // Below-the-fold images: let the browser defer them.
+  document.querySelectorAll<HTMLImageElement>(".sz-page img").forEach((img, i) => {
+    if (i === 0) return; // hero wordmark stays eager
+    if (!img.getAttribute("loading")) img.setAttribute("loading", "lazy");
+    img.setAttribute("decoding", "async");
+  });
+
+  if (isSmall) {
+    // Hero background videos are hidden by CSS on small screens — make sure
+    // they never fetch their sources either.
+    document
+      .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
+      .forEach((v) => {
+        v.removeAttribute("autoplay");
+        v.preload = "none";
+        v.removeAttribute("src");
+        try { v.load(); } catch {}
+      });
+  } else {
+    // -- Hero videos: force muted autoplay after hydration -------------------
+    document
+      .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
+      .forEach((v) => {
+        v.muted = true;
+        v.playsInline = true;
+        v.play().catch(() => {});
+      });
+  }
+
+  if (isPhone) {
+    // Swap act videos for their posters on phones (bandwidth).
+    document
+      .querySelectorAll<HTMLVideoElement>(".sz-lazyvideo")
+      .forEach((v) => {
+        const poster = v.getAttribute("poster");
+        v.preload = "none";
+        v.removeAttribute("autoplay");
+        v.removeAttribute("src");
+        try { v.load(); } catch {}
+        if (!poster) return;
+        const img = document.createElement("img");
+        img.src = poster;
+        img.className = "sz-videoposter";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.alt = v.getAttribute("aria-label") ?? "";
+        img.setAttribute("style", v.getAttribute("style") ?? "");
+        img.style.display = "block";
+        v.insertAdjacentElement("afterend", img);
+      });
+  }
 
   // -- Autoplay act videos (paneles + entorno). They're muted + loop, so
   //    the browser allows autoplay; we just need to nudge them after hydration
   //    and again whenever they intersect (some browsers stall preload=metadata
   //    videos until the section is near the viewport).
-  const lazyVideos = Array.from(
-    document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo")
-  );
+  const lazyVideos = isPhone
+    ? []
+    : Array.from(document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo"));
+
   const kick = (v: HTMLVideoElement) => {
     v.muted = true;
     v.playsInline = true;

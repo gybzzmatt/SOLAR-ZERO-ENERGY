@@ -10,13 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NosotrosRouteImport } from './routes/nosotros'
+import { Route as ElectricoRouteImport } from './routes/electrico'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ElectricoIndexRouteImport } from './routes/electrico.index'
+import { Route as ElectricoSintomasRouteImport } from './routes/electrico.sintomas'
+import { Route as ElectricoRevisionRouteImport } from './routes/electrico.revision'
+import { Route as ElectricoPreguntasFrecuentesRouteImport } from './routes/electrico.preguntas-frecuentes'
+import { Route as ElectricoPreciosRouteImport } from './routes/electrico.precios'
+import { Route as ElectricoEmpresasPhRouteImport } from './routes/electrico.empresas-ph'
+import { Route as ElectricoEmergenciaRouteImport } from './routes/electrico.emergencia'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 
 const NosotrosRoute = NosotrosRouteImport.update({
   id: '/nosotros',
   path: '/nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ElectricoRoute = ElectricoRouteImport.update({
+  id: '/electrico',
+  path: '/electrico',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -29,6 +42,42 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ElectricoIndexRoute = ElectricoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ElectricoRoute,
+} as any)
+const ElectricoSintomasRoute = ElectricoSintomasRouteImport.update({
+  id: '/sintomas',
+  path: '/sintomas',
+  getParentRoute: () => ElectricoRoute,
+} as any)
+const ElectricoRevisionRoute = ElectricoRevisionRouteImport.update({
+  id: '/revision',
+  path: '/revision',
+  getParentRoute: () => ElectricoRoute,
+} as any)
+const ElectricoPreguntasFrecuentesRoute =
+  ElectricoPreguntasFrecuentesRouteImport.update({
+    id: '/preguntas-frecuentes',
+    path: '/preguntas-frecuentes',
+    getParentRoute: () => ElectricoRoute,
+  } as any)
+const ElectricoPreciosRoute = ElectricoPreciosRouteImport.update({
+  id: '/precios',
+  path: '/precios',
+  getParentRoute: () => ElectricoRoute,
+} as any)
+const ElectricoEmpresasPhRoute = ElectricoEmpresasPhRouteImport.update({
+  id: '/empresas-ph',
+  path: '/empresas-ph',
+  getParentRoute: () => ElectricoRoute,
+} as any)
+const ElectricoEmergenciaRoute = ElectricoEmergenciaRouteImport.update({
+  id: '/emergencia',
+  path: '/emergencia',
+  getParentRoute: () => ElectricoRoute,
+} as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   id: '/api/public/contact',
   path: '/api/public/contact',
@@ -38,33 +87,93 @@ const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/electrico': typeof ElectricoRouteWithChildren
   '/nosotros': typeof NosotrosRoute
+  '/electrico/emergencia': typeof ElectricoEmergenciaRoute
+  '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
+  '/electrico/precios': typeof ElectricoPreciosRoute
+  '/electrico/preguntas-frecuentes': typeof ElectricoPreguntasFrecuentesRoute
+  '/electrico/revision': typeof ElectricoRevisionRoute
+  '/electrico/sintomas': typeof ElectricoSintomasRoute
+  '/electrico/': typeof ElectricoIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/nosotros': typeof NosotrosRoute
+  '/electrico/emergencia': typeof ElectricoEmergenciaRoute
+  '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
+  '/electrico/precios': typeof ElectricoPreciosRoute
+  '/electrico/preguntas-frecuentes': typeof ElectricoPreguntasFrecuentesRoute
+  '/electrico/revision': typeof ElectricoRevisionRoute
+  '/electrico/sintomas': typeof ElectricoSintomasRoute
+  '/electrico': typeof ElectricoIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/electrico': typeof ElectricoRouteWithChildren
   '/nosotros': typeof NosotrosRoute
+  '/electrico/emergencia': typeof ElectricoEmergenciaRoute
+  '/electrico/empresas-ph': typeof ElectricoEmpresasPhRoute
+  '/electrico/precios': typeof ElectricoPreciosRoute
+  '/electrico/preguntas-frecuentes': typeof ElectricoPreguntasFrecuentesRoute
+  '/electrico/revision': typeof ElectricoRevisionRoute
+  '/electrico/sintomas': typeof ElectricoSintomasRoute
+  '/electrico/': typeof ElectricoIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/nosotros' | '/api/public/contact'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/electrico'
+    | '/nosotros'
+    | '/electrico/emergencia'
+    | '/electrico/empresas-ph'
+    | '/electrico/precios'
+    | '/electrico/preguntas-frecuentes'
+    | '/electrico/revision'
+    | '/electrico/sintomas'
+    | '/electrico/'
+    | '/api/public/contact'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/nosotros' | '/api/public/contact'
-  id: '__root__' | '/' | '/blog' | '/nosotros' | '/api/public/contact'
+  to:
+    | '/'
+    | '/blog'
+    | '/nosotros'
+    | '/electrico/emergencia'
+    | '/electrico/empresas-ph'
+    | '/electrico/precios'
+    | '/electrico/preguntas-frecuentes'
+    | '/electrico/revision'
+    | '/electrico/sintomas'
+    | '/electrico'
+    | '/api/public/contact'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/electrico'
+    | '/nosotros'
+    | '/electrico/emergencia'
+    | '/electrico/empresas-ph'
+    | '/electrico/precios'
+    | '/electrico/preguntas-frecuentes'
+    | '/electrico/revision'
+    | '/electrico/sintomas'
+    | '/electrico/'
+    | '/api/public/contact'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
+  ElectricoRoute: typeof ElectricoRouteWithChildren
   NosotrosRoute: typeof NosotrosRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
 }
@@ -76,6 +185,13 @@ declare module '@tanstack/react-router' {
       path: '/nosotros'
       fullPath: '/nosotros'
       preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/electrico': {
+      id: '/electrico'
+      path: '/electrico'
+      fullPath: '/electrico'
+      preLoaderRoute: typeof ElectricoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -92,6 +208,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/electrico/': {
+      id: '/electrico/'
+      path: '/'
+      fullPath: '/electrico/'
+      preLoaderRoute: typeof ElectricoIndexRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
+    '/electrico/sintomas': {
+      id: '/electrico/sintomas'
+      path: '/sintomas'
+      fullPath: '/electrico/sintomas'
+      preLoaderRoute: typeof ElectricoSintomasRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
+    '/electrico/revision': {
+      id: '/electrico/revision'
+      path: '/revision'
+      fullPath: '/electrico/revision'
+      preLoaderRoute: typeof ElectricoRevisionRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
+    '/electrico/preguntas-frecuentes': {
+      id: '/electrico/preguntas-frecuentes'
+      path: '/preguntas-frecuentes'
+      fullPath: '/electrico/preguntas-frecuentes'
+      preLoaderRoute: typeof ElectricoPreguntasFrecuentesRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
+    '/electrico/precios': {
+      id: '/electrico/precios'
+      path: '/precios'
+      fullPath: '/electrico/precios'
+      preLoaderRoute: typeof ElectricoPreciosRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
+    '/electrico/empresas-ph': {
+      id: '/electrico/empresas-ph'
+      path: '/empresas-ph'
+      fullPath: '/electrico/empresas-ph'
+      preLoaderRoute: typeof ElectricoEmpresasPhRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
+    '/electrico/emergencia': {
+      id: '/electrico/emergencia'
+      path: '/emergencia'
+      fullPath: '/electrico/emergencia'
+      preLoaderRoute: typeof ElectricoEmergenciaRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
     '/api/public/contact': {
       id: '/api/public/contact'
       path: '/api/public/contact'
@@ -102,9 +267,34 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ElectricoRouteChildren {
+  ElectricoEmergenciaRoute: typeof ElectricoEmergenciaRoute
+  ElectricoEmpresasPhRoute: typeof ElectricoEmpresasPhRoute
+  ElectricoPreciosRoute: typeof ElectricoPreciosRoute
+  ElectricoPreguntasFrecuentesRoute: typeof ElectricoPreguntasFrecuentesRoute
+  ElectricoRevisionRoute: typeof ElectricoRevisionRoute
+  ElectricoSintomasRoute: typeof ElectricoSintomasRoute
+  ElectricoIndexRoute: typeof ElectricoIndexRoute
+}
+
+const ElectricoRouteChildren: ElectricoRouteChildren = {
+  ElectricoEmergenciaRoute: ElectricoEmergenciaRoute,
+  ElectricoEmpresasPhRoute: ElectricoEmpresasPhRoute,
+  ElectricoPreciosRoute: ElectricoPreciosRoute,
+  ElectricoPreguntasFrecuentesRoute: ElectricoPreguntasFrecuentesRoute,
+  ElectricoRevisionRoute: ElectricoRevisionRoute,
+  ElectricoSintomasRoute: ElectricoSintomasRoute,
+  ElectricoIndexRoute: ElectricoIndexRoute,
+}
+
+const ElectricoRouteWithChildren = ElectricoRoute._addFileChildren(
+  ElectricoRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
+  ElectricoRoute: ElectricoRouteWithChildren,
   NosotrosRoute: NosotrosRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
 }
