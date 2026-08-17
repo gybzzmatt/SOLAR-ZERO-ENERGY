@@ -144,8 +144,11 @@ export function initSzInteractivity() {
 
   // -- Orange current paths that connect the journey ------------------------
   const paths = Array.from(
-    document.querySelectorAll<SVGPathElement>(".sz-path2, .sz-path3, .sz-path4")
+    document.querySelectorAll<SVGPathElement>(
+      ".sz-path2, .sz-path3, .sz-path4, .sz-path5"
+    )
   );
+
   // Cache each path's owning section for scroll math.
   const pathTargets = paths
     .map((path) => {
