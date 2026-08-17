@@ -149,13 +149,16 @@ export function initSzInteractivity() {
     )
   );
 
-  // Cache each path's owning section for scroll math.
+  // Cache each path's scroll scope (an explicit [data-sz-flowscope] wrapper
+  // when present, otherwise its owning section).
   const pathTargets = paths
     .map((path) => {
-      const section = path.closest("section") as HTMLElement | null;
+      const section = (path.closest("[data-sz-flowscope]") ??
+        path.closest("section")) as HTMLElement | null;
       return section ? { path, section } : null;
     })
     .filter((x): x is { path: SVGPathElement; section: HTMLElement } => !!x);
+
 
   if (prefersReducedMotion) {
     // Static: draw the current fully so the design still reads.
