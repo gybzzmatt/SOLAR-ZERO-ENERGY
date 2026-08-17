@@ -615,3 +615,35 @@
   .sz-el-cta { width: 100%; }
   .sz-el-grid { grid-template-columns: 1fr; }
 }
+
+/* --- Mobile: Sunway product cards (#tecnologia) --- */
+@media (max-width: 720px) {
+  .sz-page #tecnologia > div > div:nth-of-type(2) {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  /* image plate: fill the card edge to edge */
+  .sz-page #tecnologia > div > div:nth-of-type(2) > div > div:first-child {
+    aspect-ratio: 16 / 10 !important;
+    padding: 0 !important;
+  }
+  .sz-page #tecnologia > div > div:nth-of-type(2) > div > div:first-child img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center;
+  }
+  .sz-page #tecnologia > div > div:nth-of-type(2) > div > div:last-child {
+    padding: 16px 16px 18px !important;
+    gap: 9px !important;
+  }
+  .sz-page #tecnologia > div > div:nth-of-type(2) > div > div:last-child h3 {
+    font-size: 18px !important;
+  }
+  .sz-page #tecnologia > div > div:nth-of-type(2) > div > div:last-child p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+}
