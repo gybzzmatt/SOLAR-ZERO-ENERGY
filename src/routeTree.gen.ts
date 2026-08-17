@@ -15,6 +15,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ElectricoIndexRouteImport } from './routes/electrico.index'
 import { Route as ElectricoRevisionRouteImport } from './routes/electrico.revision'
+import { Route as ElectricoEmergenciaRouteImport } from './routes/electrico.emergencia'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 
 const NosotrosRoute = NosotrosRouteImport.update({
@@ -47,6 +48,11 @@ const ElectricoRevisionRoute = ElectricoRevisionRouteImport.update({
   path: '/revision',
   getParentRoute: () => ElectricoRoute,
 } as any)
+const ElectricoEmergenciaRoute = ElectricoEmergenciaRouteImport.update({
+  id: '/emergencia',
+  path: '/emergencia',
+  getParentRoute: () => ElectricoRoute,
+} as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   id: '/api/public/contact',
   path: '/api/public/contact',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/electrico': typeof ElectricoRouteWithChildren
   '/nosotros': typeof NosotrosRoute
+  '/electrico/emergencia': typeof ElectricoEmergenciaRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/': typeof ElectricoIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/nosotros': typeof NosotrosRoute
+  '/electrico/emergencia': typeof ElectricoEmergenciaRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico': typeof ElectricoIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/electrico': typeof ElectricoRouteWithChildren
   '/nosotros': typeof NosotrosRoute
+  '/electrico/emergencia': typeof ElectricoEmergenciaRoute
   '/electrico/revision': typeof ElectricoRevisionRoute
   '/electrico/': typeof ElectricoIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/electrico'
     | '/nosotros'
+    | '/electrico/emergencia'
     | '/electrico/revision'
     | '/electrico/'
     | '/api/public/contact'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blog'
     | '/nosotros'
+    | '/electrico/emergencia'
     | '/electrico/revision'
     | '/electrico'
     | '/api/public/contact'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/electrico'
     | '/nosotros'
+    | '/electrico/emergencia'
     | '/electrico/revision'
     | '/electrico/'
     | '/api/public/contact'
@@ -161,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ElectricoRevisionRouteImport
       parentRoute: typeof ElectricoRoute
     }
+    '/electrico/emergencia': {
+      id: '/electrico/emergencia'
+      path: '/emergencia'
+      fullPath: '/electrico/emergencia'
+      preLoaderRoute: typeof ElectricoEmergenciaRouteImport
+      parentRoute: typeof ElectricoRoute
+    }
     '/api/public/contact': {
       id: '/api/public/contact'
       path: '/api/public/contact'
@@ -172,11 +191,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface ElectricoRouteChildren {
+  ElectricoEmergenciaRoute: typeof ElectricoEmergenciaRoute
   ElectricoRevisionRoute: typeof ElectricoRevisionRoute
   ElectricoIndexRoute: typeof ElectricoIndexRoute
 }
 
 const ElectricoRouteChildren: ElectricoRouteChildren = {
+  ElectricoEmergenciaRoute: ElectricoEmergenciaRoute,
   ElectricoRevisionRoute: ElectricoRevisionRoute,
   ElectricoIndexRoute: ElectricoIndexRoute,
 }
