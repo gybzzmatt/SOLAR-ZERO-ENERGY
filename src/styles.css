@@ -257,9 +257,52 @@
    A short transition smooths out rAF-driven updates. */
 .sz-page .sz-path2,
 .sz-page .sz-path3,
-.sz-page .sz-path4 {
+.sz-page .sz-path4,
+.sz-page .sz-path5 {
   transition: stroke-dashoffset 0.15s linear;
 }
+
+/* Terminal node where the current lands on "Nuestro Proceso" */
+.sz-page .sz-flownode {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 999px;
+  background: #ffb877;
+  box-shadow:
+    0 0 0 4px rgba(255, 122, 46, 0.18),
+    0 0 14px rgba(255, 122, 46, 0.9),
+    0 0 38px rgba(255, 122, 46, 0.5);
+  animation: szNodePulse 2.4s ease-in-out infinite;
+}
+@keyframes szNodePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .sz-page .sz-path4,
+  .sz-page .sz-path5 {
+    stroke-width: 1.6;
+    opacity: 0.55;
+  }
+  .sz-page .sz-flownode {
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+  }
+}
+
 
 /* Hero wordmark logo — brand glow (orange core + warm sun halo) */
 .sz-page .sz-hero-wordmark {
