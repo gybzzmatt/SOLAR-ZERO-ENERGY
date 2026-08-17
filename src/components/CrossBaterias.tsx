@@ -1,6 +1,7 @@
 export function CrossBaterias() {
   return (
     <section
+      className="sz-cross"
       style={{
         background: "linear-gradient(180deg, #0A0E1A 0%, #131B2E 100%)",
         padding: "clamp(70px, 10vh, 110px) clamp(20px, 5vw, 72px)",
@@ -8,7 +9,7 @@ export function CrossBaterias() {
       }}
     >
       <div
-        className="sz-reveal"
+        className="sz-reveal sz-cross__grid"
         style={{
           maxWidth: 1080,
           margin: "0 auto",
@@ -18,6 +19,7 @@ export function CrossBaterias() {
           alignItems: "center",
         }}
       >
+
         <div>
           <p
             style={{
