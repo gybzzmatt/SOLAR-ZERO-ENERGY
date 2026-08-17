@@ -144,15 +144,21 @@ export function initSzInteractivity() {
 
   // -- Orange current paths that connect the journey ------------------------
   const paths = Array.from(
-    document.querySelectorAll<SVGPathElement>(".sz-path2, .sz-path3, .sz-path4")
+    document.querySelectorAll<SVGPathElement>(
+      ".sz-path2, .sz-path3, .sz-path4, .sz-path5"
+    )
   );
-  // Cache each path's owning section for scroll math.
+
+  // Cache each path's scroll scope (an explicit [data-sz-flowscope] wrapper
+  // when present, otherwise its owning section).
   const pathTargets = paths
     .map((path) => {
-      const section = path.closest("section") as HTMLElement | null;
+      const section = (path.closest("[data-sz-flowscope]") ??
+        path.closest("section")) as HTMLElement | null;
       return section ? { path, section } : null;
     })
     .filter((x): x is { path: SVGPathElement; section: HTMLElement } => !!x);
+
 
   if (prefersReducedMotion) {
     // Static: draw the current fully so the design still reads.
@@ -204,10 +210,15 @@ export function initSzInteractivity() {
     if (!prefersReducedMotion) {
       for (const { path, section } of pathTargets) {
         const r = section.getBoundingClientRect();
-        // Start drawing as section enters, complete near its center.
-        const p = clamp((vh - r.top) / (vh + r.height * 0.4));
+        const scoped = section.hasAttribute("data-sz-flowscope");
+        // Short scoped segments finish while still comfortably in view;
+        // full sections complete near their center.
+        const p = scoped
+          ? clamp((vh * 0.9 - r.top) / (vh * 0.35))
+          : clamp((vh - r.top) / (vh + r.height * 0.4));
         path.style.strokeDashoffset = String(1 - p);
       }
+
     }
   };
 
