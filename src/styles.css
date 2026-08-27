@@ -536,9 +536,13 @@
   .sz-page .sz-card3 > div[style*="repeat(3"],
   .sz-page .sz-card4 > div[style*="repeat(3"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 
-  /* Hide background hero videos on mobile to save bandwidth; posters/scrim remain */
-  .sz-page .sz-hero-bgwide,
+  /* No hero video on mobile: the static poster stands in, zero bytes of video.
+     Before JS runs the layers stay hidden (same as before); once the client
+     script inserts the poster it marks the wide layer .sz-poster-only. */
   .sz-page .sz-hero-bgmacro { display: none !important; }
+  .sz-page .sz-hero-bgwide:not(.sz-poster-only) { display: none !important; }
+  .sz-page .sz-hero-bgwide .sz-hero-vid { display: none !important; }
+
 }
 
 /* Phone */
