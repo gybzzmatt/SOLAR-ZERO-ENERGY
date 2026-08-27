@@ -19,9 +19,17 @@
 <section id="inicio" class="sz-hero" style="position: relative; height: 250vh; background: #0A0E1A;">
   <div class="sz-hero-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #0A0E1A; display: flex; flex-direction: column; align-items: center; justify-content: center;">
 
-  <!-- background photo layers -->
-  <video class="sz-hero-bgwide" src="/__l5e/assets-v1/10ccae8b-e203-44ce-a1b4-98e2be21cdd5/hero-bg-v2.mp4" muted loop playsinline preload="none" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; filter: saturate(0.8) brightness(0.55) contrast(1.05); transform: scale(1.08); z-index: 0;"></video>
-  <video class="sz-hero-bgmacro" src="/__l5e/assets-v1/c5812148-2830-4848-bfa5-ac4225c13c2d/hero-macro-v2.mp4" muted loop playsinline preload="none" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: saturate(0.9) brightness(0.72) contrast(1.05); transform: scale(1.08); opacity: 0; z-index: 1;"></video>
+  <!-- background video layers (color grade is baked into the encodes: no CSS filter).
+       Sources live in data-* attributes and are attached by sz-client only when the
+       device/connection allows video, so phones download exactly zero video bytes. -->
+  <div class="sz-hero-bgwide" style="position: absolute; inset: 0; z-index: 0; overflow: hidden;">
+    <video class="sz-hero-vid sz-hero-vid--wide" muted loop playsinline preload="none" poster="/__l5e/assets-v1/dbf63bb5-3de8-4fc9-b046-166e4b6a1e93/hero-bg-v2.webp" data-webm="/__l5e/assets-v1/2a51b5a9-e495-43f7-bb49-5c265ba4838f/hero-bg-v2.webm" data-mp4="/__l5e/assets-v1/bf888075-1b3d-44ad-bb15-8dd5b4d5d739/hero-bg-v2.mp4" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transform: scale(1.08);"></video>
+  </div>
+  <div class="sz-hero-bgmacro" style="position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0;">
+    <video class="sz-hero-vid sz-hero-vid--macro" muted loop playsinline preload="none" poster="/__l5e/assets-v1/25453695-b54b-4c09-aff2-397c51e32959/hero-macro-v2.webp" data-webm="/__l5e/assets-v1/ad443668-658d-4347-8ad4-861a0306dd7a/hero-macro-v2.webm" data-mp4="/__l5e/assets-v1/365c250a-f3cf-4b08-86fb-01afbaa0cede/hero-macro-v2.mp4" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.08);"></video>
+  </div>
+
+
   <!-- navy scrim for legibility + brand mood -->
   <div class="sz-hero-scrim" style="position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(10, 14, 26, 0.78) 0%, rgba(10, 14, 26, 0.35) 42%, rgba(10, 14, 26, 0.38) 68%, rgba(10, 14, 26, 0.92) 100%); pointer-events: none;"></div>
   <!-- sun glow accent -->
@@ -74,7 +82,7 @@
     <!-- house visual (real footage) -->
     <div class="sz-house" style="display: flex; flex-direction: column; align-items: center; padding-top: clamp(90px, 16vh, 180px);">
       <div style="position: relative; width: min(480px, 84vw); border-radius: 20px; overflow: hidden; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); border: 1px solid rgba(42, 53, 80, 0.8);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/b1c1ec1e-eca9-4a08-8a98-f9bdbca444c2/act2-house.mp4" poster="/__l5e/assets-v1/3a21e236-1b3d-4a51-970c-32021e672c4c/act2-house.jpg" muted loop playsinline preload="none" aria-label="Casa residencial con paneles solares en el techo" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center 30%; filter: saturate(0.78) brightness(0.72) contrast(1.06);"></video>
+        <video class="sz-lazyvideo" poster="/__l5e/assets-v1/af9c932a-b9c3-4603-b242-7cc4bdc669aa/act2-house.webp" muted loop playsinline preload="none" aria-label="Casa residencial con paneles solares en el techo" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center 30%; filter: saturate(0.78) brightness(0.72) contrast(1.06);"><source src="/__l5e/assets-v1/537e1e75-8451-467b-b15a-f7632e623134/act2-house.webm" type="video/webm" /><source src="/__l5e/assets-v1/5b7b5b3c-a22b-49f4-9999-10b25898adc7/act2-house.mp4" type="video/mp4" /></video>
         <!-- navy grade + edge fade -->
         <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.6) 0%, rgba(10, 14, 26, 0.08) 32%, rgba(10, 14, 26, 0.05) 60%, rgba(10, 14, 26, 0.68) 100%);"></div>
         <!-- energy entry glow (top, where the line lands) -->
@@ -149,7 +157,7 @@
     <!-- factory visual (real footage) -->
     <div class="sz-factory" style="order: 2; display: flex; flex-direction: column; align-items: center; padding-top: clamp(80px, 14vh, 160px);">
       <div style="position: relative; width: min(520px, 84vw); border-radius: 20px; overflow: hidden; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); border: 1px solid rgba(42, 53, 80, 0.8);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/d0661d99-b34d-4e48-b5cf-15644b1533f5/act3-business.mp4" poster="/__l5e/assets-v1/5c60cf6b-a420-4e2d-8144-38c5d6e3b9c3/act3-business.jpg" muted loop playsinline preload="none" aria-label="Instalación solar sobre techo industrial" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 55%; filter: saturate(0.78) brightness(0.7) contrast(1.08);"></video>
+        <video class="sz-lazyvideo" poster="/__l5e/assets-v1/21c1de31-baf6-4715-bd46-ce0d5484f0b4/act3-business.webp" muted loop playsinline preload="none" aria-label="Instalación solar sobre techo industrial" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 55%; filter: saturate(0.78) brightness(0.7) contrast(1.08);"><source src="/__l5e/assets-v1/8f61b7a5-d8a7-4dc8-ae18-ec9dae26012a/act3-business.mp4" type="video/mp4" /></video>
         <!-- navy grade + edge fade -->
         <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.62) 0%, rgba(10, 14, 26, 0.08) 34%, rgba(10, 14, 26, 0.06) 62%, rgba(10, 14, 26, 0.7) 100%);"></div>
         <!-- energy entry glow -->
@@ -172,7 +180,7 @@
     <!-- aerial farm (real drone footage) as background -->
     <div class="sz-farmwrap" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 1;">
       <div class="sz-farm" style="position: relative; width: 100%; height: 100%; border-radius: 24px; border: 1px solid rgba(255, 122, 46, 0.28); overflow: hidden; box-shadow: 0 60px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 122, 46, 0.10), 0 0 60px rgba(255, 122, 46, 0.18);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/74c4779c-3029-4fba-813e-1fbeec9375c6/act4-farm.mp4" poster="/__l5e/assets-v1/89287cf7-0ff5-45fb-b1da-e511e21505c0/act4-farm.jpg" muted loop playsinline preload="none" aria-label="Vista aérea de granja solar a escala industrial" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; filter: saturate(0.85) brightness(0.55) contrast(1.08);"></video>
+        <video class="sz-lazyvideo" poster="/__l5e/assets-v1/046d3075-fd89-4c93-a875-fef5f97edf4b/act4-farm.webp" muted loop playsinline preload="none" aria-label="Vista aérea de granja solar a escala industrial" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; filter: saturate(0.85) brightness(0.55) contrast(1.08);"><source src="/__l5e/assets-v1/693ae532-4c92-4bc9-9ac8-36358d2e0861/act4-farm.webm" type="video/webm" /><source src="/__l5e/assets-v1/8a8458ec-f65b-463d-8906-e1ab3f8825d4/act4-farm.mp4" type="video/mp4" /></video>
         <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.65) 0%, rgba(10, 14, 26, 0.45) 40%, rgba(10, 14, 26, 0.55) 70%, rgba(10, 14, 26, 0.85) 100%), radial-gradient(ellipse at 50% 0%, rgba(255, 122, 46, 0.18) 0%, rgba(255, 122, 46, 0) 55%);"></div>
       </div>
     </div>

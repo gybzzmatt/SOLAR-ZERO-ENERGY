@@ -46,9 +46,18 @@ export function initSzInteractivity() {
   );
   document.querySelectorAll(".sz-reveal").forEach((el) => io.observe(el));
 
-  // -- Mobile: don't download heavy video at all ---------------------------
+  // -- Video loading policy -------------------------------------------------
+  // Phones, save-data connections and reduced-motion users never download a
+  // single byte of video: the poster frame stands in.
+  const saveData =
+    (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection?.saveData === true;
   const isPhone = window.matchMedia?.("(max-width: 560px)").matches ?? false;
-  const isSmall = window.matchMedia?.("(max-width: 768px)").matches ?? false;
+  const noHeroVideo =
+    saveData ||
+    prefersReducedMotion ||
+    (window.matchMedia?.("(max-width: 767px)").matches ?? false);
+  const noActVideo = saveData || prefersReducedMotion || isPhone;
 
   // Below-the-fold images: let the browser defer them.
   document.querySelectorAll<HTMLImageElement>(".sz-page img").forEach((img, i) => {
@@ -57,84 +66,150 @@ export function initSzInteractivity() {
     img.setAttribute("decoding", "async");
   });
 
-  if (isSmall) {
-    // Hero background videos are hidden by CSS on small screens — make sure
-    // they never fetch their sources either.
-    document
-      .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
-      .forEach((v) => {
-        v.removeAttribute("autoplay");
-        v.preload = "none";
-        v.removeAttribute("src");
-        try { v.load(); } catch {}
-      });
-  } else {
-    // -- Hero videos: force muted autoplay after hydration -------------------
-    document
-      .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
-      .forEach((v) => {
-        v.muted = true;
-        v.playsInline = true;
-        v.play().catch(() => {});
-      });
-  }
+  // Never fetch media for a <video> we've decided not to play.
+  const disarm = (v: HTMLVideoElement) => {
+    v.removeAttribute("autoplay");
+    v.preload = "none";
+    v.removeAttribute("src");
+    v.querySelectorAll("source").forEach((s) => s.remove());
+    try {
+      v.load();
+    } catch {}
+  };
 
-  if (isPhone) {
-    // Swap act videos for their posters on phones (bandwidth).
-    document
-      .querySelectorAll<HTMLVideoElement>(".sz-lazyvideo")
-      .forEach((v) => {
-        const poster = v.getAttribute("poster");
-        v.preload = "none";
-        v.removeAttribute("autoplay");
-        v.removeAttribute("src");
-        try { v.load(); } catch {}
-        if (!poster) return;
+  // Attach <source> tags (WebM first, MP4 fallback) from data-* attributes.
+  const arm = (v: HTMLVideoElement) => {
+    if (v.querySelector("source")) return;
+    const add = (url: string | undefined, type: string) => {
+      if (!url) return;
+      const s = document.createElement("source");
+      s.src = url;
+      s.type = type;
+      v.appendChild(s);
+    };
+    add(v.dataset.webm, "video/webm");
+    add(v.dataset.mp4, "video/mp4");
+  };
+
+
+  const heroVideos = Array.from(
+    document.querySelectorAll<HTMLVideoElement>(".sz-hero-vid")
+  );
+  const heroWide = document.querySelector<HTMLVideoElement>(".sz-hero-vid--wide");
+  const heroMacro = document.querySelector<HTMLVideoElement>(
+    ".sz-hero-vid--macro"
+  );
+
+  if (noHeroVideo) {
+    heroVideos.forEach((v) => {
+      disarm(v);
+      const poster = v.getAttribute("poster");
+      const layer = v.parentElement;
+      if (!poster || !layer) return;
+      if (!layer.querySelector(".sz-hero-poster")) {
         const img = document.createElement("img");
         img.src = poster;
-        img.className = "sz-videoposter";
-        img.loading = "lazy";
-        img.decoding = "async";
+        img.className = "sz-hero-poster";
         img.alt = v.getAttribute("aria-label") ?? "";
-        img.setAttribute("style", v.getAttribute("style") ?? "");
-        img.style.display = "block";
-        v.insertAdjacentElement("afterend", img);
-      });
+        img.decoding = "async";
+        layer.appendChild(img);
+      }
+      if (layer.classList.contains("sz-hero-bgwide")) {
+        layer.classList.add("sz-poster-only");
+      }
+    });
+  } else {
+    // Primary hero video plays immediately; the macro layer only starts
+    // loading once the first can play through (or on first scroll intent).
+    if (heroWide) {
+      heroWide.muted = true;
+      heroWide.playsInline = true;
+      // Markup ships no <source>: phones/save-data download zero bytes. We opt
+      // in here once we know video is wanted.
+      arm(heroWide);
+      heroWide.preload = "auto";
+      try {
+        heroWide.load();
+      } catch {}
+      const playWide = () => heroWide.play().catch(() => {});
+      if (heroWide.readyState >= 2) playWide();
+      else heroWide.addEventListener("loadeddata", playWide, { once: true });
+
+    }
+    if (heroMacro) {
+      let armed = false;
+      const armMacro = () => {
+        if (armed) return;
+        armed = true;
+        heroMacro.muted = true;
+        heroMacro.playsInline = true;
+        arm(heroMacro);
+        heroMacro.preload = "auto";
+        try {
+          heroMacro.load();
+        } catch {}
+        const tryPlay = () => heroMacro.play().catch(() => {});
+        if (heroMacro.readyState >= 2) tryPlay();
+        else heroMacro.addEventListener("loadeddata", tryPlay, { once: true });
+      };
+      if (heroWide) {
+        heroWide.addEventListener("canplaythrough", armMacro, { once: true });
+        // Fallback: don't wait forever if the event never fires.
+        window.setTimeout(armMacro, 4000);
+      } else {
+        armMacro();
+      }
+    }
   }
 
-  // -- Autoplay act videos (paneles + entorno). They're muted + loop, so
-  //    the browser allows autoplay; we just need to nudge them after hydration
-  //    and again whenever they intersect (some browsers stall preload=metadata
-  //    videos until the section is near the viewport).
-  const lazyVideos = isPhone
-    ? []
-    : Array.from(document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo"));
-
-  const kick = (v: HTMLVideoElement) => {
-    v.muted = true;
-    v.playsInline = true;
-    v.loop = true;
-    if (v.preload !== "auto") v.preload = "auto";
-    if (prefersReducedMotion) return;
-    // Some browsers stall preload=metadata videos until we explicitly
-    // request the media. Force a load then play once data is available.
-    if (v.readyState < 2 && v.networkState !== 2 /* LOADING */) {
-      try { v.load(); } catch {}
-    }
-    const tryPlay = () => v.play().catch(() => {});
-    if (v.readyState >= 2) tryPlay();
-    else v.addEventListener("loadeddata", tryPlay, { once: true });
-  };
-  lazyVideos.forEach(kick);
-  const videoIo = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) kick(e.target as HTMLVideoElement);
-      }
-    },
-    { rootMargin: "200px 0px", threshold: 0 }
+  // -- Journey videos: load only near the viewport, pause when out of view --
+  const lazyVideos = Array.from(
+    document.querySelectorAll<HTMLVideoElement>(".sz-lazyvideo")
   );
-  lazyVideos.forEach((v) => videoIo.observe(v));
+
+  if (noActVideo) {
+    lazyVideos.forEach((v) => {
+      const poster = v.getAttribute("poster");
+      disarm(v);
+      if (!poster) return;
+      const img = document.createElement("img");
+      img.src = poster;
+      img.className = "sz-videoposter";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.alt = v.getAttribute("aria-label") ?? "";
+      img.setAttribute("style", v.getAttribute("style") ?? "");
+      img.style.display = "block";
+      v.insertAdjacentElement("afterend", img);
+    });
+  } else {
+    const kick = (v: HTMLVideoElement) => {
+      v.muted = true;
+      v.playsInline = true;
+      v.loop = true;
+      if (v.preload !== "auto") v.preload = "auto";
+      if (v.readyState < 2 && v.networkState !== 2 /* LOADING */) {
+        try {
+          v.load();
+        } catch {}
+      }
+      const tryPlay = () => v.play().catch(() => {});
+      if (v.readyState >= 2) tryPlay();
+      else v.addEventListener("loadeddata", tryPlay, { once: true });
+    };
+    const videoIo = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) kick(v);
+          else if (!v.paused) v.pause(); // free the decoder
+        }
+      },
+      { rootMargin: "200px 0px", threshold: 0 }
+    );
+    lazyVideos.forEach((v) => videoIo.observe(v));
+  }
+
 
   // -- Nav background fade ---------------------------------------------------
   const nav = document.querySelector<HTMLElement>(".sz-nav");
