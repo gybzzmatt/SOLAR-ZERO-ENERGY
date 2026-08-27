@@ -229,14 +229,21 @@
 }
 
 /* Hero phase transition — variables set by initSzInteractivity() on .sz-hero.
-   Fallbacks keep the section readable even before JS runs. */
+   Fallbacks keep the section readable even before JS runs.
+   Only opacity/transform are touched here, and the video layers are promoted
+   to their own GPU layer so Chrome/Windows never recomposites a filter. */
+.sz-page .sz-hero-bgwide,
+.sz-page .sz-hero-bgmacro {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  contain: paint;
+  backface-visibility: hidden;
+}
 .sz-page .sz-hero-bgwide {
   opacity: var(--sz-bgwide-opacity, 1) !important;
-  transition: opacity 0.25s linear;
 }
 .sz-page .sz-hero-bgmacro {
   opacity: var(--sz-bgmacro-opacity, 0) !important;
-  transition: opacity 0.25s linear;
 }
 .sz-page .sz-hero-copy {
   opacity: var(--sz-copy1-opacity, 1) !important;
@@ -252,6 +259,16 @@
   pointer-events: var(--sz-card-pe, none);
   transition: opacity 0.25s linear;
 }
+/* Static poster stand-in used on phones / save-data / reduced-motion. */
+.sz-page .sz-hero-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  transform: scale(1.08);
+}
 
 /* Orange journey paths animate their stroke-dashoffset via JS.
    A short transition smooths out rAF-driven updates. */
@@ -261,6 +278,7 @@
 .sz-page .sz-path5 {
   transition: stroke-dashoffset 0.15s linear;
 }
+
 
 /* Terminal node where the current lands on "Nuestro Proceso" */
 .sz-page .sz-flownode {
