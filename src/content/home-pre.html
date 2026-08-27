@@ -19,9 +19,20 @@
 <section id="inicio" class="sz-hero" style="position: relative; height: 250vh; background: #0A0E1A;">
   <div class="sz-hero-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #0A0E1A; display: flex; flex-direction: column; align-items: center; justify-content: center;">
 
-  <!-- background photo layers -->
-  <video class="sz-hero-bgwide" src="/__l5e/assets-v1/10ccae8b-e203-44ce-a1b4-98e2be21cdd5/hero-bg-v2.mp4" muted loop playsinline preload="none" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; filter: saturate(0.8) brightness(0.55) contrast(1.05); transform: scale(1.08); z-index: 0;"></video>
-  <video class="sz-hero-bgmacro" src="/__l5e/assets-v1/c5812148-2830-4848-bfa5-ac4225c13c2d/hero-macro-v2.mp4" muted loop playsinline preload="none" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: saturate(0.9) brightness(0.72) contrast(1.05); transform: scale(1.08); opacity: 0; z-index: 1;"></video>
+  <!-- background video layers (color grade is baked into the encodes: no CSS filter) -->
+  <div class="sz-hero-bgwide" style="position: absolute; inset: 0; z-index: 0; overflow: hidden;">
+    <video class="sz-hero-vid sz-hero-vid--wide" muted loop playsinline preload="metadata" poster="/__l5e/assets-v1/dbf63bb5-3de8-4fc9-b046-166e4b6a1e93/hero-bg-v2.webp" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transform: scale(1.08);">
+      <source src="/__l5e/assets-v1/58f2c36c-6cf9-43f0-a4fd-6b4579cc3840/hero-bg-v2.webm" type="video/webm" />
+      <source src="/__l5e/assets-v1/7d421887-51c9-4665-859b-a29238e18141/hero-bg-v2.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="sz-hero-bgmacro" style="position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0;">
+    <video class="sz-hero-vid sz-hero-vid--macro" muted loop playsinline preload="none" poster="/__l5e/assets-v1/25453695-b54b-4c09-aff2-397c51e32959/hero-macro-v2.webp" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.08);">
+      <source src="/__l5e/assets-v1/ad443668-658d-4347-8ad4-861a0306dd7a/hero-macro-v2.webm" type="video/webm" />
+      <source src="/__l5e/assets-v1/365c250a-f3cf-4b08-86fb-01afbaa0cede/hero-macro-v2.mp4" type="video/mp4" />
+    </video>
+  </div>
+
   <!-- navy scrim for legibility + brand mood -->
   <div class="sz-hero-scrim" style="position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(10, 14, 26, 0.78) 0%, rgba(10, 14, 26, 0.35) 42%, rgba(10, 14, 26, 0.38) 68%, rgba(10, 14, 26, 0.92) 100%); pointer-events: none;"></div>
   <!-- sun glow accent -->
