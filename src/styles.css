@@ -363,8 +363,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sz-page .sz-hero-wordmark { animation: none; }
+  .sz-page .sz-hero-copy h1::before { animation: none; opacity: 0.8; }
+  .sz-page .sz-flownode { animation: none; }
 }
+
 
 /* ─────────────────────────────────────────────────────────
    SiteNav (liquid glass) — responsive
