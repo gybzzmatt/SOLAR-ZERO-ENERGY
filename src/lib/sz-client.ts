@@ -77,6 +77,21 @@ export function initSzInteractivity() {
     } catch {}
   };
 
+  // Attach <source> tags (WebM first, MP4 fallback) from data-* attributes.
+  const arm = (v: HTMLVideoElement) => {
+    if (v.querySelector("source")) return;
+    const add = (url: string | undefined, type: string) => {
+      if (!url) return;
+      const s = document.createElement("source");
+      s.src = url;
+      s.type = type;
+      v.appendChild(s);
+    };
+    add(v.dataset.webm, "video/webm");
+    add(v.dataset.mp4, "video/mp4");
+  };
+
+
   const heroVideos = Array.from(
     document.querySelectorAll<HTMLVideoElement>(".sz-hero-vid")
   );
