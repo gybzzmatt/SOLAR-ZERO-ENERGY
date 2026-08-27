@@ -124,8 +124,9 @@ export function initSzInteractivity() {
     if (heroWide) {
       heroWide.muted = true;
       heroWide.playsInline = true;
-      // preload="none" in markup keeps phones/save-data at zero bytes; we opt
+      // Markup ships no <source>: phones/save-data download zero bytes. We opt
       // in here once we know video is wanted.
+      arm(heroWide);
       heroWide.preload = "auto";
       try {
         heroWide.load();
@@ -142,6 +143,7 @@ export function initSzInteractivity() {
         armed = true;
         heroMacro.muted = true;
         heroMacro.playsInline = true;
+        arm(heroMacro);
         heroMacro.preload = "auto";
         try {
           heroMacro.load();
