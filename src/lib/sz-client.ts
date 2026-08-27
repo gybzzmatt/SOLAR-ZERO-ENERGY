@@ -109,7 +109,16 @@ export function initSzInteractivity() {
     if (heroWide) {
       heroWide.muted = true;
       heroWide.playsInline = true;
-      heroWide.play().catch(() => {});
+      // preload="none" in markup keeps phones/save-data at zero bytes; we opt
+      // in here once we know video is wanted.
+      heroWide.preload = "auto";
+      try {
+        heroWide.load();
+      } catch {}
+      const playWide = () => heroWide.play().catch(() => {});
+      if (heroWide.readyState >= 2) playWide();
+      else heroWide.addEventListener("loadeddata", playWide, { once: true });
+
     }
     if (heroMacro) {
       let armed = false;
