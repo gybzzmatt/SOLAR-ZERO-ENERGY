@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { SiteNav } from "../components/SiteNav";
 import { CrossBaterias } from "../components/CrossBaterias";
 import { initSzInteractivity } from "../lib/sz-client";
-import german from "../assets/ing-german-rodriguez.png.asset.json";
-import nathia from "../assets/ing-nathia-chong.png.asset.json";
+import german from "../assets/ing-german-rodriguez.webp.asset.json";
+import nathia from "../assets/ing-nathia-chong.webp.asset.json";
 
 const title = "Nosotros — Solar Zero | Historia, equipo y valores";
 const description =
