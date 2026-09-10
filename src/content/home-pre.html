@@ -20,8 +20,14 @@
   <div class="sz-hero-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #0A0E1A; display: flex; flex-direction: column; align-items: center; justify-content: center;">
 
   <!-- background photo layers -->
-  <video class="sz-hero-bgwide" src="/__l5e/assets-v1/10ccae8b-e203-44ce-a1b4-98e2be21cdd5/hero-bg-v2.mp4" muted loop playsinline preload="none" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; filter: saturate(0.8) brightness(0.55) contrast(1.05); transform: scale(1.08); z-index: 0;"></video>
-  <video class="sz-hero-bgmacro" src="/__l5e/assets-v1/c5812148-2830-4848-bfa5-ac4225c13c2d/hero-macro-v2.mp4" muted loop playsinline preload="none" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: saturate(0.9) brightness(0.72) contrast(1.05); transform: scale(1.08); opacity: 0; z-index: 1;"></video>
+  <video class="sz-hero-bgwide" muted loop playsinline preload="none" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; filter: saturate(0.8) brightness(0.55) contrast(1.05); transform: scale(1.08); z-index: 0;">
+    <source src="/__l5e/assets-v1/6a676477-4eb9-4be0-b6c4-2398c3e30570/hero-bg-v2.webm" type="video/webm" />
+    <source src="/__l5e/assets-v1/583b7abc-423c-4fc1-997c-e0f95174f6e3/hero-bg-v2.mp4" type="video/mp4" />
+  </video>
+  <video class="sz-hero-bgmacro" muted loop playsinline preload="none" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: saturate(0.9) brightness(0.72) contrast(1.05); transform: scale(1.08); opacity: 0; z-index: 1;">
+    <source src="/__l5e/assets-v1/b58d07e6-9137-4387-a472-c00abfbc958e/hero-macro-v2.webm" type="video/webm" />
+    <source src="/__l5e/assets-v1/b83cc146-2e65-4ad8-931f-58de3333e440/hero-macro-v2.mp4" type="video/mp4" />
+  </video>
   <!-- navy scrim for legibility + brand mood -->
   <div class="sz-hero-scrim" style="position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(10, 14, 26, 0.78) 0%, rgba(10, 14, 26, 0.35) 42%, rgba(10, 14, 26, 0.38) 68%, rgba(10, 14, 26, 0.92) 100%); pointer-events: none;"></div>
   <!-- sun glow accent -->
@@ -74,7 +80,10 @@
     <!-- house visual (real footage) -->
     <div class="sz-house" style="display: flex; flex-direction: column; align-items: center; padding-top: clamp(90px, 16vh, 180px);">
       <div style="position: relative; width: min(480px, 84vw); border-radius: 20px; overflow: hidden; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); border: 1px solid rgba(42, 53, 80, 0.8);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/b1c1ec1e-eca9-4a08-8a98-f9bdbca444c2/act2-house.mp4" poster="/__l5e/assets-v1/3a21e236-1b3d-4a51-970c-32021e672c4c/act2-house.jpg" muted loop playsinline preload="none" aria-label="Casa residencial con paneles solares en el techo" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center 30%; filter: saturate(0.78) brightness(0.72) contrast(1.06);"></video>
+        <video class="sz-lazyvideo" poster="/__l5e/assets-v1/782f3422-09d4-4770-b2b9-4f64ed334ce9/act2-house.webp" muted loop playsinline preload="none" aria-label="Casa residencial con paneles solares en el techo" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center 30%; filter: saturate(0.78) brightness(0.72) contrast(1.06);">
+          <source src="/__l5e/assets-v1/43fd784a-7871-40aa-ac46-ac6832dddc0b/act2-house.webm" type="video/webm" />
+          <source src="/__l5e/assets-v1/48a6bc48-f5b6-4ed7-9a14-27c021761b6a/act2-house.mp4" type="video/mp4" />
+        </video>
         <!-- navy grade + edge fade -->
         <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.6) 0%, rgba(10, 14, 26, 0.08) 32%, rgba(10, 14, 26, 0.05) 60%, rgba(10, 14, 26, 0.68) 100%);"></div>
         <!-- energy entry glow (top, where the line lands) -->
@@ -149,7 +158,10 @@
     <!-- factory visual (real footage) -->
     <div class="sz-factory" style="order: 2; display: flex; flex-direction: column; align-items: center; padding-top: clamp(80px, 14vh, 160px);">
       <div style="position: relative; width: min(520px, 84vw); border-radius: 20px; overflow: hidden; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); border: 1px solid rgba(42, 53, 80, 0.8);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/d0661d99-b34d-4e48-b5cf-15644b1533f5/act3-business.mp4" poster="/__l5e/assets-v1/5c60cf6b-a420-4e2d-8144-38c5d6e3b9c3/act3-business.jpg" muted loop playsinline preload="none" aria-label="Instalación solar sobre techo industrial" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 55%; filter: saturate(0.78) brightness(0.7) contrast(1.08);"></video>
+        <video class="sz-lazyvideo" poster="/__l5e/assets-v1/d658042b-30e5-4e67-8a63-f2c39bb03ba8/act3-business.webp" muted loop playsinline preload="none" aria-label="Instalación solar sobre techo industrial" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 55%; filter: saturate(0.78) brightness(0.7) contrast(1.08);">
+          <source src="/__l5e/assets-v1/2b90f1bf-8521-4c22-8cc7-69d4c79a5b3b/act3-business.webm" type="video/webm" />
+          <source src="/__l5e/assets-v1/c0572ac1-5d0d-412e-9b16-bfeec1ec2b70/act3-business.mp4" type="video/mp4" />
+        </video>
         <!-- navy grade + edge fade -->
         <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.62) 0%, rgba(10, 14, 26, 0.08) 34%, rgba(10, 14, 26, 0.06) 62%, rgba(10, 14, 26, 0.7) 100%);"></div>
         <!-- energy entry glow -->
@@ -172,7 +184,10 @@
     <!-- aerial farm (real drone footage) as background -->
     <div class="sz-farmwrap" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 1;">
       <div class="sz-farm" style="position: relative; width: 100%; height: 100%; border-radius: 24px; border: 1px solid rgba(255, 122, 46, 0.28); overflow: hidden; box-shadow: 0 60px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 122, 46, 0.10), 0 0 60px rgba(255, 122, 46, 0.18);">
-        <video class="sz-lazyvideo" src="/__l5e/assets-v1/74c4779c-3029-4fba-813e-1fbeec9375c6/act4-farm.mp4" poster="/__l5e/assets-v1/89287cf7-0ff5-45fb-b1da-e511e21505c0/act4-farm.jpg" muted loop playsinline preload="none" aria-label="Vista aérea de granja solar a escala industrial" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; filter: saturate(0.85) brightness(0.55) contrast(1.08);"></video>
+        <video class="sz-lazyvideo" poster="/__l5e/assets-v1/7a0e3535-666a-4234-ae1e-5a89229e6c7c/act4-farm.webp" muted loop playsinline preload="none" aria-label="Vista aérea de granja solar a escala industrial" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; filter: saturate(0.85) brightness(0.55) contrast(1.08);">
+          <source src="/__l5e/assets-v1/9301cdb8-9f00-4cbd-a31c-134f3664ec22/act4-farm.webm" type="video/webm" />
+          <source src="/__l5e/assets-v1/f8780604-044b-41d6-972d-6fb3fb90ba0f/act4-farm.mp4" type="video/mp4" />
+        </video>
         <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 14, 26, 0.65) 0%, rgba(10, 14, 26, 0.45) 40%, rgba(10, 14, 26, 0.55) 70%, rgba(10, 14, 26, 0.85) 100%), radial-gradient(ellipse at 50% 0%, rgba(255, 122, 46, 0.18) 0%, rgba(255, 122, 46, 0) 55%);"></div>
       </div>
     </div>
@@ -314,13 +329,13 @@
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 52px); font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF; margin: 0 0 56px; text-align: center; text-wrap: balance;">Ingeniería propia, no subcontratada.</h2>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; max-width: 680px; margin: 0 auto;">
         <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; padding: 30px; text-align: center; transition: box-shadow 0.3s, border-color 0.3s;" data-szh="border-color: rgba(255, 122, 46, 0.55); box-shadow: 0 0 34px rgba(255, 122, 46, 0.12);">
-          <img src="/__l5e/assets-v1/3e13a077-6b91-4e58-a9d3-d81fcc90c189/ing-nathia-chong.png" alt="Ingeniera Electromecánica Nathia Chong — Solar Zero Panamá" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto 18px; display: block; border: 2px solid rgba(255, 122, 46, 0.45);" />
+          <img src="/__l5e/assets-v1/fc6a8bcf-ff67-4ac8-879b-531702900767/ing-nathia-chong.webp" alt="Ingeniera Electromecánica Nathia Chong — Solar Zero Panamá" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto 18px; display: block; border: 2px solid rgba(255, 122, 46, 0.45);" />
           <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #FFFFFF; margin: 0 0 6px;">Ing. Nathia Chong</h3>
           <p style="font-size: 13.5px; color: #5B6880; margin: 0 0 16px;">Ingeniera Electromecánica</p>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #D4AF6A; border: 1px solid rgba(212, 175, 106, 0.4); padding: 6px 12px; border-radius: 999px;">NEC 2023 · ASEP</span>
         </div>
         <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; padding: 30px; text-align: center; transition: box-shadow 0.3s, border-color 0.3s;" data-szh="border-color: rgba(255, 122, 46, 0.55); box-shadow: 0 0 34px rgba(255, 122, 46, 0.12);">
-          <img src="/__l5e/assets-v1/2332d0ed-eb11-44f0-ba1e-8306709b91b6/ing-german-rodriguez.png" alt="Ingeniero Eléctrico German Rodríguez — Solar Zero Panamá" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto 18px; display: block; border: 2px solid rgba(255, 122, 46, 0.45);" />
+          <img src="/__l5e/assets-v1/aa0969cb-116b-4ebc-9b5f-3415588f20bb/ing-german-rodriguez.webp" alt="Ingeniero Eléctrico German Rodríguez — Solar Zero Panamá" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto 18px; display: block; border: 2px solid rgba(255, 122, 46, 0.45);" />
           <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #FFFFFF; margin: 0 0 6px;">Ing. German Rodríguez</h3>
           <p style="font-size: 13.5px; color: #5B6880; margin: 0 0 16px;">Ingeniero Eléctrico</p>
           <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #D4AF6A; border: 1px solid rgba(212, 175, 106, 0.4); padding: 6px 12px; border-radius: 999px;">Net Metering · MT</span>
@@ -347,7 +362,7 @@
           <!-- Paneles -->
           <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
             <div style="aspect-ratio: 4 / 3; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 0;">
-              <img src="/__l5e/assets-v1/f6e938e4-911c-4d81-8953-0040f93c1a2a/sunway-panel.png" alt="Paneles solares Sunway Tech" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="/__l5e/assets-v1/7a7cee61-c555-4e9d-ad34-a3e0003eaed3/sunway-panel.webp" alt="Paneles solares Sunway Tech" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <div style="padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 12px;">
               <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #FFFFFF; margin: 0;">Paneles solares</h3>
@@ -362,7 +377,7 @@
           <!-- Pilas -->
           <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
             <div style="aspect-ratio: 4 / 3; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 0;">
-              <img src="/__l5e/assets-v1/d35427c2-3235-40db-8746-66d0281c0fd7/sunway-battery.png" alt="Sistemas de almacenamiento Sunway Tech" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="/__l5e/assets-v1/cc28415b-06b7-495e-86aa-f4d832f70317/sunway-battery.webp" alt="Sistemas de almacenamiento Sunway Tech" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <div style="padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 12px;">
               <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #FFFFFF; margin: 0;">Pilas y almacenamiento</h3>
@@ -378,7 +393,7 @@
           <!-- Inversores -->
           <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
             <div style="aspect-ratio: 4 / 3; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 0;">
-              <img src="/__l5e/assets-v1/825af64b-abb8-42ac-a695-319d4106412c/sunway-inverter.png" alt="Inversores Sunway Tech" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="/__l5e/assets-v1/493d7052-8195-4ed3-9f81-9e274aa40e07/sunway-inverter.webp" alt="Inversores Sunway Tech" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <div style="padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 12px;">
               <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #FFFFFF; margin: 0;">Inversores</h3>
@@ -402,7 +417,7 @@
             <!-- TÜV -->
             <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
               <div style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 18px;">
-                <img src="/__l5e/assets-v1/ec8b951e-6bcf-49cb-a3c6-dc103a95be9a/cert-tuv.png" alt="TÜV SÜD" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                <img src="/__l5e/assets-v1/00ba9b7d-c7d1-45ba-baf0-f4239b71837f/cert-tuv.webp" alt="TÜV SÜD" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
               </div>
               <div style="padding: 12px 14px 14px; text-align: center;">
                 <p style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; margin: 0 0 2px;">TÜV</p>
@@ -412,7 +427,7 @@
             <!-- IEC -->
             <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
               <div style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 18px;">
-                <img src="/__l5e/assets-v1/29b2932f-aef9-4f3a-b7b1-2bc03c2c85ac/cert-iec.png" alt="IEC" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                <img src="/__l5e/assets-v1/4c33f080-8976-430d-8a4c-7106d8818524/cert-iec.webp" alt="IEC" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
               </div>
               <div style="padding: 12px 14px 14px; text-align: center;">
                 <p style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; margin: 0 0 2px;">IEC</p>
@@ -422,7 +437,7 @@
             <!-- CE -->
             <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
               <div style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 22px;">
-                <img src="/__l5e/assets-v1/5305e5f5-ee6d-4771-ad05-182c5e82e088/cert-ce.png" alt="CE — Conformidad Europea" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                <img src="/__l5e/assets-v1/9708af36-55d0-43e8-acf8-6c946e0575a2/cert-ce.webp" alt="CE — Conformidad Europea" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
               </div>
               <div style="padding: 12px 14px 14px; text-align: center;">
                 <p style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; margin: 0 0 2px;">CE</p>
@@ -432,7 +447,7 @@
             <!-- ISO -->
             <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
               <div style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 18px;">
-                <img src="/__l5e/assets-v1/32815371-0d39-416f-831d-3c5fc69c2d56/cert-iso.png" alt="ISO 9001:2015" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                <img src="/__l5e/assets-v1/b3d633a4-8752-46f6-9956-9518971be7f6/cert-iso.webp" alt="ISO 9001:2015" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
               </div>
               <div style="padding: 12px 14px 14px; text-align: center;">
                 <p style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; margin: 0 0 2px;">ISO</p>
@@ -442,7 +457,7 @@
             <!-- UL -->
             <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
               <div style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 22px;">
-                <img src="/__l5e/assets-v1/7123a58a-2cc2-4bf3-b04f-ef8c124e64cb/cert-ul.png" alt="UL — Underwriters Laboratories" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                <img src="/__l5e/assets-v1/9e2befed-dde8-429c-80a1-901ecbdb881b/cert-ul.webp" alt="UL — Underwriters Laboratories" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
               </div>
               <div style="padding: 12px 14px 14px; text-align: center;">
                 <p style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; margin: 0 0 2px;">UL</p>
@@ -452,7 +467,7 @@
             <!-- INMETRO -->
             <div style="background: #0F1628; border: 1px solid #2A3550; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;" data-szh="border-color: rgba(255, 122, 46, 0.5);">
               <div style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #F5F7FA, #E4E9F2); display: flex; align-items: center; justify-content: center; padding: 18px;">
-                <img src="/__l5e/assets-v1/263d2665-fba0-40e1-ab3b-473fdfbeb94e/cert-inmetro.png" alt="INMETRO — Brasil" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                <img src="/__l5e/assets-v1/2906ba24-f398-45fb-bbf7-96463f61b802/cert-inmetro.webp" alt="INMETRO — Brasil" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
               </div>
               <div style="padding: 12px 14px 14px; text-align: center;">
                 <p style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; margin: 0 0 2px;">INMETRO</p>
@@ -478,7 +493,7 @@
 
         <figure style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; margin: 0; display: flex; flex-direction: column; overflow: hidden;" data-szh="border-color: rgba(255, 122, 46, 0.55);">
           <div style="position: relative; aspect-ratio: 4 / 3; overflow: hidden;">
-            <img src="/__l5e/assets-v1/997593d8-e1cf-4dfe-8a8b-6e3d0140bb7d/case-tocumen.png" alt="Planta PYME de condimentos con 30 kW en paneles solares — Tocumen, Panamá" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="/__l5e/assets-v1/339c20a5-773b-471f-8126-579da5382eba/case-tocumen.webp" alt="Planta PYME de condimentos con 30 kW en paneles solares — Tocumen, Panamá" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
             <span style="position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #FFFFFF; background: rgba(10, 14, 26, 0.72); backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px;">🏢 EMPRESARIAL · 30 kW</span>
           </div>
           <div style="padding: 26px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1;">
@@ -490,7 +505,7 @@
 
         <figure style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; margin: 0; display: flex; flex-direction: column; overflow: hidden;" data-szh="border-color: rgba(255, 122, 46, 0.55);">
           <div style="position: relative; aspect-ratio: 4 / 3; overflow: hidden;">
-            <img src="/__l5e/assets-v1/c0fea53e-ee1d-49f0-9884-db74065cd486/case-betania.png" alt="Residencia con 20 kW en paneles solares sobre techo de tejas — Betania, Panamá" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="/__l5e/assets-v1/7dadfac8-1204-4265-a617-a81528fc805a/case-betania.webp" alt="Residencia con 20 kW en paneles solares sobre techo de tejas — Betania, Panamá" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
             <span style="position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #FFFFFF; background: rgba(10, 14, 26, 0.72); backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px;">🏠 RESIDENCIAL · 20 kW</span>
           </div>
           <div style="padding: 26px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1;">
@@ -502,7 +517,7 @@
 
         <figure style="background: #0F1628; border: 1px solid #2A3550; border-radius: 18px; margin: 0; display: flex; flex-direction: column; overflow: hidden;" data-szh="border-color: rgba(255, 122, 46, 0.55);">
           <div style="position: relative; aspect-ratio: 4 / 3; overflow: hidden;">
-            <img src="/__l5e/assets-v1/7a4237b9-3c53-4481-b0b4-0fce3c2b7ed2/case-brisas.png" alt="Residencia unifamiliar con paneles solares de alta eficiencia — Brisas del Golf, Panamá" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="/__l5e/assets-v1/47ce38e3-ef1f-4ff8-863c-d2289a32b47d/case-brisas.webp" alt="Residencia unifamiliar con paneles solares de alta eficiencia — Brisas del Golf, Panamá" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
             <span style="position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #FFFFFF; background: rgba(10, 14, 26, 0.72); backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px;">🏠 RESIDENCIAL</span>
           </div>
           <div style="padding: 26px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1;">
