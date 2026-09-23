@@ -87,7 +87,7 @@ export function initSzInteractivity() {
         if ("requestIdleCallback" in window) {
           window.requestIdleCallback(loadMacro, { timeout: 2000 });
         } else {
-          window.setTimeout(loadMacro, 1200);
+          setTimeout(loadMacro, 1200);
         }
       };
       heroWideVideo.addEventListener("playing", prewarmMacro, { once: true });
