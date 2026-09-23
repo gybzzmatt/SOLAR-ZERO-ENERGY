@@ -49,6 +49,8 @@ export function initSzInteractivity() {
   // -- Mobile: don't download heavy video at all ---------------------------
   const isPhone = window.matchMedia?.("(max-width: 560px)").matches ?? false;
   const isSmall = window.matchMedia?.("(max-width: 768px)").matches ?? false;
+  const heroWideVideo = document.querySelector<HTMLVideoElement>(".sz-hero-bgwide");
+  const heroMacroVideo = document.querySelector<HTMLVideoElement>(".sz-hero-bgmacro");
 
   // Below-the-fold images: let the browser defer them.
   document.querySelectorAll<HTMLImageElement>(".sz-page img").forEach((img, i) => {
@@ -70,13 +72,28 @@ export function initSzInteractivity() {
       });
   } else {
     // -- Hero videos: force muted autoplay after hydration -------------------
-    document
-      .querySelectorAll<HTMLVideoElement>(".sz-hero-bgwide, .sz-hero-bgmacro")
-      .forEach((v) => {
-        v.muted = true;
-        v.playsInline = true;
-        v.play().catch(() => {});
-      });
+    [heroWideVideo, heroMacroVideo].forEach((video) => {
+      if (!video) return;
+      video.muted = true;
+      video.playsInline = true;
+    });
+
+    if (heroWideVideo && heroMacroVideo && !prefersReducedMotion) {
+      const prewarmMacro = () => {
+        const loadMacro = () => {
+          heroMacroVideo.preload = "auto";
+          try { heroMacroVideo.load(); } catch {}
+        };
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadMacro, { timeout: 2000 });
+        } else {
+          setTimeout(loadMacro, 1200);
+        }
+      };
+      heroWideVideo.addEventListener("playing", prewarmMacro, { once: true });
+    }
+
+    heroWideVideo?.play().catch(() => {});
   }
 
   if (isPhone) {
@@ -141,8 +158,6 @@ export function initSzInteractivity() {
 
   // -- Hero phase (wide video -> macro cells + copy 1 -> copy 2 + card) ------
   const hero = document.querySelector<HTMLElement>(".sz-hero");
-  const heroWideVideo = document.querySelector<HTMLVideoElement>(".sz-hero-bgwide");
-  const heroMacroVideo = document.querySelector<HTMLVideoElement>(".sz-hero-bgmacro");
 
   let navHeroActive: boolean | undefined;
   let wideShouldPlay: boolean | undefined;
@@ -209,7 +224,8 @@ export function initSzInteractivity() {
     // Hero phase transition
     if (hero) {
       const rect = hero.getBoundingClientRect();
-      setNavHeroState(rect.bottom > 0);
+      const heroIsVisible = rect.bottom > 0;
+      setNavHeroState(heroIsVisible);
 
       if (prefersReducedMotion) return;
 
@@ -230,8 +246,12 @@ export function initSzInteractivity() {
       );
       hero.style.setProperty("--sz-card-pe", card > 0.5 ? "auto" : "none");
 
-      const nextWideShouldPlay = bgP <= 0.95;
-      const nextMacroShouldPlay = bgP >= 0.05;
+      const nextWideShouldPlay = heroIsVisible && (
+        wideShouldPlay === false ? p < 0.47 : p <= 0.5
+      );
+      const nextMacroShouldPlay = heroIsVisible && (
+        macroShouldPlay === true ? p > 0.005 : p > 0.01
+      );
       if (wideShouldPlay !== nextWideShouldPlay) {
         wideShouldPlay = nextWideShouldPlay;
         setVideoPlayback(heroWideVideo, nextWideShouldPlay);
