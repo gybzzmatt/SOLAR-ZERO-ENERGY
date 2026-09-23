@@ -20,21 +20,22 @@
   <div class="sz-hero-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #0A0E1A; display: flex; flex-direction: column; align-items: center; justify-content: center;">
 
   <!-- background photo layers -->
-  <video class="sz-hero-bgwide" muted loop playsinline preload="none" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; filter: saturate(0.8) brightness(0.55) contrast(1.05); transform: scale(1.08); z-index: 0;">
+  <video class="sz-hero-bgwide" muted loop playsinline preload="metadata" poster="/__l5e/assets-v1/1e2b6ba7-c8d4-4699-8c61-b39aa4b02187/hero-bg-v2.webp" aria-label="Paneles solares captando el sol en Panamá" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transform: scale(1.08); will-change: transform, opacity; z-index: 0;">
     <source src="/__l5e/assets-v1/6a676477-4eb9-4be0-b6c4-2398c3e30570/hero-bg-v2.webm" type="video/webm" />
     <source src="/__l5e/assets-v1/583b7abc-423c-4fc1-997c-e0f95174f6e3/hero-bg-v2.mp4" type="video/mp4" />
   </video>
-  <video class="sz-hero-bgmacro" muted loop playsinline preload="none" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: saturate(0.9) brightness(0.72) contrast(1.05); transform: scale(1.08); opacity: 0; z-index: 1;">
+  <video class="sz-hero-bgmacro" muted loop playsinline preload="none" poster="/__l5e/assets-v1/19c3e7d7-2b15-45bd-9bd4-e071f3be30c6/hero-macro-v2.webp" aria-label="Detalle macro de celdas fotovoltaicas al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.08); will-change: transform, opacity; opacity: 0; z-index: 1;">
     <source src="/__l5e/assets-v1/b58d07e6-9137-4387-a472-c00abfbc958e/hero-macro-v2.webm" type="video/webm" />
     <source src="/__l5e/assets-v1/b83cc146-2e65-4ad8-931f-58de3333e440/hero-macro-v2.mp4" type="video/mp4" />
   </video>
+  <div class="sz-hero-grade" style="position: absolute; inset: 0; z-index: 2; background: rgba(10, 14, 26, 0.24); pointer-events: none;"></div>
   <!-- navy scrim for legibility + brand mood -->
-  <div class="sz-hero-scrim" style="position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(10, 14, 26, 0.78) 0%, rgba(10, 14, 26, 0.35) 42%, rgba(10, 14, 26, 0.38) 68%, rgba(10, 14, 26, 0.92) 100%); pointer-events: none;"></div>
+  <div class="sz-hero-scrim" style="position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(10, 14, 26, 0.78) 0%, rgba(10, 14, 26, 0.35) 42%, rgba(10, 14, 26, 0.38) 68%, rgba(10, 14, 26, 0.92) 100%); pointer-events: none;"></div>
   <!-- sun glow accent -->
-  <div class="sz-sun" style="position: absolute; left: 50%; top: 58%; width: 130vmin; height: 130vmin; transform: translate(-50%, -30%); border-radius: 50%; background: radial-gradient(circle, rgba(255, 122, 46, 0.22) 0%, rgba(255, 164, 92, 0.08) 34%, rgba(10, 14, 26, 0) 62%); pointer-events: none; z-index: 3;"></div>
+  <div class="sz-sun" style="position: absolute; left: 50%; top: 58%; width: 130vmin; height: 130vmin; transform: translate(-50%, -30%); border-radius: 50%; background: radial-gradient(circle, rgba(255, 122, 46, 0.22) 0%, rgba(255, 164, 92, 0.08) 34%, rgba(10, 14, 26, 0) 62%); pointer-events: none; z-index: 4;"></div>
 
   <!-- headline -->
-  <div class="sz-hero-copy" style="position: relative; z-index: 4; text-align: center; padding: 120px clamp(24px, 4vw, 340px) 0; max-width: 1100px; margin: 0 auto;">
+  <div class="sz-hero-copy" style="position: relative; z-index: 5; text-align: center; padding: 120px clamp(24px, 4vw, 340px) 0; max-width: 1100px; margin: 0 auto;">
     <h1 aria-label="Solar Zero" style="margin: 0 0 18px;"><img class="sz-hero-wordmark" src="/__l5e/assets-v1/43217b3b-9ca8-4eee-96f4-05d29974a0ce/solar-zero-v2-2.webp" alt="Solar Zero — Tu aliado en energía solar" style="display: block; margin: 0 auto; width: min(720px, 78vw); height: auto;" /></h1>
     <p style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.32em; color: #FFA45C; text-transform: uppercase; margin: 0 0 20px;">Apaga tu Factura</p>
     <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(52px, 8.5vw, 116px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; color: #FFFFFF; margin: 0; text-wrap: balance;">Energía que trabaja<br />para ti.</h2>
@@ -42,21 +43,21 @@
   </div>
 
   <!-- floating stat card -->
-  <aside class="sz-herocard" style="position: absolute; z-index: 5; right: clamp(20px, 4vw, 56px); bottom: clamp(90px, 14vh, 140px); width: min(272px, 30vw); min-width: 220px; padding: 22px; border-radius: 18px; background: rgba(19, 27, 46, 0.72); border: 1px solid rgba(168, 178, 196, 0.22); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none;">
+  <aside class="sz-herocard" style="position: absolute; z-index: 6; right: clamp(20px, 4vw, 56px); bottom: clamp(90px, 14vh, 140px); width: min(272px, 30vw); min-width: 220px; padding: 22px; border-radius: 18px; background: rgba(19, 27, 46, 0.72); border: 1px solid rgba(168, 178, 196, 0.22); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none;">
     <p style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: #D4AF6A; text-transform: uppercase; margin: 0 0 10px;">Ahorro comprobado</p>
     <p style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #FFFFFF; line-height: 1.25; margin: 0 0 16px;">Reduce tu factura hasta <span style="color: #FF7A2E;">90%</span></p>
     <a href="#cotizador" style="display: inline-flex; align-items: center; gap: 8px; color: #FF7A2E; font-weight: 600; font-size: 14px; text-decoration: none;" data-szh="color: #FFA45C;">Calcula tu Ahorro →</a>
   </aside>
 
   <!-- phase 2 hook: enters with the macro video -->
-  <div class="sz-hero-copy2" style="position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px clamp(24px, 6vw, 280px) 0; opacity: 0; pointer-events: none;">
+  <div class="sz-hero-copy2" style="position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px clamp(24px, 6vw, 280px) 0; opacity: 0; pointer-events: none;">
     <p style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.3em; color: #FFA45C; text-transform: uppercase; margin: 0 0 18px;">El viaje de tu energía</p>
     <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 6.5vw, 88px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: #FFFFFF; margin: 0; text-wrap: balance; text-shadow: 0 4px 40px rgba(10, 14, 26, 0.6);">El sol de Panamá<br />ya paga facturas.</h2>
     <p style="font-size: clamp(15px, 1.5vw, 19px); line-height: 1.6; color: #C7D0E0; max-width: 540px; margin: 22px auto 0; text-wrap: pretty;">Sigue el recorrido de la energía solar — de tu techo a tu bolsillo — por hogares, empresas y granjas solares en todo el país.</p>
   </div>
 
   <!-- scroll hint -->
-  <div class="sz-scrollhint" style="position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+  <div class="sz-scrollhint" style="position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 10px;">
     <span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.28em; color: #5B6880; text-transform: uppercase;">Desliza</span>
     <span style="width: 12px; height: 12px; border-right: 2px solid #FF7A2E; border-bottom: 2px solid #FF7A2E; display: block; animation: szChevron 1.8s ease-in-out infinite;"></span>
   </div>
