@@ -233,10 +233,12 @@
 .sz-page .sz-hero-bgwide {
   opacity: var(--sz-bgwide-opacity, 1) !important;
   transition: opacity 0.25s linear;
+  will-change: transform, opacity;
 }
 .sz-page .sz-hero-bgmacro {
   opacity: var(--sz-bgmacro-opacity, 0) !important;
   transition: opacity 0.25s linear;
+  will-change: transform, opacity;
 }
 .sz-page .sz-hero-copy {
   opacity: var(--sz-copy1-opacity, 1) !important;
@@ -251,6 +253,7 @@
   opacity: var(--sz-card-opacity, 0) !important;
   pointer-events: var(--sz-card-pe, none);
   transition: opacity 0.25s linear;
+  backdrop-filter: blur(8px);
 }
 
 /* Orange journey paths animate their stroke-dashoffset via JS.
@@ -356,6 +359,9 @@
   box-shadow: 0 10px 40px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.05);
   font-family: "Space Grotesk", sans-serif;
 }
+.sz-sitenav.sz-sitenav--hero-active {
+  backdrop-filter: none;
+}
 .sz-sitenav__nav {
   grid-column: 2;
   justify-self: center;
@@ -423,7 +429,6 @@
   gap: 2px;
   background: rgba(10, 14, 26, 0.92);
   backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 20px;
   box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.65);

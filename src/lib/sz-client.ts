@@ -137,10 +137,31 @@ export function initSzInteractivity() {
   lazyVideos.forEach((v) => videoIo.observe(v));
 
   // -- Nav background fade ---------------------------------------------------
-  const nav = document.querySelector<HTMLElement>(".sz-nav");
+  const nav = document.querySelector<HTMLElement>(".sz-sitenav, .sz-nav");
 
   // -- Hero phase (wide video -> macro cells + copy 1 -> copy 2 + card) ------
   const hero = document.querySelector<HTMLElement>(".sz-hero");
+  const heroWideVideo = document.querySelector<HTMLVideoElement>(".sz-hero-bgwide");
+  const heroMacroVideo = document.querySelector<HTMLVideoElement>(".sz-hero-bgmacro");
+
+  let navHeroActive: boolean | undefined;
+  let wideShouldPlay: boolean | undefined;
+  let macroShouldPlay: boolean | undefined;
+
+  const setVideoPlayback = (video: HTMLVideoElement | null, shouldPlay: boolean) => {
+    if (!video || isSmall || prefersReducedMotion) return;
+    if (shouldPlay) {
+      if (video.paused) video.play().catch(() => {});
+    } else if (!video.paused) {
+      video.pause();
+    }
+  };
+
+  const setNavHeroState = (isActive: boolean) => {
+    if (!nav || navHeroActive === isActive) return;
+    navHeroActive = isActive;
+    nav.classList.toggle("sz-sitenav--hero-active", isActive);
+  };
 
   // -- Orange current paths that connect the journey ------------------------
   const paths = Array.from(
@@ -186,8 +207,12 @@ export function initSzInteractivity() {
     }
 
     // Hero phase transition
-    if (hero && !prefersReducedMotion) {
+    if (hero) {
       const rect = hero.getBoundingClientRect();
+      setNavHeroState(rect.bottom > 0);
+
+      if (prefersReducedMotion) return;
+
       const total = Math.max(1, rect.height - vh);
       const p = clamp(-rect.top / total);
       const bgP = smoothstep(0.12, 0.45, p);
@@ -204,6 +229,17 @@ export function initSzInteractivity() {
         copy2 > 0.5 ? "auto" : "none"
       );
       hero.style.setProperty("--sz-card-pe", card > 0.5 ? "auto" : "none");
+
+      const nextWideShouldPlay = bgP <= 0.95;
+      const nextMacroShouldPlay = bgP >= 0.05;
+      if (wideShouldPlay !== nextWideShouldPlay) {
+        wideShouldPlay = nextWideShouldPlay;
+        setVideoPlayback(heroWideVideo, nextWideShouldPlay);
+      }
+      if (macroShouldPlay !== nextMacroShouldPlay) {
+        macroShouldPlay = nextMacroShouldPlay;
+        setVideoPlayback(heroMacroVideo, nextMacroShouldPlay);
+      }
     }
 
     // Journey current paths
